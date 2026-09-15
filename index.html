@@ -8,73 +8,98 @@
 <title>Migración a Odoo 19 · Avance</title>
 <style>
   :root {
-    --bg: #ffffff; --fg: #14202a; --fg-2: #46555f; --fg-3: #74828b;
-    --line: #c9d0d5; --line-2: #e6eaed; --panel: #f4f7f9;
-    --acc: #1a4f8a; --acc-bg: #e4edf8; --odoo: #5b2d8e; --odoo-bg: #efe7f7;
-    --ok: #0a6e52; --ok-bg: #ddf3ea; --cur: #b26a00; --cur-bg: #fff1d6; --bar: #e6eaed; --stripe: rgba(255,255,255,.22);
+    --bg: #ffffff; --fg: #15202b; --fg-2: #4a5661; --fg-3: #75828c;
+    --line: #c5ccd2; --line-2: #e5e9ec; --panel: #f5f7f9;
+    --acc: #163a5f; --acc-bg: #e7eef6; --odoo: #4d2a78; --odoo-bg: #efe8f6;
+    --ok: #146b4f; --ok-bg: #e0f2ea; --cur: #9a5a00; --cur-bg: #fbeed6; --bar: #e5e9ec; --stripe: rgba(255,255,255,.16);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #161a1e; --fg: #e9edf0; --fg-2: #b9c2c9; --fg-3: #8a959d;
-      --line: #4a545c; --line-2: #2c3338; --panel: #1e2328;
-      --acc: #8fbdf2; --acc-bg: #1b2c40; --odoo: #c9a6ee; --odoo-bg: #2c1f3d;
-      --ok: #6fd3ae; --ok-bg: #17342a; --cur: #f2c069; --cur-bg: #3a2d12; --bar: #2c3338; --stripe: rgba(0,0,0,.18);
+      --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
+      --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
+      --acc: #9dc3ea; --acc-bg: #1a2b3d; --odoo: #c9aaee; --odoo-bg: #2a1f3a;
+      --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12; --bar: #2a3138; --stripe: rgba(0,0,0,.16);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #161a1e; --fg: #e9edf0; --fg-2: #b9c2c9; --fg-3: #8a959d;
-    --line: #4a545c; --line-2: #2c3338; --panel: #1e2328;
-    --acc: #8fbdf2; --acc-bg: #1b2c40; --odoo: #c9a6ee; --odoo-bg: #2c1f3d;
-    --ok: #6fd3ae; --ok-bg: #17342a; --cur: #f2c069; --cur-bg: #3a2d12; --bar: #2c3338; --stripe: rgba(0,0,0,.18);
+    --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
+    --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
+    --acc: #9dc3ea; --acc-bg: #1a2b3d; --odoo: #c9aaee; --odoo-bg: #2a1f3a;
+    --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12; --bar: #2a3138; --stripe: rgba(0,0,0,.16);
   }
-  body { background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 26px 18px 60px; }
-  header h1 { font-size: 22px; font-weight: 700; margin: 0 0 2px; line-height: 1.25; text-wrap: balance; }
-  header .sub { color: var(--fg-2); margin: 0; }
-  .hero { margin: 16px 0 10px; padding: 16px 18px 14px; background: var(--panel); border: 1px solid var(--line-2); border-radius: 8px; }
-  .hero .top { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: end; }
-  @media (max-width: 640px) { .hero .top { grid-template-columns: 1fr 1fr; } .hero .top > :last-child { grid-column: 1 / -1; } }
-  .lbl { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3); }
-  .pct { font-size: 44px; font-weight: 800; line-height: 1; color: var(--acc); font-variant-numeric: tabular-nums; }
-  .stage { font-size: 17px; font-weight: 700; margin-top: 2px; }
-  .day { font-size: 13px; color: var(--fg-2); text-align: right; }
-  .day b { font-size: 17px; color: var(--fg); display: block; }
-  .bar { height: 16px; background: var(--bar); border-radius: 8px; overflow: hidden; margin: 14px 0 6px; }
-  .bar > i { display: block; height: 100%; width: 0; background: var(--acc); border-radius: 8px; transition: width 1.4s ease-out;
-    background-image: linear-gradient(45deg, var(--stripe) 25%, transparent 25%, transparent 50%, var(--stripe) 50%, var(--stripe) 75%, transparent 75%); background-size: 28px 28px; animation: mover 1.3s linear infinite; }
-  @keyframes mover { to { background-position: 28px 0; } }
-  .marks { display: grid; grid-template-columns: 15fr 45fr 20fr 10fr 10fr; font-size: 11.5px; color: var(--fg-3); }
-  .marks span { border-left: 1px solid var(--line); padding-left: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .live { display: flex; align-items: center; gap: 10px; margin: 12px 0 0; padding: 10px 12px; background: var(--bg); border: 1px solid var(--line-2); border-radius: 6px; font-size: 14.5px; }
-  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--cur); flex: none; animation: pulso 1.8s ease-out infinite; }
-  @keyframes pulso { 0% { box-shadow: 0 0 0 0 var(--cur-bg), 0 0 0 0 var(--cur); } 70% { box-shadow: 0 0 0 9px transparent, 0 0 0 4px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-  @media (prefers-reduced-motion: reduce) { .bar > i, .dot { animation: none; } }
-  .live b { color: var(--cur); margin-right: 2px; }
-  .prod { margin: 10px 0 0; padding: 9px 12px; border-left: 4px solid var(--ok); background: var(--ok-bg); border-radius: 4px; font-size: 14px; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 30px 20px 64px; }
+  .lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; }
+  header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid var(--fg); }
+  header h1 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; letter-spacing: -.01em; }
+  header .org { color: var(--fg-2); margin: 2px 0 0; font-size: 14.5px; }
+  header .meta { text-align: right; font-size: 13px; color: var(--fg-2); line-height: 1.55; flex: 0 0 auto; }
+  header .meta b { color: var(--fg); font-weight: 600; }
+  @media (max-width: 640px) { header .meta { text-align: left; } }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 20px 0 0; }
+  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } }
+  .kpi { background: var(--bg); padding: 12px 14px 13px; }
+  .kpi .v { font-size: 26px; font-weight: 700; line-height: 1.15; margin-top: 3px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .kpi .v.acc { color: var(--acc); }
+  .kpi .s { font-size: 12.5px; color: var(--fg-2); margin-top: 1px; }
+
+  .timeline { margin: 18px 0 0; }
+  .tl-head { margin-bottom: 22px; }
+  .tl-nota { font-size: 12.5px; color: var(--fg-2); margin: 8px 0 0; }
+  .track { position: relative; height: 34px; margin-top: 4px; }
+  .seg { position: absolute; top: 10px; height: 14px; border-right: 2px solid var(--bg); background: var(--bar); }
+  .seg.hecho { background: var(--ok); } .seg.curso { background: var(--acc-bg); }
+  .seg .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--acc); width: 0; transition: width 1.4s ease-out;
+    background-image: linear-gradient(45deg, var(--stripe) 25%, transparent 25%, transparent 50%, var(--stripe) 50%, var(--stripe) 75%, transparent 75%); background-size: 24px 24px; animation: mover 2.6s linear infinite; }
+  @keyframes mover { to { background-position: 24px 0; } }
+  .seg .n { position: absolute; top: 16px; left: 5px; font-size: 11px; color: var(--fg-3); white-space: nowrap; }
+  .seg:nth-last-child(2) .n { left: auto; right: 0; }
+  .seg:nth-last-child(2) { border-right: 0; }
+  .hoy { position: absolute; top: 0; width: 2px; height: 34px; background: var(--fg); transform: translateX(-1px); }
+  .hoy::before { content: attr(data-t); position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--fg); white-space: nowrap; }
+  .hoy.l::before { left: 0; transform: none; } .hoy.r::before { left: auto; right: 0; transform: none; }
+  .tl-weeks { display: flex; justify-content: space-between; font-size: 11px; color: var(--fg-3); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 520px) { .tl-weeks span:not(:first-child):not(:last-child) { display: none; } .seg .n { display: none; } .seg:first-child .n, .seg:nth-last-child(2) .n { display: block; } }
+
+  .foco { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  @media (max-width: 720px) { .foco { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line-2); padding: 12px 14px 13px; background: var(--bg); }
+  .card.panel { background: var(--panel); }
+  .card .lbl { margin-bottom: 6px; }
+  .card ul { margin: 0; padding-left: 18px; } .card li { margin: 3px 0; }
+  .live { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cur); flex: none; margin-top: 7px; animation: pulso 2.4s ease-out infinite; }
+  @keyframes pulso { 0% { box-shadow: 0 0 0 0 var(--cur-bg), 0 0 0 0 var(--cur); } 70% { box-shadow: 0 0 0 8px transparent, 0 0 0 3px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  @media (prefers-reduced-motion: reduce) { .seg .fill, .dot, li.curso .ic { animation: none; } }
+  .prod { margin: 12px 0 0; padding: 10px 14px; border: 1px solid var(--ok-bg); background: var(--ok-bg); font-size: 14px; }
   .prod b { color: var(--ok); }
-  h2 { font-size: 16px; font-weight: 700; margin: 26px 0 8px; }
+
+  h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); margin: 34px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  .tres { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 720px) { .tres { grid-template-columns: 1fr; } }
+  .tres .card { font-size: 14px; }
+
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
   @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
-  .step { border: 1px solid var(--line-2); border-top: 4px solid var(--line); border-radius: 6px; padding: 8px 10px 10px; font-size: 13px; background: var(--bg); }
-  .step.hecho { border-top-color: var(--ok); } .step.curso { border-top-color: var(--cur); }
-  .step .k { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3); }
-  .step .t { font-size: 15px; font-weight: 700; }
+  .step { border: 1px solid var(--line-2); border-top: 3px solid var(--line); padding: 9px 11px 11px; font-size: 13px; background: var(--bg); }
+  .step.hecho { border-top-color: var(--ok); } .step.curso { border-top-color: var(--acc); }
+  .step .k { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; }
+  .step .t { font-size: 15px; font-weight: 700; margin-top: 1px; line-height: 1.25; }
+  @media (min-width: 861px) { .step .t { min-height: 2.5em; } }
   .step .d { color: var(--fg-2); font-size: 12.5px; margin-top: 2px; min-height: 2.6em; }
-  .s { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 1px 7px; border-radius: 3px; margin-top: 6px; }
-  .s.hecho { background: var(--ok-bg); color: var(--ok); } .s.curso { background: var(--cur-bg); color: var(--cur); } .s.pend { background: var(--panel); color: var(--fg-3); }
-  .mini { height: 5px; background: var(--bar); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .s { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 1px 7px; margin-top: 6px; }
+  .s.hecho { background: var(--ok-bg); color: var(--ok); } .s.curso { background: var(--acc-bg); color: var(--acc); } .s.pend { background: var(--panel); color: var(--fg-3); }
+  .mini { height: 4px; background: var(--bar); margin-top: 8px; overflow: hidden; }
   .mini i { display: block; height: 100%; background: var(--acc); width: 0; transition: width 1.4s ease-out; }
-  .tres { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 6px 0; }
-  @media (max-width: 720px) { .tres { grid-template-columns: 1fr; } }
-  .tres div { border: 1px solid var(--line-2); border-radius: 6px; padding: 10px 12px; font-size: 14px; }
-  .tres b { display: block; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 4px; }
-  .tres ul { margin: 0; padding-left: 18px; } .tres li { margin: 2px 0; }
-  details { border: 1px solid var(--line-2); border-radius: 8px; margin: 10px 0; overflow: hidden; }
-  summary { cursor: pointer; padding: 10px 14px; background: var(--panel); font-weight: 700; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; list-style: none; }
+
+  details { border: 1px solid var(--line-2); margin: 8px 0; overflow: hidden; }
+  summary { cursor: pointer; padding: 10px 14px; background: var(--panel); font-weight: 600; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; list-style: none; }
   summary::-webkit-details-marker { display: none; }
   summary .meta { font-weight: 400; font-size: 12.5px; color: var(--fg-2); }
-  .tag { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; margin-left: 4px; }
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 1px 6px; margin-left: 4px; }
   .tag.nos { background: var(--acc-bg); color: var(--acc); } .tag.odoo { background: var(--odoo-bg); color: var(--odoo); }
   details ul { list-style: none; margin: 0; padding: 4px 14px 10px; }
   details li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; padding: 6px 0; border-top: 1px solid var(--line-2); font-size: 14px; }
@@ -82,74 +107,107 @@
   details li .ic { font-weight: 700; text-align: center; }
   li.hecho .ic { color: var(--ok); } li.curso .ic { color: var(--cur); } li.pend .ic { color: var(--fg-3); }
   li.hecho .tx { color: var(--fg-2); } li .f { font-size: 12px; color: var(--fg-3); white-space: nowrap; }
-  li.curso .ic { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--cur); animation: pulso 1.8s ease-out infinite; margin: 0 auto; align-self: center; }
+  li.curso .ic { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--cur); animation: pulso 2.4s ease-out infinite; margin: 0 auto; align-self: center; }
   table.dec { width: 100%; border-collapse: collapse; font-size: 14px; }
-  table.dec td { padding: 6px 8px; border-top: 1px solid var(--line-2); vertical-align: top; }
-  table.dec td:first-child { width: 26px; color: var(--fg-3); }
+  table.dec td { padding: 7px 8px; border-top: 1px solid var(--line-2); vertical-align: top; }
+  table.dec td:first-child { width: 26px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
   table.dec td:last-child { white-space: nowrap; text-align: right; }
   .nov { margin: 0; padding: 0; list-style: none; }
-  .nov li { display: grid; grid-template-columns: 78px 1fr; gap: 10px; padding: 6px 0; border-top: 1px solid var(--line-2); font-size: 14px; }
+  .nov li { display: grid; grid-template-columns: 78px 1fr; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line-2); font-size: 14px; }
   .nov li:first-child { border-top: none; }
   .nov .f { color: var(--fg-3); font-variant-numeric: tabular-nums; }
   .nota { display: block; font-size: 12.5px; color: var(--fg-3); }
-  footer { margin-top: 30px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); }
+  .lead { color: var(--fg-2); font-size: 14px; margin: 0 0 8px; }
+  footer { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   a { color: var(--acc); }
 </style>
 </head>
-<body style="margin:0">
-
+<body>
 
 <div class="wrap">
 <header>
-  <h1>Migración de Odoo 16 a Odoo 19</h1>
-  <p class="sub">Aeroambulancias Silva, C.A. · Estado del trabajo, siempre al día.</p>
+  <div>
+    <h1>Migración de Odoo 16 a Odoo 19</h1>
+    <p class="org">Informe de avance · Aeroambulancias Silva, C.A.</p>
+  </div>
+  <div class="meta"><span id="hoy"></span><br><span id="revision"></span></div>
 </header>
 
-<section class="hero">
-  <div class="top">
-    <div><div class="lbl">Avance general</div><div class="pct" id="pct">0 %</div></div>
-    <div><div class="lbl">Etapa actual</div><div class="stage" id="stage"></div></div>
-    <div class="day"><span id="hoy"></span><b id="dia"></b></div>
-  </div>
-  <div class="bar" aria-label="Avance general"><i id="bar"></i></div>
-  <div class="marks"><span>I Preparar</span><span>II Convertir y adaptar</span><span>III Probar</span><span>IV Final</span><span>V Después</span></div>
-  <div class="live"><span class="dot" aria-hidden="true"></span><span><b>Trabajando ahora en:</b> <span id="ahora"></span></span></div>
-  <p class="prod" id="prod"></p>
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Avance general</div><div class="v acc" id="pct">0 %</div><div class="s" id="pctsub"></div></div>
+  <div class="kpi"><div class="lbl">Etapa actual</div><div class="v" id="stage"></div><div class="s" id="stagesub"></div></div>
+  <div class="kpi"><div class="lbl">Semana del plan</div><div class="v" id="semana"></div><div class="s" id="semanasub"></div></div>
+  <div class="kpi"><div class="lbl">Sistema en uso</div><div class="v" id="prodv"></div><div class="s" id="prodsub"></div></div>
+</div>
+
+<section class="timeline">
+  <div class="tl-head"><span class="lbl">Línea de tiempo</span></div>
+  <div class="track" id="track"></div>
+  <div class="tl-weeks" id="weeks"></div>
+  <p class="tl-nota" id="tlnota"></p>
 </section>
 
+<div class="foco">
+  <div class="card panel">
+    <div class="lbl">Trabajando ahora en</div>
+    <div class="live"><span class="dot" aria-hidden="true"></span><span id="ahora"></span></div>
+  </div>
+  <div class="card">
+    <div class="lbl" id="focolbl">Foco de la semana</div>
+    <ul id="foco"></ul>
+  </div>
+</div>
+<p class="prod" id="prod"></p>
+
+<h2>Situación</h2>
 <div class="tres">
-  <div><b>Hecho hasta ahora</b><ul id="hechos"></ul></div>
-  <div><b>En marcha</b><ul id="curso"></ul></div>
-  <div><b>Lo que viene</b><ul id="viene"></ul></div>
+  <div class="card"><div class="lbl">Hecho hasta ahora</div><ul id="hechos"></ul></div>
+  <div class="card"><div class="lbl">En marcha</div><ul id="curso"></ul></div>
+  <div class="card"><div class="lbl">Lo que viene</div><ul id="viene"></ul></div>
 </div>
 
 <h2>Las cinco etapas</h2>
 <div class="steps" id="steps"></div>
 <p class="nota" style="margin-top:8px" id="tiempo"></p>
 
-<h2>Detalle</h2>
+<h2>Detalle por etapa</h2>
 <div id="detalle"></div>
 
 <h2>Decisiones de Rafael</h2>
-<p style="color:var(--fg-2);font-size:14px;margin:0 0 6px">Cada línea se marca «sí» o «no». Mientras tanto, el trabajo sigue con lo que no depende de ellas.</p>
+<p class="lead">Cada línea se marca «sí» o «no». Mientras tanto, el trabajo sigue con lo que no depende de ellas.</p>
 <table class="dec" id="dec"></table>
 
-<h2>Novedades</h2>
+<h2>Registro de novedades</h2>
 <ul class="nov" id="nov"></ul>
 
-<footer>Documento completo del diagnóstico y del plan: <a id="doc" href="#"></a> · Preparado por Agencia Krea para Aeroambulancias Silva, C.A.</footer>
+<footer><span>Documento completo del diagnóstico y del plan: <a id="doc" href="#"></a></span><span>Preparado por Agencia Krea para Aeroambulancias Silva, C.A.</span></footer>
 </div>
 
 <script>
 const ESTADO = {
-  inicio: '2026-09-09',
+  // El plan arranca el día en que Rafael dio el visto bueno para el ensayo en copia.
+  inicio: '2026-09-15',
+  semanasPlan: 20,
   actualizado: '15 de septiembre de 2026',
+  // Día de la semana en que se revisa este informe (0 = domingo … 5 = viernes). null = no mostrar.
+  revisionDia: 5,
   etapaActual: 0,
-  estimacion: 'Estimación preliminar: entre 4 y 5 meses en total. Cada etapa fija sus fechas al cerrar la anterior; el día final se elige al terminar las pruebas, nunca antes.',
-  produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando normal. Todo el trabajo de esta etapa ocurre fuera de él.',
-  ahora: 'la preparación del espacio de pruebas en Odoo.sh para pedir la primera copia del sistema en versión 19',
+  estimacion: 'Estimación: entre 4 y 5 meses en total. Cada etapa fija sus fechas al cerrar la anterior; el día final se elige al terminar las pruebas, nunca antes.',
+  produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
+  ahora: 'la preparación del espacio de pruebas en Odoo.sh para pedir la primera copia del sistema convertida a la versión 19.',
   doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
+  // Foco previsto por semana del plan. Es lo planificado, no lo cumplido: lo cumplido va al detalle.
+  focoSemanal: {
+    1: ['Liberar y preparar el espacio de pruebas en Odoo.sh', 'Ajustes previos del repositorio para la versión 19', 'Pedir a Odoo la primera copia convertida'],
+    2: ['Leer el informe de conversión que entrega Odoo', 'Primer inventario de lo que convirtió y lo que no', 'Arranque de la adaptación del módulo de inteligencia artificial'],
+    3: ['Módulo de inteligencia artificial: primeras piezas instalando en 19', 'Revisión de las automatizaciones sobre la copia'],
+    4: ['Módulo de inteligencia artificial: instalación completa sobre la copia', 'Contabilidad venezolana: camino elegido en marcha'],
+    5: ['Pruebas internas sobre la copia', 'WhatsApp: resolución según lo decidido'],
+    6: ['Limpieza del sistema, una madrugada, con respaldo', 'Cierre de la etapa I y arranque de la etapa II']
+  },
   pesos: [15, 45, 20, 10, 10],
+  // Semanas del plan que ocupa cada etapa en la línea de tiempo (IV y V se dibujan al final, fuera de las 20).
+  semanas: [[1, 6], [7, 16], [17, 20]],
   etapas: [
     { n: 'I', nombre: 'Preparar', dur: 'Semanas 1 a 6', quien: ['nos', 'odoo'], prod: 'Producción se toca una sola vez, al final, una madrugada.', items: [
       { t: 'Inventario de todo lo que no es de Odoo: 37 piezas, clasificadas una por una', e: 'hecho', f: '10 sep' },
@@ -162,6 +220,7 @@ const ESTADO = {
       { t: 'Diagnóstico del sitio web actual: velocidad, celular, buscadores, accesibilidad', e: 'hecho', f: '15 sep' },
       { t: 'Propuesta del sitio web nuevo: mapa de 15 páginas, diseño, redirecciones', e: 'hecho', f: '15 sep' },
       { t: 'Plan por etapas escrito, con lista de decisiones y versión en PDF', e: 'hecho', f: '15 sep' },
+      { t: 'Visto bueno de Rafael para el ensayo en copia', e: 'hecho', f: '15 sep' },
       { t: 'Rafael marca las decisiones', e: 'curso' },
       { t: 'WhatsApp: evaluación de la aplicación propia de Odoo 19', e: 'curso' },
       { t: 'Preparación del espacio de pruebas en Odoo.sh', e: 'curso' },
@@ -169,7 +228,7 @@ const ESTADO = {
       { t: 'Limpieza del sistema: sacar lo que no se usa, una madrugada, con respaldo', e: 'pend' },
       { t: 'Historial fiscal resguardado, según lo que se decida con la contabilidad', e: 'pend' }
     ]},
-    { n: 'II', nombre: 'Convertir y adaptar', dur: 'Semanas 6 a 16', quien: ['odoo', 'nos'], prod: 'Producción no se toca. Nadie nota nada.', items: [
+    { n: 'II', nombre: 'Convertir y adaptar', dur: 'Semanas 7 a 16', quien: ['odoo', 'nos'], prod: 'Producción no se toca. Nadie nota nada.', items: [
       { t: 'Primera copia del sistema convertida a 19 por Odoo', e: 'pend' },
       { t: 'Informe de conversión leído: qué convirtió Odoo y qué no', e: 'pend' },
       { t: 'Las piezas propias instalan en la versión 19', e: 'pend' },
@@ -182,7 +241,7 @@ const ESTADO = {
       { t: 'Segunda copia convertida, con datos más frescos', e: 'pend' },
       { t: 'Todo instalado y funcionando sobre la segunda copia', e: 'pend' }
     ]},
-    { n: 'III', nombre: 'Probar y congelar', dur: 'Semanas 16 a 20', quien: ['nos'], prod: 'Producción congelada: nadie cambia nada.', items: [
+    { n: 'III', nombre: 'Probar y congelar', dur: 'Semanas 17 a 20', quien: ['nos'], prod: 'Producción congelada: nadie cambia nada.', items: [
       { t: 'Copia nueva, con datos de menos de una semana', e: 'pend' },
       { t: 'Contabilidad prueba: factura, retención, cierre', e: 'pend' },
       { t: 'Ventas y operaciones prueban su trabajo diario', e: 'pend' },
@@ -223,37 +282,72 @@ const ESTADO = {
     { t: 'Enviar la consulta al proveedor de WhatsApp (si se conserva)', e: 'pend' }
   ],
   novedades: [
-    { f: '15 sep', t: 'Sitio web: el actual medido en celular y buscadores; el nuevo definido con 15 páginas, redirecciones, colores y metas. Plan en versión 12, con PDF.' },
+    { f: '15 sep', t: 'Arranca el plan. Rafael da el visto bueno para el ensayo sobre una copia; se prepara el espacio de pruebas en Odoo.sh. El sistema en uso no se toca.' },
+    { f: '15 sep', t: 'Sitio web: el actual medido en celular y buscadores; el nuevo definido con 15 páginas, redirecciones, colores y metas. Plan completo en PDF.' },
     { f: '13 sep', t: 'Rafael pide el sitio web nuevo junto con la versión 19. Entra al plan.' },
     { f: '11 sep', t: 'Panel de Odoo.sh revisado (tamaño real, respaldos, ramas) y documentación oficial leída completa. Plan por etapas con lista de decisiones.' },
     { f: '10 sep', t: 'Inventario de las 37 piezas que no son de Odoo y análisis de las 302 automatizaciones.' },
-    { f: '9 sep', t: 'Arranca el diagnóstico, solo lectura sobre el sistema real.' }
+    { f: '9 sep', t: 'Comienza el diagnóstico previo, solo lectura sobre el sistema real.' }
   ]
 };
 
 (function render() {
   const E = ESTADO, $ = id => document.getElementById(id);
+  const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const fmt = d => d.toLocaleDateString('es-VE', { day: 'numeric', month: 'long' });
   const val = e => e === 'hecho' ? 1 : e === 'curso' ? 0.5 : 0;
   const prog = E.etapas.map(s => s.items.reduce((a, i) => a + val(i.e), 0) / s.items.length);
   const total = prog.reduce((a, p, i) => a + p * E.pesos[i], 0);
-  $('pct').textContent = Math.round(total) + ' %';
-  $('bar').style.width = Math.max(1.5, total) + '%';
   const cur = E.etapas[E.etapaActual];
-  $('stage').textContent = 'Etapa ' + cur.n + ' de V · ' + cur.nombre;
-  const hoy = new Date(); const ini = new Date(E.inicio + 'T00:00:00');
-  const dias = Math.max(1, Math.floor((hoy - ini) / 86400000) + 1);
-  $('hoy').textContent = 'Hoy, ' + hoy.toLocaleDateString('es-VE', { day: 'numeric', month: 'long' }) + ' · actualizado el ' + E.actualizado;
-  $('dia').textContent = 'Día ' + dias + ' del proyecto';
-  $('ahora').textContent = E.ahora + '.';
-  $('prod').innerHTML = '<b>Producción:</b> ' + E.produccion;
+
+  // Calendario: semana del plan y marcador de hoy. Lo único que avanza solo es el calendario.
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  const ini = new Date(E.inicio + 'T00:00:00');
+  const diasPasados = Math.max(0, Math.floor((hoy - ini) / 86400000));
+  const semana = Math.min(E.semanasPlan, Math.floor(diasPasados / 7) + 1);
+  const posHoy = Math.min(1, (diasPasados + 0.5) / (E.semanasPlan * 7));
+
+  $('hoy').innerHTML = '<b>' + DIAS[hoy.getDay()].replace(/^./, c => c.toUpperCase()) + ' ' + fmt(hoy) + '</b>';
+  let rev = 'Última actualización: ' + E.actualizado;
+  if (E.revisionDia !== null) {
+    const prox = new Date(hoy); prox.setDate(hoy.getDate() + ((E.revisionDia - hoy.getDay() + 7) % 7 || 7));
+    rev += '<br>Próxima revisión: ' + DIAS[prox.getDay()] + ' ' + fmt(prox);
+  }
+  $('revision').innerHTML = rev;
+
+  $('pct').textContent = Math.round(total) + ' %';
   const todos = E.etapas.flatMap(s => s.items);
   const hechos = todos.filter(i => i.e === 'hecho'); const curso = todos.filter(i => i.e === 'curso');
+  $('pctsub').textContent = hechos.length + ' cerradas · ' + curso.length + ' en marcha';
+  $('stage').textContent = cur.n + ' · ' + cur.nombre;
+  $('stagesub').textContent = (E.etapaActual + 1) + ' de 5 · ' + cur.dur.toLowerCase();
+  $('semana').textContent = semana + ' de ' + E.semanasPlan;
+  $('semanasub').textContent = diasPasados === 0 ? 'El plan arranca hoy' : 'Desde el ' + fmt(ini);
+  $('prodv').textContent = 'Odoo 16';
+  $('prodsub').textContent = 'Funcionando con normalidad';
+  $('ahora').textContent = E.ahora;
+  $('prod').innerHTML = '<b>Sistema en uso:</b> ' + E.produccion;
+
+  // Línea de tiempo: tres segmentos de semanas + el día final + después, con el marcador de hoy.
+  const W = E.semanasPlan, segs = [];
+  E.semanas.forEach(([a, b], i) => segs.push({ i, l: (a - 1) / W, w: (b - a + 1) / W, t: 'Etapa ' + E.etapas[i].n + ' · sem. ' + a + '–' + b }));
+  const est = i => prog[i] >= 1 ? 'hecho' : (i === E.etapaActual || prog[i] > 0) ? 'curso' : 'pend';
+  $('track').innerHTML = segs.map(s => `<div class="seg ${est(s.i)}" style="left:${s.l * 100}%;width:${s.w * 100}%"><div class="fill" style="width:${est(s.i) === 'hecho' ? 100 : Math.round(prog[s.i] * 100)}%"></div><span class="n">${s.t}</span></div>`).join('')
+    + `<div class="hoy ${posHoy < 0.08 ? 'l' : posHoy > 0.92 ? 'r' : ''}" data-t="Hoy" style="left:${posHoy * 100}%"></div>`;
+  $('weeks').innerHTML = ['Semana 1', 'Semana 5', 'Semana 10', 'Semana 15', 'Semana 20 · día final'].map(t => `<span>${t}</span>`).join('');
+  $('tlnota').textContent = 'Después de la semana 20: el día final (una madrugada) y las semanas de acompañamiento.';
+
+  // Foco de la semana: lo planificado para esta semana; si no hay entrada, la más reciente anterior.
+  const claves = Object.keys(E.focoSemanal).map(Number).sort((a, b) => a - b);
+  const kf = claves.filter(k => k <= semana).pop() || claves[0];
+  $('focolbl').textContent = 'Foco previsto · semana ' + semana;
+  $('foco').innerHTML = E.focoSemanal[kf].map(t => `<li>${t}</li>`).join('');
+
   $('hechos').innerHTML = hechos.slice(-4).reverse().map(i => `<li>${i.t}</li>`).join('') + (hechos.length > 4 ? `<li style="color:var(--fg-3)">y ${hechos.length - 4} más, en el detalle</li>` : '');
   $('curso').innerHTML = curso.map(i => `<li>${i.t}</li>`).join('');
   $('viene').innerHTML = E.viene.map(t => `<li>${t}</li>`).join('');
-  const estado = i => prog[i] >= 1 ? 'hecho' : (i === E.etapaActual || prog[i] > 0) ? 'curso' : 'pend';
   const lbl = { hecho: 'Hecha', curso: 'En curso', pend: 'Pendiente' };
-  $('steps').innerHTML = E.etapas.map((s, i) => `<div class="step ${estado(i)}"><div class="k">Etapa ${s.n}</div><div class="t">${s.nombre}</div><div class="d">${s.dur}</div><span class="s ${estado(i)}">${lbl[estado(i)]} · ${Math.round(prog[i] * 100)} %</span><div class="mini"><i style="width:${Math.round(prog[i] * 100)}%"></i></div></div>`).join('');
+  $('steps').innerHTML = E.etapas.map((s, i) => `<div class="step ${est(i)}"><div class="k">Etapa ${s.n}</div><div class="t">${s.nombre}</div><div class="d">${s.dur}</div><span class="s ${est(i)}">${lbl[est(i)]} · ${Math.round(prog[i] * 100)} %</span><div class="mini"><i style="width:${Math.round(prog[i] * 100)}%"></i></div></div>`).join('');
   $('tiempo').textContent = E.estimacion;
   const ic = { hecho: '✓', curso: '', pend: '○' };
   $('detalle').innerHTML = E.etapas.map((s, i) => `<details ${i === E.etapaActual ? 'open' : ''}><summary><span>Etapa ${s.n} — ${s.nombre} ${s.quien.map(q => `<span class="tag ${q}">${q === 'nos' ? 'Aeroambulancias' : 'Odoo'}</span>`).join('')}</span><span class="meta">${s.dur} · ${s.prod} · ${Math.round(prog[i] * 100)} %</span></summary><ul>${s.items.map(it => `<li class="${it.e}"><span class="ic">${ic[it.e]}</span><span class="tx">${it.t}${it.nota ? `<span class="nota">${it.nota}</span>` : ''}</span><span class="f">${it.f || (it.e === 'curso' ? 'en marcha' : '')}</span></li>`).join('')}</ul></details>`).join('');
