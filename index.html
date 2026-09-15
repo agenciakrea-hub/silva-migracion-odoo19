@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Migración a Odoo 19 · Avance</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #14202a; --fg-2: #46555f; --fg-3: #74828b;
+    --line: #c9d0d5; --line-2: #e6eaed; --panel: #f4f7f9;
+    --acc: #1a4f8a; --acc-bg: #e4edf8; --odoo: #5b2d8e; --odoo-bg: #efe7f7;
+    --ok: #0a6e52; --ok-bg: #ddf3ea; --cur: #b26a00; --cur-bg: #fff1d6; --bar: #e6eaed; --stripe: rgba(255,255,255,.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161a1e; --fg: #e9edf0; --fg-2: #b9c2c9; --fg-3: #8a959d;
+      --line: #4a545c; --line-2: #2c3338; --panel: #1e2328;
+      --acc: #8fbdf2; --acc-bg: #1b2c40; --odoo: #c9a6ee; --odoo-bg: #2c1f3d;
+      --ok: #6fd3ae; --ok-bg: #17342a; --cur: #f2c069; --cur-bg: #3a2d12; --bar: #2c3338; --stripe: rgba(0,0,0,.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161a1e; --fg: #e9edf0; --fg-2: #b9c2c9; --fg-3: #8a959d;
+    --line: #4a545c; --line-2: #2c3338; --panel: #1e2328;
+    --acc: #8fbdf2; --acc-bg: #1b2c40; --odoo: #c9a6ee; --odoo-bg: #2c1f3d;
+    --ok: #6fd3ae; --ok-bg: #17342a; --cur: #f2c069; --cur-bg: #3a2d12; --bar: #2c3338; --stripe: rgba(0,0,0,.18);
+  }
+  body { background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 26px 18px 60px; }
+  header h1 { font-size: 22px; font-weight: 700; margin: 0 0 2px; line-height: 1.25; text-wrap: balance; }
+  header .sub { color: var(--fg-2); margin: 0; }
+  .hero { margin: 16px 0 10px; padding: 16px 18px 14px; background: var(--panel); border: 1px solid var(--line-2); border-radius: 8px; }
+  .hero .top { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: end; }
+  @media (max-width: 640px) { .hero .top { grid-template-columns: 1fr 1fr; } .hero .top > :last-child { grid-column: 1 / -1; } }
+  .lbl { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3); }
+  .pct { font-size: 44px; font-weight: 800; line-height: 1; color: var(--acc); font-variant-numeric: tabular-nums; }
+  .stage { font-size: 17px; font-weight: 700; margin-top: 2px; }
+  .day { font-size: 13px; color: var(--fg-2); text-align: right; }
+  .day b { font-size: 17px; color: var(--fg); display: block; }
+  .bar { height: 16px; background: var(--bar); border-radius: 8px; overflow: hidden; margin: 14px 0 6px; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--acc); border-radius: 8px; transition: width 1.4s ease-out;
+    background-image: linear-gradient(45deg, var(--stripe) 25%, transparent 25%, transparent 50%, var(--stripe) 50%, var(--stripe) 75%, transparent 75%); background-size: 28px 28px; animation: mover 1.3s linear infinite; }
+  @keyframes mover { to { background-position: 28px 0; } }
+  .marks { display: grid; grid-template-columns: 15fr 45fr 20fr 10fr 10fr; font-size: 11.5px; color: var(--fg-3); }
+  .marks span { border-left: 1px solid var(--line); padding-left: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .live { display: flex; align-items: center; gap: 10px; margin: 12px 0 0; padding: 10px 12px; background: var(--bg); border: 1px solid var(--line-2); border-radius: 6px; font-size: 14.5px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--cur); flex: none; animation: pulso 1.8s ease-out infinite; }
+  @keyframes pulso { 0% { box-shadow: 0 0 0 0 var(--cur-bg), 0 0 0 0 var(--cur); } 70% { box-shadow: 0 0 0 9px transparent, 0 0 0 4px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+  @media (prefers-reduced-motion: reduce) { .bar > i, .dot { animation: none; } }
+  .live b { color: var(--cur); margin-right: 2px; }
+  .prod { margin: 10px 0 0; padding: 9px 12px; border-left: 4px solid var(--ok); background: var(--ok-bg); border-radius: 4px; font-size: 14px; }
+  .prod b { color: var(--ok); }
+  h2 { font-size: 16px; font-weight: 700; margin: 26px 0 8px; }
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+  .step { border: 1px solid var(--line-2); border-top: 4px solid var(--line); border-radius: 6px; padding: 8px 10px 10px; font-size: 13px; background: var(--bg); }
+  .step.hecho { border-top-color: var(--ok); } .step.curso { border-top-color: var(--cur); }
+  .step .k { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3); }
+  .step .t { font-size: 15px; font-weight: 700; }
+  .step .d { color: var(--fg-2); font-size: 12.5px; margin-top: 2px; min-height: 2.6em; }
+  .s { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 1px 7px; border-radius: 3px; margin-top: 6px; }
+  .s.hecho { background: var(--ok-bg); color: var(--ok); } .s.curso { background: var(--cur-bg); color: var(--cur); } .s.pend { background: var(--panel); color: var(--fg-3); }
+  .mini { height: 5px; background: var(--bar); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .mini i { display: block; height: 100%; background: var(--acc); width: 0; transition: width 1.4s ease-out; }
+  .tres { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 6px 0; }
+  @media (max-width: 720px) { .tres { grid-template-columns: 1fr; } }
+  .tres div { border: 1px solid var(--line-2); border-radius: 6px; padding: 10px 12px; font-size: 14px; }
+  .tres b { display: block; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 4px; }
+  .tres ul { margin: 0; padding-left: 18px; } .tres li { margin: 2px 0; }
+  details { border: 1px solid var(--line-2); border-radius: 8px; margin: 10px 0; overflow: hidden; }
+  summary { cursor: pointer; padding: 10px 14px; background: var(--panel); font-weight: 700; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary .meta { font-weight: 400; font-size: 12.5px; color: var(--fg-2); }
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; margin-left: 4px; }
+  .tag.nos { background: var(--acc-bg); color: var(--acc); } .tag.odoo { background: var(--odoo-bg); color: var(--odoo); }
+  details ul { list-style: none; margin: 0; padding: 4px 14px 10px; }
+  details li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; padding: 6px 0; border-top: 1px solid var(--line-2); font-size: 14px; }
+  details li:first-child { border-top: none; }
+  details li .ic { font-weight: 700; text-align: center; }
+  li.hecho .ic { color: var(--ok); } li.curso .ic { color: var(--cur); } li.pend .ic { color: var(--fg-3); }
+  li.hecho .tx { color: var(--fg-2); } li .f { font-size: 12px; color: var(--fg-3); white-space: nowrap; }
+  li.curso .ic { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--cur); animation: pulso 1.8s ease-out infinite; margin: 0 auto; align-self: center; }
+  table.dec { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.dec td { padding: 6px 8px; border-top: 1px solid var(--line-2); vertical-align: top; }
+  table.dec td:first-child { width: 26px; color: var(--fg-3); }
+  table.dec td:last-child { white-space: nowrap; text-align: right; }
+  .nov { margin: 0; padding: 0; list-style: none; }
+  .nov li { display: grid; grid-template-columns: 78px 1fr; gap: 10px; padding: 6px 0; border-top: 1px solid var(--line-2); font-size: 14px; }
+  .nov li:first-child { border-top: none; }
+  .nov .f { color: var(--fg-3); font-variant-numeric: tabular-nums; }
+  .nota { display: block; font-size: 12.5px; color: var(--fg-3); }
+  footer { margin-top: 30px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); }
+  a { color: var(--acc); }
+</style>
+</head>
+<body style="margin:0">
+
+
+<div class="wrap">
+<header>
+  <h1>Migración de Odoo 16 a Odoo 19</h1>
+  <p class="sub">Aeroambulancias Silva, C.A. · Estado del trabajo, siempre al día.</p>
+</header>
+
+<section class="hero">
+  <div class="top">
+    <div><div class="lbl">Avance general</div><div class="pct" id="pct">0 %</div></div>
+    <div><div class="lbl">Etapa actual</div><div class="stage" id="stage"></div></div>
+    <div class="day"><span id="hoy"></span><b id="dia"></b></div>
+  </div>
+  <div class="bar" aria-label="Avance general"><i id="bar"></i></div>
+  <div class="marks"><span>I Preparar</span><span>II Convertir y adaptar</span><span>III Probar</span><span>IV Final</span><span>V Después</span></div>
+  <div class="live"><span class="dot" aria-hidden="true"></span><span><b>Trabajando ahora en:</b> <span id="ahora"></span></span></div>
+  <p class="prod" id="prod"></p>
+</section>
+
+<div class="tres">
+  <div><b>Hecho hasta ahora</b><ul id="hechos"></ul></div>
+  <div><b>En marcha</b><ul id="curso"></ul></div>
+  <div><b>Lo que viene</b><ul id="viene"></ul></div>
+</div>
+
+<h2>Las cinco etapas</h2>
+<div class="steps" id="steps"></div>
+<p class="nota" style="margin-top:8px" id="tiempo"></p>
+
+<h2>Detalle</h2>
+<div id="detalle"></div>
+
+<h2>Decisiones de Rafael</h2>
+<p style="color:var(--fg-2);font-size:14px;margin:0 0 6px">Cada línea se marca «sí» o «no». Mientras tanto, el trabajo sigue con lo que no depende de ellas.</p>
+<table class="dec" id="dec"></table>
+
+<h2>Novedades</h2>
+<ul class="nov" id="nov"></ul>
+
+<footer>Documento completo del diagnóstico y del plan: <a id="doc" href="#"></a> · Preparado por Agencia Krea para Aeroambulancias Silva, C.A.</footer>
+</div>
+
+<script>
+const ESTADO = {
+  inicio: '2026-09-09',
+  actualizado: '15 de septiembre de 2026',
+  etapaActual: 0,
+  estimacion: 'Estimación preliminar: entre 4 y 5 meses en total. Cada etapa fija sus fechas al cerrar la anterior; el día final se elige al terminar las pruebas, nunca antes.',
+  produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando normal. Todo el trabajo de esta etapa ocurre fuera de él.',
+  ahora: 'la preparación del espacio de pruebas en Odoo.sh para pedir la primera copia del sistema en versión 19',
+  doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
+  pesos: [15, 45, 20, 10, 10],
+  etapas: [
+    { n: 'I', nombre: 'Preparar', dur: 'Semanas 1 a 6', quien: ['nos', 'odoo'], prod: 'Producción se toca una sola vez, al final, una madrugada.', items: [
+      { t: 'Inventario de todo lo que no es de Odoo: 37 piezas, clasificadas una por una', e: 'hecho', f: '10 sep' },
+      { t: 'Revisión de las 302 automatizaciones del sistema; 113 hechas a mano, analizadas', e: 'hecho', f: '10 sep' },
+      { t: 'Medición del sistema: tamaño, usuarios, actividad por día y por hora', e: 'hecho', f: '10 sep' },
+      { t: 'Verificación del código propio contra la versión 19', e: 'hecho', f: '10 sep' },
+      { t: 'Lectura completa de la documentación oficial de Odoo 19 y del procedimiento', e: 'hecho', f: '11 sep' },
+      { t: 'Revisión del panel de Odoo.sh: respaldos, ramas, recursos, registros', e: 'hecho', f: '11 sep' },
+      { t: 'Lo que dijo la asesora de Odoo, incorporado al plan', e: 'hecho', f: '11 sep' },
+      { t: 'Diagnóstico del sitio web actual: velocidad, celular, buscadores, accesibilidad', e: 'hecho', f: '15 sep' },
+      { t: 'Propuesta del sitio web nuevo: mapa de 15 páginas, diseño, redirecciones', e: 'hecho', f: '15 sep' },
+      { t: 'Plan por etapas escrito, con lista de decisiones y versión en PDF', e: 'hecho', f: '15 sep' },
+      { t: 'Rafael marca las decisiones', e: 'curso' },
+      { t: 'WhatsApp: evaluación de la aplicación propia de Odoo 19', e: 'curso' },
+      { t: 'Preparación del espacio de pruebas en Odoo.sh', e: 'curso' },
+      { t: 'Ajustes técnicos previos del repositorio', e: 'pend' },
+      { t: 'Limpieza del sistema: sacar lo que no se usa, una madrugada, con respaldo', e: 'pend' },
+      { t: 'Historial fiscal resguardado, según lo que se decida con la contabilidad', e: 'pend' }
+    ]},
+    { n: 'II', nombre: 'Convertir y adaptar', dur: 'Semanas 6 a 16', quien: ['odoo', 'nos'], prod: 'Producción no se toca. Nadie nota nada.', items: [
+      { t: 'Primera copia del sistema convertida a 19 por Odoo', e: 'pend' },
+      { t: 'Informe de conversión leído: qué convirtió Odoo y qué no', e: 'pend' },
+      { t: 'Las piezas propias instalan en la versión 19', e: 'pend' },
+      { t: 'Módulo de inteligencia artificial adaptado y probado', e: 'pend' },
+      { t: 'Contabilidad venezolana resuelta según lo decidido', e: 'pend' },
+      { t: 'WhatsApp resuelto según lo decidido', e: 'pend' },
+      { t: 'Diseño del sitio web nuevo sobre la copia en 19', e: 'pend' },
+      { t: 'Sitio web nuevo construido, con sus 15 páginas y redirecciones', e: 'pend' },
+      { t: 'Automatizaciones y correos automáticos revisados uno por uno', e: 'pend' },
+      { t: 'Segunda copia convertida, con datos más frescos', e: 'pend' },
+      { t: 'Todo instalado y funcionando sobre la segunda copia', e: 'pend' }
+    ]},
+    { n: 'III', nombre: 'Probar y congelar', dur: 'Semanas 16 a 20', quien: ['nos'], prod: 'Producción congelada: nadie cambia nada.', items: [
+      { t: 'Copia nueva, con datos de menos de una semana', e: 'pend' },
+      { t: 'Contabilidad prueba: factura, retención, cierre', e: 'pend' },
+      { t: 'Ventas y operaciones prueban su trabajo diario', e: 'pend' },
+      { t: 'Rafael prueba el asistente de inteligencia artificial', e: 'pend' },
+      { t: 'Sitio web nuevo probado en celular y escritorio, con mediciones', e: 'pend' },
+      { t: 'Conexiones con otros sistemas probadas', e: 'pend' },
+      { t: 'Ensayo general, cronometrado', e: 'pend' },
+      { t: 'Aprobación escrita de Rafael', e: 'pend' }
+    ]},
+    { n: 'IV', nombre: 'El día final', dur: 'Una madrugada de sábado', quien: ['odoo', 'nos'], prod: 'Producción apagada entre 1 y 4 horas. Sin vuelta atrás.', items: [
+      { t: 'Aviso a los usuarios', e: 'pend' },
+      { t: 'Respaldo manual descargado y verificado', e: 'pend' },
+      { t: 'Odoo convierte producción a 19', e: 'pend' },
+      { t: 'Verificación: factura, retención, asistente, WhatsApp, pedido, sitio', e: 'pend' },
+      { t: 'Sitio web nuevo instalado', e: 'pend' },
+      { t: 'Apertura', e: 'pend' }
+    ]},
+    { n: 'V', nombre: 'Después', dur: 'Semanas siguientes', quien: ['nos'], prod: 'Producción en versión 19.', items: [
+      { t: 'Vigilancia diaria: errores, correos, avisos del asistente, retenciones', e: 'pend' },
+      { t: 'Ajustes con lo que digan los usuarios', e: 'pend' },
+      { t: 'Ajustes del sitio nuevo con lo que digan los visitantes', e: 'pend' },
+      { t: 'Cierre', e: 'pend' }
+    ]}
+  ],
+  viene: ['Pedir a Odoo la primera copia en versión 19', 'Leer el informe de conversión', 'Empezar a adaptar el módulo de inteligencia artificial'],
+  decisiones: [
+    { t: 'Contabilidad venezolana: desinstalar, reemplazar o adaptar', e: 'pend' },
+    { t: 'WhatsApp: aplicación de Odoo 19 o seguir con el proveedor actual', e: 'curso', nota: 'Rafael propone evaluar la de Odoo 19' },
+    { t: 'Sitio web nuevo listo el mismo día final', e: 'curso', nota: 'Rafael: sí' },
+    { t: 'Contenido del sitio: número de emergencia 24 h, blogs, academia', e: 'pend' },
+    { t: 'Archivar 7 empresas cargadas y vacías', e: 'pend' },
+    { t: 'Comisiones: se usa o se saca', e: 'pend' },
+    { t: 'Cotizador Aeromédico: se conserva', e: 'pend' },
+    { t: 'Dos reportes automáticos con el mismo nombre', e: 'pend' },
+    { t: 'Corregir las dos reglas automáticas que fallan hoy', e: 'pend' },
+    { t: 'Tercer administrador de Odoo.sh: sigue o no', e: 'pend' },
+    { t: 'Enviar la consulta a Odoo (opcional)', e: 'pend' },
+    { t: 'Enviar la consulta al proveedor de WhatsApp (si se conserva)', e: 'pend' }
+  ],
+  novedades: [
+    { f: '15 sep', t: 'Sitio web: el actual medido en celular y buscadores; el nuevo definido con 15 páginas, redirecciones, colores y metas. Plan en versión 12, con PDF.' },
+    { f: '13 sep', t: 'Rafael pide el sitio web nuevo junto con la versión 19. Entra al plan.' },
+    { f: '11 sep', t: 'Panel de Odoo.sh revisado (tamaño real, respaldos, ramas) y documentación oficial leída completa. Plan por etapas con lista de decisiones.' },
+    { f: '10 sep', t: 'Inventario de las 37 piezas que no son de Odoo y análisis de las 302 automatizaciones.' },
+    { f: '9 sep', t: 'Arranca el diagnóstico, solo lectura sobre el sistema real.' }
+  ]
+};
+
+(function render() {
+  const E = ESTADO, $ = id => document.getElementById(id);
+  const val = e => e === 'hecho' ? 1 : e === 'curso' ? 0.5 : 0;
+  const prog = E.etapas.map(s => s.items.reduce((a, i) => a + val(i.e), 0) / s.items.length);
+  const total = prog.reduce((a, p, i) => a + p * E.pesos[i], 0);
+  $('pct').textContent = Math.round(total) + ' %';
+  $('bar').style.width = Math.max(1.5, total) + '%';
+  const cur = E.etapas[E.etapaActual];
+  $('stage').textContent = 'Etapa ' + cur.n + ' de V · ' + cur.nombre;
+  const hoy = new Date(); const ini = new Date(E.inicio + 'T00:00:00');
+  const dias = Math.max(1, Math.floor((hoy - ini) / 86400000) + 1);
+  $('hoy').textContent = 'Hoy, ' + hoy.toLocaleDateString('es-VE', { day: 'numeric', month: 'long' }) + ' · actualizado el ' + E.actualizado;
+  $('dia').textContent = 'Día ' + dias + ' del proyecto';
+  $('ahora').textContent = E.ahora + '.';
+  $('prod').innerHTML = '<b>Producción:</b> ' + E.produccion;
+  const todos = E.etapas.flatMap(s => s.items);
+  const hechos = todos.filter(i => i.e === 'hecho'); const curso = todos.filter(i => i.e === 'curso');
+  $('hechos').innerHTML = hechos.slice(-4).reverse().map(i => `<li>${i.t}</li>`).join('') + (hechos.length > 4 ? `<li style="color:var(--fg-3)">y ${hechos.length - 4} más, en el detalle</li>` : '');
+  $('curso').innerHTML = curso.map(i => `<li>${i.t}</li>`).join('');
+  $('viene').innerHTML = E.viene.map(t => `<li>${t}</li>`).join('');
+  const estado = i => prog[i] >= 1 ? 'hecho' : (i === E.etapaActual || prog[i] > 0) ? 'curso' : 'pend';
+  const lbl = { hecho: 'Hecha', curso: 'En curso', pend: 'Pendiente' };
+  $('steps').innerHTML = E.etapas.map((s, i) => `<div class="step ${estado(i)}"><div class="k">Etapa ${s.n}</div><div class="t">${s.nombre}</div><div class="d">${s.dur}</div><span class="s ${estado(i)}">${lbl[estado(i)]} · ${Math.round(prog[i] * 100)} %</span><div class="mini"><i style="width:${Math.round(prog[i] * 100)}%"></i></div></div>`).join('');
+  $('tiempo').textContent = E.estimacion;
+  const ic = { hecho: '✓', curso: '', pend: '○' };
+  $('detalle').innerHTML = E.etapas.map((s, i) => `<details ${i === E.etapaActual ? 'open' : ''}><summary><span>Etapa ${s.n} — ${s.nombre} ${s.quien.map(q => `<span class="tag ${q}">${q === 'nos' ? 'Aeroambulancias' : 'Odoo'}</span>`).join('')}</span><span class="meta">${s.dur} · ${s.prod} · ${Math.round(prog[i] * 100)} %</span></summary><ul>${s.items.map(it => `<li class="${it.e}"><span class="ic">${ic[it.e]}</span><span class="tx">${it.t}${it.nota ? `<span class="nota">${it.nota}</span>` : ''}</span><span class="f">${it.f || (it.e === 'curso' ? 'en marcha' : '')}</span></li>`).join('')}</ul></details>`).join('');
+  $('dec').innerHTML = E.decisiones.map((d, i) => `<tr><td>${i + 1}</td><td>${d.t}${d.nota ? `<span class="nota">${d.nota}</span>` : ''}</td><td><span class="s ${d.e}">${d.e === 'hecho' ? 'Marcada' : d.e === 'curso' ? 'En conversación' : 'Pendiente'}</span></td></tr>`).join('');
+  $('nov').innerHTML = E.novedades.map(n => `<li><span class="f">${n.f}</span><span>${n.t}</span></li>`).join('');
+  const a = $('doc'); a.href = E.doc; a.textContent = 'ver el documento';
+})();
+</script>
+
+</body>
+</html>
