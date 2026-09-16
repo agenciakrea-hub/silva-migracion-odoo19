@@ -193,7 +193,7 @@ const ESTADO = {
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
     'Dato corregido (tasas de cambio repetidas por día): se repite el ensayo de conversión con el respaldo de esta noche',
-    'Entorno local con Odoo 19 en marcha: comenzó la adaptación del módulo de inteligencia artificial (primeros cambios identificados)',
+    'Módulo de inteligencia artificial: ya instala y conversa en Odoo 19 en el entorno local; siguen las pruebas automáticas y los ajustes finos',
     'Evaluación de la aplicación de WhatsApp propia de Odoo 19 frente al proveedor actual'
   ],
   doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
@@ -224,7 +224,7 @@ const ESTADO = {
       { t: 'Primera copia del sistema convertida a 19 por Odoo', e: 'pend' },
       { t: 'Informe de conversión leído: qué convirtió Odoo y qué no', e: 'pend' },
       { t: 'Las piezas propias instalan en la versión 19', e: 'pend' },
-      { t: 'Módulo de inteligencia artificial adaptado y probado', e: 'pend' },
+      { t: 'Módulo de inteligencia artificial adaptado y probado', e: 'curso' },
       { t: 'Contabilidad venezolana resuelta según lo decidido', e: 'pend' },
       { t: 'WhatsApp resuelto según lo decidido', e: 'pend' },
       { t: 'Diseño del sitio web nuevo sobre la copia en 19', e: 'pend' },
@@ -265,6 +265,7 @@ const ESTADO = {
   ],
   viene: ['Leer el informe de conversión que entrega Odoo', 'Instalar las piezas propias sobre la copia en 19', 'Adaptar el módulo de inteligencia artificial'],
   novedades: [
+    { f: '16 sep', t: 'El módulo de inteligencia artificial ya instala y conversa en Odoo 19 en el entorno local: botón, chat y respuestas funcionan. Siguen las pruebas automáticas.' },
     { f: '16 sep', t: 'Primer ensayo de conversión: Odoo se detuvo por un dato del sistema (45 días con más de una tasa de cambio cargada). Se corrigió el mismo día, sin borrar ni alterar ninguna factura, y se repite el ensayo con el respaldo de esta noche. El sistema en uso sigue igual.' },
     { f: '15 sep', t: 'Arranca el ensayo sobre una copia: se ordenan las ramas de Odoo.sh para liberar un espacio de pruebas y se configuran los accesos técnicos. El sistema en uso no se toca.' },
     { f: '15 sep', t: 'Sitio web: el actual medido en celular y buscadores; el nuevo definido con 15 páginas, redirecciones, colores y metas. Plan completo en PDF.' },
