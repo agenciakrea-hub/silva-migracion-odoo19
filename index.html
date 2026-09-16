@@ -186,14 +186,14 @@
 
 <script>
 const ESTADO = {
-  actualizado: '15 de septiembre de 2026',
+  actualizado: '16 de septiembre de 2026',
   etapaActual: 0,
   estimacion: 'Cada etapa fija sus fechas al cerrar la anterior. El día final se elige al terminar las pruebas, nunca antes.',
   produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
-    'Preparación del espacio de pruebas en Odoo.sh para pedir la primera copia del sistema convertida a la versión 19',
-    'Ajustes del repositorio para la versión 19: dependencias y rama de trabajo',
+    'Pase de la rama de trabajo al espacio de pruebas de Odoo.sh y pedido de la primera copia convertida a la versión 19',
+    'Preparación del entorno local con Odoo 19 para adaptar el módulo de inteligencia artificial',
     'Evaluación de la aplicación de WhatsApp propia de Odoo 19 frente al proveedor actual'
   ],
   doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
@@ -211,9 +211,10 @@ const ESTADO = {
       { t: 'Diagnóstico del sitio web actual: velocidad, celular, buscadores, accesibilidad', e: 'hecho', f: '15 sep' },
       { t: 'Propuesta del sitio web nuevo: mapa de 15 páginas, diseño, redirecciones', e: 'hecho', f: '15 sep' },
       { t: 'Plan por etapas escrito, con lista de decisiones y versión en PDF', e: 'hecho', f: '15 sep' },
+      { t: 'Espacio de pruebas liberado en Odoo.sh y accesos técnicos configurados', e: 'hecho', f: '15 sep' },
+      { t: 'Rama de trabajo para la versión 19 creada y publicada, con dependencias corregidas', e: 'hecho', f: '16 sep' },
       { t: 'WhatsApp: evaluación de la aplicación propia de Odoo 19', e: 'curso' },
-      { t: 'Preparación del espacio de pruebas en Odoo.sh', e: 'curso' },
-      { t: 'Ajustes técnicos previos del repositorio para la versión 19', e: 'curso' },
+      { t: 'Pedido a Odoo de la primera copia convertida a la versión 19', e: 'curso' },
       { t: 'Limpieza del sistema: sacar lo que no se usa, una madrugada, con respaldo', e: 'pend' },
       { t: 'Historial fiscal resguardado, según lo que se decida con la contabilidad', e: 'pend' }
     ]},
@@ -262,7 +263,8 @@ const ESTADO = {
   ],
   viene: ['Pedir a Odoo la primera copia en versión 19', 'Leer el informe de conversión', 'Empezar a adaptar el módulo de inteligencia artificial'],
   novedades: [
-    { f: '15 sep', t: 'Arranca el ensayo sobre una copia: se ordenan las ramas de Odoo.sh para liberar un espacio de pruebas y se prepara la rama de trabajo para la versión 19. El sistema en uso no se toca.' },
+    { f: '16 sep', t: 'La rama de trabajo para la versión 19 quedó publicada en el repositorio. Sigue el pase al espacio de pruebas y el pedido de la primera copia convertida.' },
+    { f: '15 sep', t: 'Arranca el ensayo sobre una copia: se ordenan las ramas de Odoo.sh para liberar un espacio de pruebas y se configuran los accesos técnicos. El sistema en uso no se toca.' },
     { f: '15 sep', t: 'Sitio web: el actual medido en celular y buscadores; el nuevo definido con 15 páginas, redirecciones, colores y metas. Plan completo en PDF.' },
     { f: '13 sep', t: 'Rafael pide el sitio web nuevo junto con la versión 19. Entra al plan.' },
     { f: '11 sep', t: 'Panel de Odoo.sh revisado (tamaño real, respaldos, ramas) y documentación oficial leída completa. Plan por etapas con lista de decisiones.' },
