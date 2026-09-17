@@ -192,8 +192,8 @@ const ESTADO = {
   produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
-    'Copia convertida a 19 en revisión: Odoo 19 trae su propio asistente de IA con el mismo nombre interno que el nuestro; se renombra el nuestro antes de repetir el ensayo',
-    'Módulo de inteligencia artificial en Odoo 19: instala, conversa y pasa 2.100 de sus 2.101 pruebas automáticas en el entorno local',
+    'Módulo de inteligencia artificial propio renombrado para convivir con el asistente nativo de Odoo 19: probado sobre una copia de producción y con sus 2.101 pruebas automáticas en verde; listo para aplicarse en el sistema actual',
+    'Copia convertida a 19: pendiente repetir el ensayo con el módulo ya renombrado y leer el informe de conversión punto por punto',
     'Evaluación de la aplicación de WhatsApp propia de Odoo 19 frente al proveedor actual'
   ],
   doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
@@ -263,8 +263,9 @@ const ESTADO = {
       { t: 'Cierre', e: 'pend' }
     ]}
   ],
-  viene: ['Renombrar el módulo de inteligencia artificial propio para que conviva con el de Odoo 19', 'Revisar el informe de conversión de Odoo, punto por punto', 'Definir con Rafael: asistente propio o nativo, contabilidad y WhatsApp'],
+  viene: ['Aplicar el renombre del módulo de IA en el sistema actual (actualización de rutina, sin cambios visibles para quienes lo usan)', 'Repetir el ensayo de conversión con la copia diaria y leer el informe de Odoo punto por punto', 'Definir con Rafael: asistente propio o nativo, contabilidad y WhatsApp'],
   novedades: [
+    { f: '17 sep', t: 'El módulo de IA propio ya tiene su nuevo nombre interno y convive con el asistente nativo de Odoo 19. Se probó sobre una copia de producción y pasa sus 2.101 pruebas automáticas, tanto en la versión 16 como en la 19. Queda aplicarlo en el sistema actual y repetir el ensayo de conversión.' },
     { f: '17 sep', t: 'Hallazgo al instalar lo propio sobre la copia: Odoo 19 incluye un asistente de IA nativo cuyo nombre interno coincide con el del módulo de la empresa. Hay que renombrar el módulo propio antes del próximo ensayo; además abre una decisión: qué se conserva del módulo propio frente a lo que Odoo 19 ya trae.' },
     { f: '17 sep', t: 'Odoo convirtió la primera copia completa del sistema a la versión 19 en 38 minutos. Con la corrección del día anterior el proceso pasó sin detenerse. Empieza la lectura del informe de conversión y la instalación de las piezas propias sobre esa copia.' },
     { f: '16 sep', t: 'El módulo de inteligencia artificial ya instala y conversa en Odoo 19 en el entorno local, y pasa 2.100 de sus 2.101 pruebas automáticas. Queda probarlo sobre la copia real cuando Odoo la entregue.' },
