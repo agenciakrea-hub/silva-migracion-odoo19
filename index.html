@@ -192,7 +192,8 @@ const ESTADO = {
   produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
-    'Módulo de inteligencia artificial propio ya renombrado en el sistema actual (actualización de rutina, sin interrupción para quienes lo usan): convive con el asistente nativo de Odoo 19',
+    'Módulo de inteligencia artificial propio renombrado para convivir con el asistente nativo de Odoo 19: probado sobre una copia de producción y con sus 2.101 pruebas automáticas en verde; listo para aplicarse en el sistema actual',
+    'Módulos externos: la contabilidad venezolana se usa a diario (retenciones de hoy mismo) y depende de su proveedor; WhatsApp lleva nueve meses sin mensajes; los combos de productos ya existen en Odoo 19',
     'Copia convertida a 19: pendiente repetir el ensayo con el módulo ya renombrado y leer el informe de conversión punto por punto',
     'Evaluación de la aplicación de WhatsApp propia de Odoo 19 frente al proveedor actual'
   ],
@@ -222,9 +223,12 @@ const ESTADO = {
       { t: 'Primer ensayo de conversión: detectó tasas de cambio repetidas por día; corregido sin borrar ni alterar ningún documento', e: 'hecho', f: '16 sep' },
       { t: 'Ensayo de conversión repetido con el respaldo corregido: completado', e: 'hecho', f: '17 sep' },
       { t: 'Primera copia del sistema convertida a 19 por Odoo', e: 'hecho', f: '17 sep' },
-      { t: 'Informe de conversión leído: qué convirtió Odoo y qué no', e: 'curso' },
+      { t: 'Registro de la conversión leído: las 98 vistas con aviso son de páginas de Ajustes de módulos externos; ninguna del código propio', e: 'hecho', f: '17 sep' },
+      { t: 'Informe de conversión de Odoo leído punto por punto', e: 'curso' },
       { t: 'Las piezas propias instalan en la versión 19', e: 'curso' },
-      { t: 'Módulo de inteligencia artificial adaptado y probado', e: 'curso' },
+      { t: 'Módulo de inteligencia artificial adaptado y probado (2.101 pruebas automáticas en verde en 16 y en 19; renombrado en el sistema actual)', e: 'hecho', f: '17 sep' },
+      { t: 'Cotizador aeromédico adaptado a la versión 19: instala y calcula', e: 'hecho', f: '17 sep' },
+      { t: 'Los 39 módulos externos, medidos con datos reales: qué se usa a diario, qué lleva meses parado y qué ya trae Odoo 19', e: 'hecho', f: '17 sep' },
       { t: 'Contabilidad venezolana resuelta según lo decidido', e: 'pend' },
       { t: 'WhatsApp resuelto según lo decidido', e: 'pend' },
       { t: 'Diseño del sitio web nuevo sobre la copia en 19', e: 'pend' },
@@ -263,9 +267,9 @@ const ESTADO = {
       { t: 'Cierre', e: 'pend' }
     ]}
   ],
-  viene: ['Repetir el ensayo de conversión con la próxima copia diaria, ya sin el choque de nombres', 'Leer el informe de conversión de Odoo punto por punto', 'Definir con Rafael: asistente propio o nativo, contabilidad y WhatsApp'],
+  viene: ['Aplicar el renombre del módulo de IA en el sistema actual (actualización de rutina, sin cambios visibles para quienes lo usan)', 'Repetir el ensayo de conversión con la copia diaria y leer el informe de Odoo punto por punto', 'Definir con Rafael: asistente propio o nativo, contabilidad y WhatsApp'],
   novedades: [
-    { f: '17 sep', t: 'El renombre del módulo de IA se aplicó en el sistema actual: actualización de rutina, un minuto, sin interrupción del servicio y con la tabla de agentes intacta. El sistema sigue en la versión 16.' },
+    { f: '17 sep', t: 'Medidos los 39 módulos externos contra los datos reales: la contabilidad venezolana (retenciones, moneda de referencia) se usa todos los días; WhatsApp no registra mensajes desde diciembre de 2025; formularios y grabación de pantalla nunca se usaron; los combos de productos ya vienen en Odoo 19. El cotizador aeromédico ya funciona en la versión 19.' },
     { f: '17 sep', t: 'El módulo de IA propio ya tiene su nuevo nombre interno y convive con el asistente nativo de Odoo 19. Se probó sobre una copia de producción y pasa sus 2.101 pruebas automáticas, tanto en la versión 16 como en la 19. Queda aplicarlo en el sistema actual y repetir el ensayo de conversión.' },
     { f: '17 sep', t: 'Hallazgo al instalar lo propio sobre la copia: Odoo 19 incluye un asistente de IA nativo cuyo nombre interno coincide con el del módulo de la empresa. Hay que renombrar el módulo propio antes del próximo ensayo; además abre una decisión: qué se conserva del módulo propio frente a lo que Odoo 19 ya trae.' },
     { f: '17 sep', t: 'Odoo convirtió la primera copia completa del sistema a la versión 19 en 38 minutos. Con la corrección del día anterior el proceso pasó sin detenerse. Empieza la lectura del informe de conversión y la instalación de las piezas propias sobre esa copia.' },
