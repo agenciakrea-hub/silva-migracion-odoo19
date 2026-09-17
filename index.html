@@ -39,7 +39,7 @@
   @media (max-width: 640px) { header .meta { text-align: left; } }
 
   .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 20px 0 0; }
-  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } .kpi .v { font-size: 21px; } }
   .kpi { background: var(--bg); padding: 12px 14px 13px; }
   .kpi .v { font-size: 26px; font-weight: 700; line-height: 1.15; margin-top: 3px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
   .kpi .v.acc { color: var(--acc); }
@@ -48,19 +48,34 @@
   .timeline { margin: 22px 0 0; }
   .tl-head { margin-bottom: 26px; }
   .tl-head .pctl { font-size: 12.5px; color: var(--fg-2); }
-  .track { position: relative; height: 18px; background: var(--bar); display: flex; }
+  .track { position: relative; height: 30px; background: var(--bar); display: flex; }
   .seg { position: relative; height: 100%; border-right: 2px solid var(--bg); }
   .seg:last-child { border-right: 0; }
   .seg.hecho { background: var(--ok); }
   .seg .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--acc); width: 0; transition: width 1.4s ease-out;
     background-image: linear-gradient(45deg, var(--stripe) 25%, transparent 25%, transparent 50%, var(--stripe) 50%, var(--stripe) 75%, transparent 75%); background-size: 24px 24px; animation: mover 2.6s linear infinite; }
+  .seg .et { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--fg); white-space: nowrap; overflow: hidden; pointer-events: none; letter-spacing: .02em; }
+  .seg.hecho .et, .seg.curso .et { color: #fff; text-shadow: 0 0 2px rgba(0,0,0,.25); }
+  .seg.curso .et { mix-blend-mode: normal; }
+  .seg .et small { font-weight: 500; opacity: .85; }
+  @media (max-width: 640px) { .seg .et small { display: none; } }
+  .tl-como { font-size: 12.5px; color: var(--fg-2); margin: 6px 0 10px; }
+  .tl-como b { color: var(--fg); font-weight: 600; }
   @keyframes mover { to { background-position: 24px 0; } }
   .corte { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--fg); transform: translateX(-1px); }
   .corte::before { content: attr(data-t); position: absolute; bottom: 100%; right: 0; margin-bottom: 3px; font-size: 11px; font-weight: 600; letter-spacing: .04em; color: var(--fg); white-space: nowrap; }
-  .leyenda { display: grid; grid-template-columns: 15fr 45fr 20fr 10fr 10fr; margin-top: 8px; font-size: 12px; color: var(--fg-2); }
-  .leyenda span { padding: 0 6px 0 0; border-left: 1px solid var(--line); padding-left: 6px; line-height: 1.3; }
-  .leyenda b { display: block; font-weight: 600; color: var(--fg); }
-  @media (max-width: 640px) { .leyenda { grid-template-columns: 1fr 1fr 1fr; gap: 6px 0; } .leyenda span { border-left: 0; padding-left: 0; } .leyenda span::before { content: "■ "; color: var(--line); } .leyenda span.on::before { color: var(--acc); } }
+  /* Las cinco etapas, compactas, justo debajo del gráfico */
+  .etapas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+  @media (max-width: 860px) { .etapas { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .etapas { grid-template-columns: 1fr; } }
+  .etapa { border: 1px solid var(--line-2); border-top: 3px solid var(--line); padding: 7px 9px 8px; font-size: 12.5px; background: var(--bg); display: flex; flex-direction: column; gap: 2px; }
+  .etapa.hecho { border-top-color: var(--ok); } .etapa.curso { border-top-color: var(--acc); }
+  .etapa .t { font-size: 13.5px; font-weight: 700; line-height: 1.2; display: flex; justify-content: space-between; gap: 6px; align-items: baseline; }
+  .etapa .t .n { color: var(--fg-3); font-weight: 600; font-size: 11px; letter-spacing: .06em; }
+  .etapa .d { color: var(--fg-2); font-size: 12px; line-height: 1.3; }
+  .etapa .e { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; margin-top: 4px; font-size: 11.5px; }
+  .etapa .e .s { white-space: nowrap; }
+  .etapa .e .peso { color: var(--fg-3); }
   .tl-nota { font-size: 13px; color: var(--fg-2); margin: 12px 0 0; }
   .tl-nota b { color: var(--fg); font-weight: 600; }
 
@@ -99,7 +114,7 @@
   .step .t { font-size: 15px; font-weight: 700; margin-top: 1px; line-height: 1.25; }
   @media (min-width: 861px) { .step .t { min-height: 2.5em; } }
   .step .d { color: var(--fg-2); font-size: 12.5px; margin-top: 2px; min-height: 2.6em; }
-  .s { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 1px 7px; margin-top: 6px; }
+  .s { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 1px 7px; }
   .s.hecho { background: var(--ok-bg); color: var(--ok); } .s.curso { background: var(--acc-bg); color: var(--acc); } .s.pend { background: var(--panel); color: var(--fg-3); }
   .mini { height: 4px; background: var(--bar); margin-top: 8px; overflow: hidden; }
   .mini i { display: block; height: 100%; background: var(--acc); width: 0; transition: width 1.4s ease-out; }
@@ -125,6 +140,14 @@
   .lead { color: var(--fg-2); font-size: 14px; margin: 0 0 8px; }
   footer { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   a { color: var(--acc); }
+  /* Mini icono «ver la explicación» junto a cada cosa importante: lleva al detalle dentro de esta misma página */
+  .ir { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 5px; vertical-align: -3px; border: 1px solid var(--line); border-radius: 3px; color: var(--fg-3); text-decoration: none; flex: none; }
+  .ir svg { width: 9px; height: 9px; }
+  .ir:hover, .ir:focus-visible { color: var(--acc); border-color: var(--acc); background: var(--acc-bg); }
+  .resaltado { animation: resaltar 2.2s ease-out; }
+  @keyframes resaltar { 0%, 50% { background: var(--cur-bg); } 100% { background: transparent; } }
+  details:target summary, details.abierto summary { background: var(--acc-bg); }
+  .ayuda-ir { font-size: 12.5px; color: var(--fg-3); margin: 6px 0 0; }
 </style>
 </head>
 <body>
@@ -148,8 +171,10 @@
 <section class="timeline">
   <div class="tl-head"><span class="lbl">Recorrido completo, por etapas</span></div>
   <div class="track" id="track"></div>
-  <div class="leyenda" id="leyenda"></div>
+  <p class="tl-como" id="tlcomo"></p>
+  <div class="etapas" id="etapas"></div>
   <p class="tl-nota" id="tlnota"></p>
+  <p class="ayuda-ir">El icono <span class="ir" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8 8 2M4 2h4v4"/></svg></span> lleva a la explicación de ese punto más abajo, en esta misma página.</p>
 </section>
 
 <div class="foco">
@@ -171,14 +196,11 @@
   <div class="card"><div class="lbl">Lo que viene</div><ul id="viene"></ul></div>
 </div>
 
-<h2>Las cinco etapas</h2>
-<div class="steps" id="steps"></div>
-<p class="nota" style="margin-top:8px" id="tiempo"></p>
-
-<h2>Detalle por etapa</h2>
+<h2 id="detalle-titulo">Detalle por etapa</h2>
+<p class="nota" style="margin:-4px 0 8px" id="tiempo"></p>
 <div id="detalle"></div>
 
-<h2>Registro de novedades</h2>
+<h2 id="novedades">Registro de novedades</h2>
 <ul class="nov" id="nov"></ul>
 
 <footer><span>Documento completo del diagnóstico y del plan: <a id="doc" href="#"></a></span><span>Preparado por Agencia Krea para Aeroambulancias Silva, C.A.</span></footer>
@@ -296,6 +318,10 @@ const ESTADO = {
   const prog = E.etapas.map(s => s.items.reduce((a, i) => a + val(i.e), 0) / s.items.length);
   const total = prog.reduce((a, p, i) => a + p * E.pesos[i], 0);
   const cur = E.etapas[E.etapaActual];
+  const ICONO = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8 8 2M4 2h4v4"/></svg>';
+  const ir = (destino, titulo) => `<a class="ir" href="#${destino}" title="${titulo || 'Ver la explicación'}" aria-label="${titulo || 'Ver la explicación'}">${ICONO}</a>`;
+  // Cada ítem de cada etapa tiene un ancla propia (etapa-I-3) para que los iconos lleguen a él.
+  E.etapas.forEach((s, i) => s.items.forEach((it, j) => { it.id = 'etapa-' + s.n + '-' + (j + 1); it.etapa = s.n; }));
 
   $('revision').textContent = 'Actualizado el ' + E.actualizado;
 
@@ -303,33 +329,44 @@ const ESTADO = {
   const todos = E.etapas.flatMap(s => s.items);
   const hechos = todos.filter(i => i.e === 'hecho'); const curso = todos.filter(i => i.e === 'curso');
   $('pctsub').textContent = hechos.length + ' cerradas · ' + curso.length + ' en marcha';
-  $('stage').textContent = cur.n + ' · ' + cur.nombre;
+  $('stage').innerHTML = cur.n + ' · ' + cur.nombre + ir('etapa-' + cur.n, 'Ver el detalle de la etapa ' + cur.n);
   $('stagesub').textContent = (E.etapaActual + 1) + ' de 5 · ' + Math.round(prog[E.etapaActual] * 100) + ' % de la etapa';
   const corte = E.pesos.slice(0, 3).reduce((a, b) => a + b, 0);
   $('corte').textContent = 'Al ' + corte + ' %';
   $('cortesub').textContent = 'Entre 1 y 4 horas, una madrugada';
   $('prodv').textContent = 'Odoo 16';
   $('prodsub').textContent = 'Funcionando con normalidad';
-  $('frentes').innerHTML = E.frentes.map(t => `<li><span class="dot" aria-hidden="true"></span><span>${t}</span></li>`).join('');
-  $('movs').innerHTML = E.novedades.slice(0, 3).map(n => `<li><span class="f">${n.f}</span><span>${n.t}</span></li>`).join('');
+  $('frentes').innerHTML = E.frentes.map(t => `<li><span class="dot" aria-hidden="true"></span><span>${t}${ir('etapa-' + cur.n, 'Ver el detalle de la etapa en curso')}</span></li>`).join('');
+  $('movs').innerHTML = E.novedades.slice(0, 3).map((n, k) => `<li><span class="f">${n.f}</span><span>${n.t}${ir('nov-' + k, 'Ver en el registro de novedades')}</span></li>`).join('');
   $('prod').innerHTML = '<b>Sistema en uso:</b> ' + E.produccion;
 
   // Barra por etapas: cada segmento pesa lo que la etapa pesa en el total; la marca fija señala dónde se interviene producción.
   const est = i => prog[i] >= 1 ? 'hecho' : (i === E.etapaActual || prog[i] > 0) ? 'curso' : 'pend';
-  $('track').innerHTML = E.etapas.map((s, i) => `<div class="seg ${est(i)}" style="width:${E.pesos[i]}%"><div class="fill" style="width:${est(i) === 'hecho' ? 100 : Math.round(prog[i] * 100)}%"></div></div>`).join('')
+  $('track').innerHTML = E.etapas.map((s, i) => `<div class="seg ${est(i)}" style="width:${E.pesos[i]}%" title="Etapa ${s.n} · ${s.nombre}: pesa ${E.pesos[i]} % del total; lleva ${Math.round(prog[i] * 100)} % hecho"><div class="fill" style="width:${est(i) === 'hecho' ? 100 : Math.round(prog[i] * 100)}%"></div><span class="et">${s.n} <small>${E.pesos[i]} %</small></span></div>`).join('')
     + `<div class="corte" data-t="Producción se interviene aquí · ${corte} %" style="left:${corte}%"></div>`;
-  $('leyenda').innerHTML = E.etapas.map((s, i) => `<span class="${est(i) !== 'pend' ? 'on' : ''}"><b>${s.n} · ${s.nombre}</b>${E.pesos[i]} %</span>`).join('');
+  $('tlcomo').innerHTML = `<b>Cómo leer la barra:</b> cada tramo es una etapa y su ancho es lo que esa etapa pesa en el avance total (la II, convertir y adaptar, es la más larga: ${E.pesos[1]} %). El relleno de cada tramo es lo ya hecho de esa etapa; el verde, una etapa cerrada.`;
+  const lbl = { hecho: 'Hecha', curso: 'En curso', pend: 'Pendiente' };
+  $('etapas').innerHTML = E.etapas.map((s, i) => `<div class="etapa ${est(i)}"><div class="t"><span>${s.nombre}${ir('etapa-' + s.n, 'Ver el detalle de la etapa ' + s.n)}</span><span class="n">ETAPA ${s.n}</span></div><div class="d">${s.dur}</div><div class="e"><span class="s ${est(i)}">${lbl[est(i)]} · ${Math.round(prog[i] * 100)} %</span><span class="peso">${E.pesos[i]} % del total</span></div></div>`).join('');
   $('tlnota').innerHTML = `<b>Cuándo se toca el sistema en uso:</b> al cerrar las etapas I, II y III, es decir, al llegar al ${corte} % del avance. Recién ahí, en la etapa IV, se apaga entre 1 y 4 horas para convertirlo. Todo lo anterior ocurre sobre una copia.`;
 
-  $('hechos').innerHTML = hechos.slice(-4).reverse().map(i => `<li>${i.t}</li>`).join('') + (hechos.length > 4 ? `<li style="color:var(--fg-3)">y ${hechos.length - 4} más, en el detalle</li>` : '');
-  $('curso').innerHTML = curso.map(i => `<li>${i.t}</li>`).join('');
-  $('viene').innerHTML = E.viene.map(t => `<li>${t}</li>`).join('');
-  const lbl = { hecho: 'Hecha', curso: 'En curso', pend: 'Pendiente' };
-  $('steps').innerHTML = E.etapas.map((s, i) => `<div class="step ${est(i)}"><div class="k">Etapa ${s.n}</div><div class="t">${s.nombre}</div><div class="d">${s.dur}</div><span class="s ${est(i)}">${lbl[est(i)]} · ${Math.round(prog[i] * 100)} %</span><div class="mini"><i style="width:${Math.round(prog[i] * 100)}%"></i></div></div>`).join('');
+  $('hechos').innerHTML = hechos.slice(-4).reverse().map(i => `<li>${i.t}${ir(i.id, 'Ver este punto en el detalle de la etapa ' + i.etapa)}</li>`).join('') + (hechos.length > 4 ? `<li style="color:var(--fg-3)">y ${hechos.length - 4} más, en el detalle${ir('detalle-titulo', 'Ir al detalle por etapa')}</li>` : '');
+  $('curso').innerHTML = curso.map(i => `<li>${i.t}${ir(i.id, 'Ver este punto en el detalle de la etapa ' + i.etapa)}</li>`).join('');
+  $('viene').innerHTML = E.viene.map(t => `<li>${t}${ir('etapa-' + cur.n, 'Ver el detalle de la etapa en curso')}</li>`).join('');
   $('tiempo').textContent = E.estimacion;
   const ic = { hecho: '✓', curso: '', pend: '○' };
-  $('detalle').innerHTML = E.etapas.map((s, i) => `<details ${i === E.etapaActual ? 'open' : ''}><summary><span>Etapa ${s.n} — ${s.nombre} ${s.quien.map(q => `<span class="tag ${q}">${q === 'nos' ? 'Aeroambulancias' : 'Odoo'}</span>`).join('')}</span><span class="meta">${s.dur} · ${s.prod} · ${Math.round(prog[i] * 100)} %</span></summary><ul>${s.items.map(it => `<li class="${it.e}"><span class="ic">${ic[it.e]}</span><span class="tx">${it.t}${it.nota ? `<span class="nota">${it.nota}</span>` : ''}</span><span class="f">${it.f || (it.e === 'curso' ? 'en marcha' : '')}</span></li>`).join('')}</ul></details>`).join('');
-  $('nov').innerHTML = E.novedades.map(n => `<li><span class="f">${n.f}</span><span>${n.t}</span></li>`).join('');
+  $('detalle').innerHTML = E.etapas.map((s, i) => `<details id="etapa-${s.n}" ${i === E.etapaActual ? 'open' : ''}><summary><span>Etapa ${s.n} — ${s.nombre} ${s.quien.map(q => `<span class="tag ${q}">${q === 'nos' ? 'Aeroambulancias' : 'Odoo'}</span>`).join('')}</span><span class="meta">${s.dur} · ${s.prod} · ${Math.round(prog[i] * 100)} %</span></summary><ul>${s.items.map(it => `<li class="${it.e}" id="${it.id}"><span class="ic">${ic[it.e]}</span><span class="tx">${it.t}${it.nota ? `<span class="nota">${it.nota}</span>` : ''}</span><span class="f">${it.f || (it.e === 'curso' ? 'en marcha' : '')}</span></li>`).join('')}</ul></details>`).join('');
+  $('nov').innerHTML = E.novedades.map((n, k) => `<li id="nov-${k}"><span class="f">${n.f}</span><span>${n.t}</span></li>`).join('');
+
+  // Al seguir un icono: se abre la etapa que corresponde, se llega al punto y se lo resalta un momento.
+  function irA() {
+    const id = decodeURIComponent(location.hash.slice(1)); if (!id) return;
+    const el = document.getElementById(id); if (!el) return;
+    const det = el.closest('details') || (el.tagName === 'DETAILS' ? el : null);
+    if (det) det.open = true;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.remove('resaltado'); void el.offsetWidth; el.classList.add('resaltado');
+  }
+  window.addEventListener('hashchange', irA); irA();
   const a = $('doc'); a.href = E.doc; a.textContent = 'ver el documento';
 })();
 </script>
