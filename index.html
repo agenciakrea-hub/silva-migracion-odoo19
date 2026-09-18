@@ -208,16 +208,15 @@
 
 <script>
 const ESTADO = {
-  actualizado: '17 de septiembre de 2026',
+  actualizado: '18 de septiembre de 2026',
   etapaActual: 0,
   estimacion: 'Cada etapa fija sus fechas al cerrar la anterior. El día final se elige al terminar las pruebas, nunca antes.',
   produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
-    'Módulo de inteligencia artificial propio renombrado para convivir con el asistente nativo de Odoo 19: probado sobre una copia de producción y con sus 2.101 pruebas automáticas en verde; listo para aplicarse en el sistema actual',
-    'Módulos externos: la contabilidad venezolana se usa a diario (retenciones de hoy mismo) y depende de su proveedor; WhatsApp lleva nueve meses sin mensajes; los kits de productos ya funcionan con las listas de materiales de Odoo',
-    'Copia convertida a 19: pendiente repetir el ensayo con el módulo ya renombrado y leer el informe de conversión punto por punto',
-    'Evaluación de la aplicación de WhatsApp propia de Odoo 19 frente al proveedor actual'
+    'Segunda copia convertida a 19 (ensayo 4): el asistente de IA propio, el cotizador, los kits y las automatizaciones corregidas funcionan sobre ella; queda revisada con las cifras contables',
+    'Módulos externos: la contabilidad venezolana se usa a diario y depende de su proveedor; WhatsApp lleva nueve meses sin mensajes. Esperan definición',
+    'Revisión con el contador: cómo registra Odoo 19 los pagos en proceso (cambio propio de la versión, ya identificado en la copia)'
   ],
   doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
   // Peso de cada etapa en el avance total. Producción se interviene al empezar la etapa IV: al 80 %.
@@ -247,7 +246,7 @@ const ESTADO = {
       { t: 'Primera copia del sistema convertida a 19 por Odoo', e: 'hecho', f: '17 sep' },
       { t: 'Registro de la conversión leído: las 98 vistas con aviso son de páginas de Ajustes de módulos externos; ninguna del código propio', e: 'hecho', f: '17 sep' },
       { t: 'Informe de conversión de Odoo leído punto por punto: 48 automatizaciones que Odoo apaga al convertir (16 en uso hoy), listas de precios por compañía, saldos transitorios de inventario e informes contables a ajustar', e: 'hecho', f: '17 sep' },
-      { t: 'Las piezas propias instalan en la versión 19', e: 'curso' },
+      { t: 'Las piezas propias (asistente de IA y cotizador) instalan sobre la copia convertida a 19, junto con el asistente nativo de Odoo', e: 'hecho', f: '18 sep' },
       { t: 'Módulo de inteligencia artificial adaptado y probado (2.101 pruebas automáticas en verde en 16 y en 19; renombrado en el sistema actual)', e: 'hecho', f: '17 sep' },
       { t: 'Cotizador aeromédico adaptado a la versión 19: instala y calcula', e: 'hecho', f: '17 sep' },
       { t: 'Kits de productos (bioseguridad, contingencia) pasan a listas de materiales propias de Odoo; los packs de servicio se venden igual que hoy', e: 'hecho', f: '17 sep' },
@@ -258,10 +257,10 @@ const ESTADO = {
       { t: 'Diseño del sitio web nuevo sobre la copia en 19', e: 'pend' },
       { t: 'Sitio web nuevo construido, con sus 15 páginas y redirecciones', e: 'pend' },
       { t: 'Automatizaciones y correos automáticos revisados uno por uno contra la versión 19: de las 36 vivas hechas a mano, 4 hay que reescribir y 16 llevan un ajuste de una línea', e: 'hecho', f: '17 sep' },
-      { t: 'Cuadre de cifras: los saldos contables de la copia en 19 coinciden con los de 16 (herramienta lista y probada; se aplica en cada copia)', e: 'curso' },
+      { t: 'Cuadre de cifras sobre la copia: asientos, apuntes y saldos coinciden al centavo; las únicas diferencias son cambios de Odoo 19 en cómo registra los pagos, a validar con el contador', e: 'hecho', f: '18 sep' },
       { t: 'Guía corta por área: qué cambia en la versión 19 y cómo se hace cada tarea', e: 'pend' },
-      { t: 'Segunda copia convertida, con datos más frescos', e: 'pend' },
-      { t: 'Todo instalado y funcionando sobre la segunda copia', e: 'pend' }
+      { t: 'Segunda copia convertida, con datos más frescos', e: 'hecho', f: '18 sep' },
+      { t: 'Todo instalado y funcionando sobre la segunda copia: lo propio sí; los módulos externos esperan las decisiones', e: 'curso' }
     ]},
     { n: 'III', nombre: 'Probar y congelar', dur: 'Pruebas con datos recientes y aprobación', quien: ['nos'], prod: 'Producción congelada: nadie cambia nada.', items: [
       { t: 'Copia nueva, con datos de menos de una semana', e: 'pend' },
@@ -291,8 +290,9 @@ const ESTADO = {
       { t: 'Cierre', e: 'pend' }
     ]}
   ],
-  viene: ['Aplicar el renombre del módulo de IA en el sistema actual (actualización de rutina, sin cambios visibles para quienes lo usan)', 'Repetir el ensayo de conversión con la copia diaria y leer el informe de Odoo punto por punto', 'Definir con Rafael: asistente propio o nativo, contabilidad y WhatsApp'],
+  viene: ['Definir con Rafael: contabilidad venezolana en 19 (proveedor), WhatsApp nativo y comisiones', 'Validar con el contador los pagos en proceso y las cuentas transitorias bancarias en la copia', 'Prácticas con los empleados sobre la copia convertida'],
   novedades: [
+    { f: '18 sep', t: 'Ensayo 4 completado: Odoo convirtió una copia nueva (50 minutos) y, por primera vez, todo lo propio instala y funciona sobre ella: asistente de IA (junto con el nativo de Odoo), cotizador, kits de productos y las automatizaciones que la conversión apaga, ya reactivadas. Las cifras contables de la copia coinciden con las del sistema actual; las únicas diferencias vienen de cómo Odoo 19 registra los pagos pendientes de conciliar, y se revisan con el contador.' },
     { f: '18 sep', t: 'Confirmado con el software real de Odoo 19 Enterprise, en el entorno local: el asistente de IA propio y el asistente nativo de Odoo conviven sin conflicto, y las 2.101 pruebas automáticas pasan con los dos instalados. Era el punto que había frenado la copia convertida.' },
     { f: '17 sep', t: 'Leído el informe completo de la conversión de Odoo: al pasar a la versión 19, Odoo apaga 48 automatizaciones por un cambio en cómo se disparan (16 de ellas en uso hoy); hay que reactivarlas una por una sobre la copia. También quedó lista la herramienta que compara los saldos contables de la copia con los del sistema actual, para verificar que la conversión no altera ni un centavo.' },
     { f: '17 sep', t: 'Revisadas una por una las automatizaciones y plantillas de correo del sistema contra la versión 19: de las 36 que están en uso y se hicieron a mano, 4 hay que reescribir y 16 llevan un ajuste mínimo; el resto sigue igual. Y quedó escrito el primer borrador del procedimiento de la madrugada final, con su vuelta atrás.' },
