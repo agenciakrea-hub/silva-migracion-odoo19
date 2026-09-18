@@ -1,4 +1,4 @@
-# Estado de sesion — 2026-09-17 12:22
+# Estado de sesion — 2026-09-18 16:30
 
 > Generado automaticamente antes de una compactacion de contexto.
 > Archivo descartable: se sobreescribe en cada compactacion.
@@ -18,16 +18,16 @@ main
 
 ## Ultimos commits
 ```
-85468c0 Avance 17-sep: hallazgo del asistente IA nativo de Odoo 19
-79bd3ad Avance 17-sep: primera copia convertida a 19
-7ca55cb Avance 16-sep: módulo IA 2100/2101 tests en 19
-7fee0ed Avance 16-sep: módulo IA instala y conversa en 19 (local)
-4ae2c98 Avance 16-sep: entorno local 19 en marcha
-14dcd7e Avance 16-sep: tasas corregidas, segundo ensayo en curso
-2db9d0f Avance 16-sep: primer ensayo detectó tasas duplicadas
-ebbcbfd Avance 16-sep: primera copia en conversión a 19
-623ff0b Avance 16-sep: rama 19 publicada, espacio de pruebas liberado
-a212b84 Avance v3.2: frentes en paralelo, últimos movimientos, prácticas con empleados y contingencia; sin decisiones en la página
+c8f0332 Avance 18-sep: plan B para la contabilidad venezolana medido
+3ce9385 Avance 18-sep: ensayo 4 completado, lo propio funciona sobre la copia, cifras cuadradas
+93217da Avance 18-sep: convivencia con la IA nativa confirmada con Enterprise real
+5fbad8d Página: barra con etiquetas y explicación, etapas compactas bajo el gráfico, iconos que llevan al detalle
+ef71d9e Avance 17-sep: informe de conversión leído; cuadre de cifras listo
+53b20a7 Avance 17-sep: automatizaciones revisadas contra 19; runbook del día final
+691f968 Avance 17-sep: textos neutros aplicados en el sistema actual
+6c68172 Avance 17-sep: asistente al día con Odoo 19 y en español neutro
+296cf79 Avance 17-sep: kits de productos con listas de materiales nativas
+bbcea8c Avance 17-sep: módulos externos medidos con datos reales; cotizador en 19
 ```
 
 ## Pendiente
