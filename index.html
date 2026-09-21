@@ -32,6 +32,7 @@
   .wrap { max-width: 880px; margin: 0 auto; padding: 30px 20px 64px; }
   .lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; }
   header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  header .de { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--acc); }
   header h1 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; letter-spacing: -.01em; }
   header .org { color: var(--fg-2); margin: 2px 0 0; font-size: 14.5px; }
   header .meta { text-align: right; font-size: 13px; color: var(--fg-2); line-height: 1.55; flex: 0 0 auto; }
@@ -55,8 +56,7 @@
   .seg .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--acc); width: 0; transition: width 1.4s ease-out;
     background-image: linear-gradient(45deg, var(--stripe) 25%, transparent 25%, transparent 50%, var(--stripe) 50%, var(--stripe) 75%, transparent 75%); background-size: 24px 24px; animation: mover 2.6s linear infinite; }
   .seg .et { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--fg); white-space: nowrap; overflow: hidden; pointer-events: none; letter-spacing: .02em; }
-  .seg.hecho .et, .seg.curso .et { color: #fff; text-shadow: 0 0 2px rgba(0,0,0,.25); }
-  .seg.curso .et { mix-blend-mode: normal; }
+  .seg .et .pill { background: var(--bg); color: var(--fg); padding: 1px 7px; border-radius: 3px; box-shadow: 0 0 0 1px var(--line-2); }
   .seg .et small { font-weight: 500; opacity: .85; }
   @media (max-width: 640px) { .seg .et small { display: none; } }
   .tl-como { font-size: 12.5px; color: var(--fg-2); margin: 6px 0 10px; }
@@ -65,19 +65,23 @@
   .corte { position: absolute; top: -6px; bottom: -6px; width: 2px; background: var(--fg); transform: translateX(-1px); }
   .corte::before { content: attr(data-t); position: absolute; bottom: 100%; right: 0; margin-bottom: 3px; font-size: 11px; font-weight: 600; letter-spacing: .04em; color: var(--fg); white-space: nowrap; }
   /* Las cinco etapas, compactas, justo debajo del gráfico */
-  .etapas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+  .etapas { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
   @media (max-width: 860px) { .etapas { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 520px) { .etapas { grid-template-columns: 1fr; } }
   .etapa { border: 1px solid var(--line-2); border-top: 3px solid var(--line); padding: 7px 9px 8px; font-size: 12.5px; background: var(--bg); display: flex; flex-direction: column; gap: 2px; }
   .etapa.hecho { border-top-color: var(--ok); } .etapa.curso { border-top-color: var(--acc); }
   .etapa .t { font-size: 13.5px; font-weight: 700; line-height: 1.2; display: flex; justify-content: space-between; gap: 6px; align-items: baseline; }
-  .etapa .t .n { color: var(--fg-3); font-weight: 600; font-size: 11px; letter-spacing: .06em; }
+  .etapa .t .n { color: var(--fg-3); font-weight: 600; font-size: 11px; letter-spacing: .06em; white-space: nowrap; }
   .etapa .d { color: var(--fg-2); font-size: 12px; line-height: 1.3; }
   .etapa .e { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; margin-top: 4px; font-size: 11.5px; }
-  .etapa .e .s { white-space: nowrap; }
+  .etapa .e .s { white-space: normal; line-height: 1.35; }
   .etapa .e .peso { color: var(--fg-3); }
   .tl-nota { font-size: 13px; color: var(--fg-2); margin: 12px 0 0; }
   .tl-nota b { color: var(--fg); font-weight: 600; }
+  .captura { margin: 16px 0 0; padding: 8px; border: 1px solid var(--line-2); background: var(--panel); }
+  .captura img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+  .captura figcaption { font-size: 13px; color: var(--fg-2); margin-top: 8px; line-height: 1.45; }
+  .captura figcaption b { color: var(--fg); font-weight: 600; }
 
   .foco { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
   @media (max-width: 720px) { .foco { grid-template-columns: 1fr; } }
@@ -155,8 +159,9 @@
 <div class="wrap">
 <header>
   <div>
+    <p class="de">De Franco para Aeroambulancias Silva, C.A.</p>
     <h1>Migración de Odoo 16 a Odoo 19</h1>
-    <p class="org">Informe de avance · Aeroambulancias Silva, C.A.</p>
+    <p class="org">Informe de avance · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
   </div>
   <div class="meta"><span id="revision"></span></div>
 </header>
@@ -174,6 +179,7 @@
   <p class="tl-como" id="tlcomo"></p>
   <div class="etapas" id="etapas"></div>
   <p class="tl-nota" id="tlnota"></p>
+  <div id="capturas"></div>
   <p class="ayuda-ir">El icono <span class="ir" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8 8 2M4 2h4v4"/></svg></span> lleva a la explicación de ese punto más abajo, en esta misma página.</p>
 </section>
 
@@ -203,7 +209,7 @@
 <h2 id="novedades">Registro de novedades</h2>
 <ul class="nov" id="nov"></ul>
 
-<footer><span>Documento completo del diagnóstico y del plan: <a id="doc" href="#"></a></span><span>Preparado por Agencia Krea para Aeroambulancias Silva, C.A.</span></footer>
+<footer><span>Documento completo del diagnóstico y del plan: <a id="doc" href="#"></a></span><span>Preparado por Franco (Agencia Krea) con su asistente de IA para Aeroambulancias Silva, C.A.</span></footer>
 </div>
 
 <script>
@@ -290,6 +296,11 @@ const ESTADO = {
       { t: 'Cierre', e: 'pend' }
     ]}
   ],
+  // Capturas de la copia convertida, debajo de la barra y de las etapas. Rutas relativas a img/.
+  capturas: [
+    { src: 'img/odoo19-copia-2026-09-21.png', alt: 'Pantalla de inicio de Odoo 19 sobre la copia de pruebas, con las aplicaciones de la empresa y la cinta TEST', f: '21 de septiembre',
+      t: 'Logrado: Odoo 19 arrancó sobre la copia de pruebas. Es la pantalla de inicio con las aplicaciones de la empresa: Conversaciones, CRM, Agentes IA (el asistente propio), Ventas, Aeromédico (el cotizador), Contabilidad, Documentos, Proyecto. La cinta «TEST» y el aviso rojo de arriba indican que es la copia, no el sistema en uso: no envía correos ni toca datos reales.' }
+  ],
   viene: ['Definir con Rafael: contabilidad venezolana en 19 (proveedor), WhatsApp nativo y comisiones', 'Validar con el contador los pagos en proceso y las cuentas transitorias bancarias en la copia', 'Prácticas con los empleados sobre la copia convertida'],
   novedades: [
     { f: '21 sep', t: 'Cuadre de cifras repetido sobre la copia nueva: asientos, apuntes, saldos de las 119 cuentas, pagos y retenciones coinciden con los del sistema actual, igual que en el ensayo anterior. Antes de retirar WhatsApp (ChatRoom) se exportó todo su historial desde el sistema actual: 2.255 conversaciones, 63.114 mensajes y los archivos que aún existen, junto con la valuación de inventario en dólares; queda guardado y verificado. Se revisaron además las automatizaciones que "actualizan" o "crean" registros: 13 estaban vacías desde antes de la migración (no hacen nada), dos de ellas activas; se consulta con Rafael si se completan o se archivan.' },
@@ -334,9 +345,9 @@ const ESTADO = {
   $('pct').textContent = Math.round(total) + ' %';
   const todos = E.etapas.flatMap(s => s.items);
   const hechos = todos.filter(i => i.e === 'hecho'); const curso = todos.filter(i => i.e === 'curso');
-  $('pctsub').textContent = hechos.length + ' cerradas · ' + curso.length + ' en marcha';
+  $('pctsub').textContent = hechos.length + ' cerradas · ' + curso.length + ' en marcha · de ' + todos.length + ' tareas en 5 etapas';
   $('stage').innerHTML = cur.n + ' · ' + cur.nombre + ir('etapa-' + cur.n, 'Ver el detalle de la etapa ' + cur.n);
-  $('stagesub').textContent = (E.etapaActual + 1) + ' de 5 · ' + Math.round(prog[E.etapaActual] * 100) + ' % de la etapa';
+  $('stagesub').textContent = (E.etapaActual + 1) + ' de 5 · ' + Math.round(prog[E.etapaActual] * 100) + ' % de sus ' + cur.items.length + ' tareas';
   const corte = E.pesos.slice(0, 3).reduce((a, b) => a + b, 0);
   $('corte').textContent = 'Al ' + corte + ' %';
   $('cortesub').textContent = 'Entre 1 y 4 horas, una madrugada';
@@ -348,16 +359,17 @@ const ESTADO = {
 
   // Barra por etapas: cada segmento pesa lo que la etapa pesa en el total; la marca fija señala dónde se interviene producción.
   const est = i => prog[i] >= 1 ? 'hecho' : (i === E.etapaActual || prog[i] > 0) ? 'curso' : 'pend';
-  $('track').innerHTML = E.etapas.map((s, i) => `<div class="seg ${est(i)}" style="width:${E.pesos[i]}%" title="Etapa ${s.n} · ${s.nombre}: pesa ${E.pesos[i]} % del total; lleva ${Math.round(prog[i] * 100)} % hecho"><div class="fill" style="width:${est(i) === 'hecho' ? 100 : Math.round(prog[i] * 100)}%"></div><span class="et">${s.n} <small>${E.pesos[i]} %</small></span></div>`).join('')
+  $('track').innerHTML = E.etapas.map((s, i) => `<div class="seg ${est(i)}" style="width:${E.pesos[i]}%" title="Etapa ${s.n} · ${s.nombre}: pesa ${E.pesos[i]} % del avance total; lleva ${Math.round(prog[i] * 100)} % de sus ${s.items.length} tareas"><div class="fill" style="width:${est(i) === 'hecho' ? 100 : Math.round(prog[i] * 100)}%"></div><span class="et"><span class="pill">${s.n} <small>${E.pesos[i]} %</small></span></span></div>`).join('')
     + `<div class="corte" data-t="Producción se interviene aquí · ${corte} %" style="left:${corte}%"></div>`;
-  $('tlcomo').innerHTML = `<b>Cómo leer la barra:</b> cada tramo es una etapa y su ancho es lo que esa etapa pesa en el avance total (la II, convertir y adaptar, es la más larga: ${E.pesos[1]} %). El relleno de cada tramo es lo ya hecho de esa etapa; el verde, una etapa cerrada.`;
+  $('tlcomo').innerHTML = `<b>Cómo leer la barra:</b> cada tramo es una etapa y su ancho es lo que esa etapa pesa en el avance total (la II, convertir y adaptar, es la más larga: ${E.pesos[1]} %). El relleno de cada tramo es lo ya hecho de esa etapa, medido sobre sus propias tareas (una tarea en marcha cuenta la mitad); el verde, una etapa cerrada.`;
   const lbl = { hecho: 'Hecha', curso: 'En curso', pend: 'Pendiente' };
-  $('etapas').innerHTML = E.etapas.map((s, i) => `<div class="etapa ${est(i)}"><div class="t"><span>${s.nombre}${ir('etapa-' + s.n, 'Ver el detalle de la etapa ' + s.n)}</span><span class="n">ETAPA ${s.n}</span></div><div class="d">${s.dur}</div><div class="e"><span class="s ${est(i)}">${lbl[est(i)]} · ${Math.round(prog[i] * 100)} %</span><span class="peso">${E.pesos[i]} % del total</span></div></div>`).join('');
+  $('etapas').innerHTML = E.etapas.map((s, i) => `<div class="etapa ${est(i)}"><div class="t"><span>${s.nombre}${ir('etapa-' + s.n, 'Ver el detalle de la etapa ' + s.n)}</span><span class="n">ETAPA ${s.n}</span></div><div class="d">${s.dur}</div><div class="e"><span class="s ${est(i)}">${lbl[est(i)]} · ${Math.round(prog[i] * 100)} % de sus ${s.items.length} tareas</span><span class="peso">${s.items.filter(x => x.e === 'hecho').length} cerradas${s.items.some(x => x.e === 'curso') ? ', ' + s.items.filter(x => x.e === 'curso').length + ' en marcha' : ''} · pesa ${E.pesos[i]} % del avance total</span></div></div>`).join('');
   $('tlnota').innerHTML = `<b>Cuándo se toca el sistema en uso:</b> al cerrar las etapas I, II y III, es decir, al llegar al ${corte} % del avance. Recién ahí, en la etapa IV, se apaga entre 1 y 4 horas para convertirlo. Todo lo anterior ocurre sobre una copia.`;
 
   $('hechos').innerHTML = hechos.slice(-4).reverse().map(i => `<li>${i.t}${ir(i.id, 'Ver este punto en el detalle de la etapa ' + i.etapa)}</li>`).join('') + (hechos.length > 4 ? `<li style="color:var(--fg-3)">y ${hechos.length - 4} más, en el detalle${ir('detalle-titulo', 'Ir al detalle por etapa')}</li>` : '');
   $('curso').innerHTML = curso.map(i => `<li>${i.t}${ir(i.id, 'Ver este punto en el detalle de la etapa ' + i.etapa)}</li>`).join('');
   $('viene').innerHTML = E.viene.map(t => `<li>${t}${ir('etapa-' + cur.n, 'Ver el detalle de la etapa en curso')}</li>`).join('');
+  $('capturas').innerHTML = (E.capturas || []).map(c => `<figure class="captura"><img src="${c.src}" alt="${c.alt}" loading="lazy"><figcaption><b>${c.f}.</b> ${c.t}</figcaption></figure>`).join('');
   $('tiempo').textContent = E.estimacion;
   const ic = { hecho: '✓', curso: '', pend: '○' };
   $('detalle').innerHTML = E.etapas.map((s, i) => `<details id="etapa-${s.n}" ${i === E.etapaActual ? 'open' : ''}><summary><span>Etapa ${s.n} — ${s.nombre} ${s.quien.map(q => `<span class="tag ${q}">${q === 'nos' ? 'Aeroambulancias' : 'Odoo'}</span>`).join('')}</span><span class="meta">${s.dur} · ${s.prod} · ${Math.round(prog[i] * 100)} %</span></summary><ul>${s.items.map(it => `<li class="${it.e}" id="${it.id}"><span class="ic">${ic[it.e]}</span><span class="tx">${it.t}${it.nota ? `<span class="nota">${it.nota}</span>` : ''}</span><span class="f">${it.f || (it.e === 'curso' ? 'en marcha' : '')}</span></li>`).join('')}</ul></details>`).join('');
