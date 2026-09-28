@@ -1,0 +1,418 @@
+<title>Automatismos de Aeroambulancias Silva</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root {
+  --tinta: #10202c; --tinta-2: #465967; --tinta-3: #6f8291;
+  --fondo: #f6f7f9; --superficie: #ffffff; --linea: #dde3e8; --linea-2: #eef1f4;
+  --azul: #004a99; --azul-suave: #e6eef7;
+  --ok: #0f6b4f; --ok-suave: #e3f2ec; --ambar: #8a5a00; --ambar-suave: #fbeed8;
+  --rojo: #a12525; --rojo-suave: #f8e5e5; --gris-suave: #eceff2;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --tinta: #e9eef2; --tinta-2: #b0bec9; --tinta-3: #7f909d;
+    --fondo: #101820; --superficie: #17222c; --linea: #2b3945; --linea-2: #202c37;
+    --azul: #7fb2e8; --azul-suave: #17293c;
+    --ok: #6fd3ae; --ok-suave: #122d25; --ambar: #eab764; --ambar-suave: #33280f;
+    --rojo: #ef8b8b; --rojo-suave: #351d1d; --gris-suave: #1e2832;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --tinta: #e9eef2; --tinta-2: #b0bec9; --tinta-3: #7f909d;
+  --fondo: #101820; --superficie: #17222c; --linea: #2b3945; --linea-2: #202c37;
+  --azul: #7fb2e8; --azul-suave: #17293c;
+  --ok: #6fd3ae; --ok-suave: #122d25; --ambar: #eab764; --ambar-suave: #33280f;
+  --rojo: #ef8b8b; --rojo-suave: #351d1d; --gris-suave: #1e2832;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fondo); color: var(--tinta);
+  font-family: "Source Sans 3", system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 34px 72px; padding-left: 18px; padding-right: 18px; }
+h1, h2, h3, h4 { font-family: Archivo, system-ui, sans-serif; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 5vw, 36px); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+h2 { font-size: 20px; font-weight: 600; margin-top: 8px; }
+h3 { font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 9px; }
+h4 { font-size: 15.5px; font-weight: 600; line-height: 1.3; }
+p { margin: 0; }
+.de { font-size: 12.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--azul); margin-bottom: 9px; }
+header.top { border-bottom: 3px solid var(--tinta); padding-bottom: 18px; }
+header.top .sub { color: var(--tinta-2); margin-top: 8px; font-size: 16.5px; max-width: 62ch; }
+.fecha { font-size: 13px; color: var(--tinta-3); margin-top: 12px; }
+
+.veredicto { margin-top: 26px; background: var(--superficie); border: 1px solid var(--linea);
+  border-left: 5px solid var(--ok); padding: 20px 22px; }
+.veredicto h2 { color: var(--ok); margin: 0 0 8px; font-size: 19px; }
+.veredicto p { color: var(--tinta-2); max-width: 66ch; }
+.veredicto p + p { margin-top: 10px; }
+
+.cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--linea);
+  border: 1px solid var(--linea); margin-top: 22px; }
+.cifra { background: var(--superficie); padding: 14px 16px 16px; }
+.cifra .n { font-family: Archivo, sans-serif; font-size: 30px; font-weight: 700; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.cifra .t { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--tinta-3); font-weight: 600; margin-bottom: 6px; }
+.cifra .d { font-size: 13.5px; color: var(--tinta-2); margin-top: 4px; line-height: 1.35; }
+@media (max-width: 680px) { .cifras { grid-template-columns: 1fr 1fr; } }
+
+h2.seccion { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--tinta-3);
+  margin: 44px 0 6px; padding-bottom: 7px; border-bottom: 1px solid var(--linea); font-weight: 600; }
+.intro { color: var(--tinta-2); max-width: 66ch; margin-bottom: 18px; }
+
+.area { margin-top: 26px; }
+.cuenta { font-family: "Source Sans 3", sans-serif; font-size: 12px; font-weight: 600; color: var(--tinta-3);
+  background: var(--gris-suave); padding: 2px 8px; border-radius: 10px; }
+.fichas { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 12px; margin-top: 12px; }
+.ficha { background: var(--superficie); border: 1px solid var(--linea); border-left: 4px solid var(--linea);
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.ficha.critico { border-left-color: var(--rojo); }
+.ficha.medio { border-left-color: var(--ambar); }
+.ficha.ok { border-left-color: var(--ok); }
+.ficha.vacio { border-left-color: var(--tinta-3); background: var(--gris-suave); }
+.ficha header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.ficha p { font-size: 14.5px; color: var(--tinta-2); }
+.ficha footer { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--tinta-3);
+  border-top: 1px solid var(--linea-2); padding-top: 8px; margin-top: auto; }
+.chip { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+  padding: 3px 8px; white-space: nowrap; flex: none; }
+.chip.critico { background: var(--rojo-suave); color: var(--rojo); }
+.chip.medio { background: var(--ambar-suave); color: var(--ambar); }
+.chip.ok { background: var(--ok-suave); color: var(--ok); }
+.chip.vacio { background: var(--gris-suave); color: var(--tinta-3); }
+.avisos { margin: 0; padding-left: 16px; font-size: 13px; color: var(--ambar); }
+.avisos li + li { margin-top: 3px; }
+
+.tabla-caja { overflow-x: auto; border: 1px solid var(--linea); background: var(--superficie); margin-top: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 520px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--linea-2); vertical-align: top; }
+th { font-family: Archivo, sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--tinta-3); background: var(--gris-suave); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.num { white-space: nowrap; color: var(--tinta-2); font-variant-numeric: tabular-nums; }
+.apagada { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--tinta-3);
+  background: var(--gris-suave); padding: 1px 6px; margin-left: 7px; }
+
+.hallazgos { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.hallazgo { background: var(--superficie); border: 1px solid var(--linea); padding: 15px 17px; }
+.hallazgo h4 { margin-bottom: 5px; }
+.hallazgo p { font-size: 14.5px; color: var(--tinta-2); max-width: 70ch; }
+.hallazgo .marca { font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--azul); display: block; margin-bottom: 6px; }
+
+footer.pie { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--linea);
+  font-size: 13px; color: var(--tinta-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+</style>
+
+<div class="wrap">
+<header class="top">
+  <p class="de">De Franco para Aeroambulancias Silva, C.A.</p>
+  <h1>Todo lo que el sistema hace solo</h1>
+  <p class="sub">Los automatismos que hoy trabajan en Odoo, qué hace cada uno, y qué pasa con ellos
+  cuando el sistema pase a la versión 19.</p>
+  <p class="fecha">28 de septiembre de 2026 · revisados uno por uno sobre el sistema real, en modo consulta</p>
+</header>
+
+<div class="veredicto">
+  <h2>Lo importante primero: nada de lo que usa hoy desaparece</h2>
+  <p>Se revisaron las <b>90 tareas programadas</b> y las <b>25 automatizaciones activas</b>
+  del sistema, una por una, leyendo lo que hace cada una. <b>Ninguna se pierde al pasar a la versión 19.</b>
+  Las que están hechas a la medida para Aeroambulancias Silva viajan con los datos, no con el programa:
+  siguen ahí después del cambio.</p>
+  <p>Hay <b>2 que necesitan reescribirse</b> y <b>8 que llevan un ajuste de una línea</b>.
+  Están identificadas con nombre y apellido en este informe, y el trabajo ya está previsto. El resto
+  funciona igual que hoy.</p>
+</div>
+
+<div class="cifras">
+  <div class="cifra"><div class="t">Tareas programadas</div><div class="n">90</div>
+    <div class="d">corren solas cada cierto tiempo; 88 están encendidas</div></div>
+  <div class="cifra"><div class="t">Automatizaciones</div><div class="n">25</div>
+    <div class="d">reaccionan a algo que pasa: se crea un caso, se confirma un pedido</div></div>
+  <div class="cifra"><div class="t">Hechas a su medida</div><div class="n">34</div>
+    <div class="d">escritas para esta empresa, no vienen con Odoo</div></div>
+  <div class="cifra"><div class="t">Se pierden</div><div class="n">0</div>
+    <div class="d">ninguna desaparece por el cambio de versión</div></div>
+</div>
+
+<h2 class="seccion">Qué es cada cosa</h2>
+<p class="intro">El sistema trabaja solo de dos maneras distintas, y conviene no confundirlas porque se
+arreglan de forma distinta. Las <b>tareas programadas</b> son las que corren por reloj: cada cinco minutos,
+todos los días a tal hora. Las <b>automatizaciones</b> no miran el reloj: reaccionan cuando algo pasa —se
+crea una oportunidad, se confirma un pedido, un alumno termina un curso—. Debajo de ambas hay
+<b>acciones</b>, que son las instrucciones concretas que se ejecutan.</p>
+
+<h2 class="seccion">Las automatizaciones, por área</h2>
+<p class="intro">Las 25 que están encendidas hoy. <b>Todas fueron escritas a la medida para
+Aeroambulancias Silva</b>: ninguna viene de fábrica con Odoo. Están agrupadas por el área a la que sirven, y
+marcadas según lo que pasaría si dejaran de funcionar.</p>
+<section class="area">
+  <h3>Ventas y cotizaciones <span class="cuenta">11</span></h3>
+  <div class="fichas"><article class="ficha critico">
+  <header><h4>Presupuesto automático al entrar una oportunidad</h4><span class="chip critico">Crítica</span></header>
+  <p>Es la pieza más grande del sistema (150 líneas). Cuando entra o se actualiza una oportunidad, lee el asunto y las notas, detecta si es un caso comercial o un servicio, extrae la ruta (desde dónde y hacia dónde), clasifica la urgencia por triaje y arma el presupuesto. Respeta lo que el vendedor haya puesto a mano.</p>
+  <footer><span>Se dispara al crear o modificar</span><span>sobre Lead/Opportunity</span></footer>
+  
+</article>
+<article class="ficha medio">
+  <header><h4>IVAN: detector de riesgo de fuga</h4><span class="chip medio">Importante</span></header>
+  <p>Lee cada mensaje que se escribe en una oportunidad y, si detecta palabras de negocio corporativo (licitación, convenio, afiliación, planes), la deriva al equipo que corresponde para que no se pierda.</p>
+  <footer><span>Se dispara al crear el registro</span><span>sobre Message</span></footer>
+  <ul class="avisos"><li><b>Sin efecto:</b> Busca un equipo de ventas que tampoco existe hoy; la automatización ya resuelve sola ese caso con su búsqueda de respaldo. No hay nada que hacer.</li></ul>
+</article>
+<article class="ficha medio">
+  <header><h4>Propagar la autorización (del lado del pedido)</h4><span class="chip medio">Importante</span></header>
+  <p>La otra mitad de la anterior, trabajando sobre el pedido de venta.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Sales Order</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha medio">
+  <header><h4>Propagar la autorización de Gerencia al presupuesto</h4><span class="chip medio">Importante</span></header>
+  <p>Cuando se marca una oportunidad como autorizada por Gerencia, pasa esa autorización a todos sus presupuestos, que es lo que libera el bloqueo de despacho.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Lead/Opportunity</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha medio">
+  <header><h4>Ruteo de casos de Ever Insurance</h4><span class="chip medio">Importante</span></header>
+  <p>Detecta por el correo de origen los casos que vienen de Ever Insurance, los manda al Centro de Contacto y arma su lista de verificación con el enlace al documento de respaldo.</p>
+  <footer><span>Se dispara al crear el registro</span><span>sobre Lead/Opportunity</span></footer>
+  
+</article>
+<article class="ficha medio">
+  <header><h4>Ruteo de casos: terrestre o aéreo</h4><span class="chip medio">Importante</span></header>
+  <p>Al crear la oportunidad decide el equipo que corresponde según el tipo de servicio. Tiene prohibido intervenir si el caso ya está agendado, en cotización o cerrado, para no pisar el trabajo del vendedor.</p>
+  <footer><span>Se dispara al crear el registro</span><span>sobre Lead/Opportunity</span></footer>
+  
+</article>
+<article class="ficha ok">
+  <header><h4>Aviso de presupuesto cancelado</h4><span class="chip ok">De rutina</span></header>
+  <p>Cuando alguien cancela un presupuesto, manda el correo de cancelación al cliente. No se dispara si quien canceló fue el propio sistema, solo si fue una persona.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Sales Order</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha ok">
+  <header><h4>Aviso de presupuesto sin respuesta (24 horas)</h4><span class="chip ok">De rutina</span></header>
+  <p>Si un presupuesto de alta prioridad lleva 24 horas sin moverse, etiqueta la oportunidad como estancada y crea una tarea de seguimiento para el vendedor.</p>
+  <footer><span>Se dispara pasado un tiempo</span><span>sobre Lead/Opportunity</span></footer>
+  
+</article>
+<article class="ficha ok">
+  <header><h4>Aviso de presupuesto sin respuesta (48 horas)</h4><span class="chip ok">De rutina</span></header>
+  <p>Igual que el anterior, a las 48 horas y para otro grupo de servicios: etiqueta y crea la tarea de último contacto.</p>
+  <footer><span>Se dispara pasado un tiempo</span><span>sobre Lead/Opportunity</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha ok">
+  <header><h4>Clasificador de los códigos QR del CMDLT</h4><span class="chip ok">De rutina</span></header>
+  <p>Lee el asunto y las notas de la oportunidad para saber por cuál código QR entró el paciente del Centro Médico Docente La Trinidad, y le pone la etiqueta que le indica al vendedor qué tarifa usar.</p>
+  <footer><span>Se dispara al crear o modificar</span><span>sobre Lead/Opportunity</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha ok">
+  <header><h4>Seguimiento de oferta enviada (4 horas)</h4><span class="chip ok">De rutina</span></header>
+  <p>A las 4 horas de enviada una cotización sin respuesta, marca la oportunidad como estancada y agenda la tarea de seguimiento.</p>
+  <footer><span>Se dispara pasado un tiempo</span><span>sobre Lead/Opportunity</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article></div>
+</section><section class="area">
+  <h3>Operaciones y despacho <span class="cuenta">4</span></h3>
+  <div class="fichas"><article class="ficha critico">
+  <header><h4>Bloqueo de despacho sin pago</h4><span class="chip critico">Crítica</span></header>
+  <p>Impide que un servicio pase a las etapas operativas (Activación, Despacho, Móvil en camino, Unidad asignada, Ejecución) si no tiene pago registrado o la autorización expresa de Gerencia. Es el candado que protege de despachar sin cobrar.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Lead/Opportunity</span></footer>
+  
+</article>
+<article class="ficha critico">
+  <header><h4>Reserva y programación del servicio</h4><span class="chip critico">Crítica</span></header>
+  <p>Cuando se confirma el pedido, avisa por correo a programación, crea o renombra el proyecto y las tareas de la misión, y deja constancia en el historial. Evita duplicados si ya se generó la misión.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Sales Order</span></footer>
+  
+</article>
+<article class="ficha medio">
+  <header><h4>Cierre de servicio: encuesta y aviso a administración</h4><span class="chip medio">Importante</span></header>
+  <p>Al cerrar la tarea del servicio manda la encuesta de satisfacción al cliente y avisa a Administración para facturar. Tiene un control para no repetir el envío.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Task</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha medio">
+  <header><h4>Pedido de cotización a proveedores de vuelo</h4><span class="chip medio">Importante</span></header>
+  <p>Cuando una oportunidad aérea entra en Validación, genera el pedido de cotización al proveedor si no existía ya uno para ese caso.</p>
+  <footer><span>Se dispara al crear o modificar</span><span>sobre Lead/Opportunity</span></footer>
+  <ul class="avisos"><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article></div>
+</section><section class="area">
+  <h3>Academia y Red RAA <span class="cuenta">3</span></h3>
+  <div class="fichas"><article class="ficha medio">
+  <header><h4>Procesar alumno graduado de la Red RAA</h4><span class="chip medio">Importante</span></header>
+  <p>Cuando un alumno termina un curso, mueve su oportunidad a la etapa que corresponde según el curso (bioseguridad o líder) y sigue el circuito de certificación.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Channel / Partners (Members)</span></footer>
+  <ul class="avisos"><li><b>Reescribir:</b> Usa un campo de los cursos que en la versión 19 cambió de nombre. Hay que actualizar la referencia para que vuelva a encontrar a los alumnos.</li><li><b>Reescribir:</b> Usa el vínculo entre etapa y equipo, que en la versión 19 funciona distinto: una etapa puede pertenecer a varios equipos.</li><li><b>Ajuste:</b> Los mensajes que escribe en el historial llevan un ajuste de una línea, o se verían con el código a la vista.</li></ul>
+</article>
+<article class="ficha ok">
+  <header><h4>Alerta de alumno estancado</h4><span class="chip ok">De rutina</span></header>
+  <p>A los 7 días sin actividad de un alumno que se inscribió y no terminó, crea una tarea de seguimiento en su oportunidad. Controla no duplicar el aviso.</p>
+  <footer><span>Se dispara pasado un tiempo</span><span>sobre Channel / Partners (Members)</span></footer>
+  <ul class="avisos"><li><b>Reescribir:</b> Usa un campo de los cursos que en la versión 19 cambió de nombre. Hay que actualizar la referencia para que vuelva a encontrar a los alumnos.</li></ul>
+</article>
+<article class="ficha ok">
+  <header><h4>Enviar requisitos y datos de pago</h4><span class="chip ok">De rutina</span></header>
+  <p>Identifica por las etiquetas cuál curso pidió el aspirante y le manda por correo la lista de requisitos: comprobante de pago, documento de identidad y síntesis curricular.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Lead/Opportunity</span></footer>
+  
+</article></div>
+</section><section class="area">
+  <h3>Administración y pagos <span class="cuenta">6</span></h3>
+  <div class="fichas"><article class="ficha ok">
+  <header><h4>Activación del plan de contingencia</h4><span class="chip ok">De rutina</span></header>
+  <p>Al crearse la solicitud, agenda la tarea de activación del plan de contingencia general.</p>
+  <footer><span>Se dispara al crear el registro</span><span>sobre Approval Request</span></footer>
+  
+</article>
+<article class="ficha ok">
+  <header><h4>Aviso de aprobación de lote de pagos</h4><span class="chip ok">De rutina</span></header>
+  <p>Al crearse un lote de pagos, agenda la tarea de revisión para la persona responsable.</p>
+  <footer><span>Se dispara al crear el registro</span><span>sobre Batch Payment</span></footer>
+  
+</article>
+<article class="ficha ok">
+  <header><h4>Gestión de lote aprobado en el banco</h4><span class="chip ok">De rutina</span></header>
+  <p>Cuando el lote cambia de estado, manda el correo con la plantilla de notificación.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Batch Payment</span></footer>
+  
+</article>
+<article class="ficha ok">
+  <header><h4>Instrucciones de transferencia para reposición</h4><span class="chip ok">De rutina</span></header>
+  <p>Al crearse la solicitud de aprobación, agenda la tarea con las instrucciones de transferencia.</p>
+  <footer><span>Se dispara al crear el registro</span><span>sobre Approval Request</span></footer>
+  
+</article>
+<article class="ficha vacio">
+  <header><h4>Referencia comercial cada 90 días</h4><span class="chip vacio">No hace nada</span></header>
+  <p>Corre cada 90 días sobre los proveedores con correo, pero está vacía: no tiene ninguna instrucción cargada, así que no escribe ni envía nada.</p>
+  <footer><span>Se dispara pasado un tiempo</span><span>sobre Contact</span></footer>
+  
+</article>
+<article class="ficha vacio">
+  <header><h4>Solicitud de provisión de impuestos</h4><span class="chip vacio">No hace nada</span></header>
+  <p>Debería crear una solicitud de aprobación cuando se factura un pedido, pero está vacía: no tiene ninguna instrucción cargada y nunca creó ninguna. Se dispara por un campo que además casi nunca cambia.</p>
+  <footer><span>Se dispara al modificarlo</span><span>sobre Sales Order</span></footer>
+  
+</article></div>
+</section><section class="area">
+  <h3>Orden de los datos <span class="cuenta">1</span></h3>
+  <div class="fichas"><article class="ficha ok">
+  <header><h4>Marcado automático de empresas</h4><span class="chip ok">De rutina</span></header>
+  <p>A todo contacto marcado como compañía le pone la etiqueta CORPORATIVO, que es la que reconocen los demás robots.</p>
+  <footer><span>Se dispara al crear o modificar</span><span>sobre Contact</span></footer>
+  
+</article></div>
+</section>
+
+<h2 class="seccion">Las tareas programadas hechas a su medida</h2>
+<p class="intro">Estas 9 corren por reloj y las escribió su equipo: son las alertas de tiempos de
+respuesta, los informes de gerencia y los robots de ventas y academia. Ninguna desaparece en la versión 19.</p>
+<div class="tabla-caja"><table>
+<thead><tr><th>Tarea</th><th>Qué hace</th><th>Cuándo corre</th></tr></thead>
+<tbody><tr><td><b>Ambulancia: Monitor de SLA Vencidos</b></td>
+<td>Vigila cada 5 minutos las oportunidades abiertas y avisa por correo a Comunicaciones, Samanta y Rafael cuando una pasa su tiempo límite según el triaje: 15 minutos las rojas, 40 las amarillas, 90 las verdes. A las vencidas les pone la etiqueta «ALERTA: Estancado».</td><td class="num">cada 5 minutos</td></tr>
+<tr><td><b>ROBOT RECICLAJE: Academia (Anti-Ghosting)</b></td>
+<td>Busca inscripciones de la academia que llevan 10 días sin moverse en las etapas Validación, Propuesta o Plan, y les manda un correo de rescate. Controla no repetir el envío a la misma persona.</td><td class="num">todos los días</td></tr>
+<tr><td><b>Ventas: Cancelar Presupuestos Vencidos (Auto)</b></td>
+<td>Cancela los presupuestos cuya validez venció en los últimos 30 días (hasta 100 por vez), limpia la etiqueta de estancado de su oportunidad y suma al contacto a la lista de campañas «Silva Salud - Campañas de Fidelización».</td><td class="num">todos los días</td></tr>
+<tr><td><b>[Auditoria CRM] - EVA AUDITORA: Monitoreo Contact Center &amp; Operadores</b></td>
+<td>Audita a diario el Centro de Contacto: mide tiempos de atención, cumplimiento de acuerdos de servicio por prioridad (roja, amarilla, verde, comercial) y rendimiento por vendedor, y manda el informe. Es el más largo de todos (181 líneas).</td><td class="num">todos los días</td></tr>
+<tr><td><b>[GERENCIA] Flash Report Diario de Ventas</b></td>
+<td>Alerta de facturación pendiente: busca oportunidades en etapa de Cierre que llevan más de 24 horas sin moverse y avisa a administración, Samanta y Comunicaciones, etiquetándolas como estancadas.</td><td class="num">todos los días</td></tr>
+<tr><td><b>[GERENCIA] Flash Report Diario de Ventas</b></td>
+<td>Cierre de ventas del día por unidad de negocio, con dos cortes: uno preliminar durante el día y el definitivo a las 23:59, ajustado a la hora de Venezuela.</td><td class="num">todos los días</td></tr>
+<tr><td><b>[GERENCIA] Informe Semanal de Gestión AeroSilva</b></td>
+<td>Informe semanal por unidad de negocio: oportunidades vivas, ventas cerradas, montos y cumplimiento de acuerdos de servicio, con semáforo por equipo.</td><td class="num">cada semana</td></tr>
+<tr><td><b>[SLA] EVA AUDITORA: EVA: GESTIÓN DE SLAs Y RENDIMIENTO (Email)</b></td>
+<td>Control diario del embudo sobre las nueve escuadras operativas: clasifica cada oportunidad por equipo, etiqueta y título, y reporta fallos de acuerdo de servicio y montos por escuadra. 247 líneas.</td><td class="num">todos los días</td></tr>
+<tr><td><b>[Auditoría CRM]: EVA v175.2 - Protocolo Reloj de Arena</b><span class="apagada">apagada</span></td>
+<td>APAGADA desde abril de 2026. Vigilaba el silencio operativo: si no entraba ninguna oportunidad nueva en 2 horas (día hábil) o 3 (noche y fin de semana), avisaba de la anomalía.</td><td class="num">cada 1 horas</td></tr></tbody></table></div>
+
+<h2 class="seccion">Las tareas del asistente de inteligencia artificial</h2>
+<p class="intro">Otras 15 pertenecen al asistente propio. Viajan con él y ya están probadas en la
+versión 19.</p>
+<div class="tabla-caja"><table>
+<thead><tr><th>Tarea</th><th>Qué hace</th><th>Cuándo corre</th></tr></thead>
+<tbody><tr><td><b>Agentes IA: aprender qué plantilla usar en cada presupuesto</b></td>
+<td>Recalcula qué plantilla de cotización conviene según lo que se usó antes.</td><td class="num">todos los días</td></tr>
+<tr><td><b>Agentes IA: armar el aviso de pendientes</b></td>
+<td>Arma el resumen diario de preguntas y pendientes que el asistente le debe a la Dirección.</td><td class="num">todos los días</td></tr>
+<tr><td><b>Agentes IA: chequear cambios en Drive</b></td>
+<td>Revisa las carpetas de Google Drive de cada agente y detecta documentos nuevos o modificados.</td><td class="num">todos los días</td></tr>
+<tr><td><b>Agentes IA: detectar huecos de conocimiento</b></td>
+<td>Busca preguntas que el asistente no supo contestar y las convierte en pedidos de material.</td><td class="num">todos los días</td></tr>
+<tr><td><b>Agentes IA: indexar texto de documentos</b></td>
+<td>Extrae el texto de los documentos cargados para que los agentes puedan consultarlos.</td><td class="num">cada 5 minutos</td></tr>
+<tr><td><b>Agentes IA: mandar los avisos que esperaban el horario</b></td>
+<td>Envía los avisos que quedaron en espera hasta la hora configurada.</td><td class="num">cada 20 minutos</td></tr>
+<tr><td><b>Agentes IA: mapear lo que hay en Odoo</b></td>
+<td>Censa modelos y datos del sistema para que los agentes sepan qué pueden consultar.</td><td class="num">todos los días</td></tr>
+<tr><td><b>Agentes IA: procesar documentos en cola</b></td>
+<td>Procesa la cola de documentos nuevos (cada minuto).</td><td class="num">cada 1 minutos</td></tr>
+<tr><td><b>Agentes IA: procesar oportunidades ganadas</b></td>
+<td>Cuando se gana una oportunidad, dispara el trabajo del agente correspondiente.</td><td class="num">cada 30 minutos</td></tr>
+<tr><td><b>Agentes IA: procesar órdenes AAS completadas</b></td>
+<td>Igual que el anterior, para las órdenes de servicio completadas.</td><td class="num">cada 30 minutos</td></tr>
+<tr><td><b>Agentes IA: rearmar cerebros con material nuevo</b></td>
+<td>Rearma el contexto de los agentes cuando entra material nuevo.</td><td class="num">cada 10 minutos</td></tr>
+<tr><td><b>Agentes IA: recordar feedback sin revisar</b></td>
+<td>Recuerda semanalmente las devoluciones de empleados que nadie revisó.</td><td class="num">cada 7 día</td></tr>
+<tr><td><b>Agentes IA: recordar los pendientes a la Dirección</b></td>
+<td>Cada hora, recuerda a la Dirección lo que quedó sin responder.</td><td class="num">cada 1 horas</td></tr>
+<tr><td><b>Agentes IA: responder chats pendientes</b></td>
+<td>Contesta las consultas de los empleados que quedaron en cola (cada 2 minutos).</td><td class="num">cada 2 minutos</td></tr>
+<tr><td><b>Agentes IA: revisión proactiva</b></td>
+<td>Revisión diaria en la que los agentes buscan cosas para avisar sin que nadie pregunte.</td><td class="num">todos los días</td></tr></tbody></table></div>
+
+<h2 class="seccion">Las que vienen con Odoo</h2>
+<p class="intro">Las 63 restantes son de fábrica y las mantiene Odoo: el envío de correos, la
+actualización de tasas de cambio, la lectura automática de facturas y currículos, los recordatorios de
+partes de horas. No hay nada que hacer con ellas. Las aportan, entre otros: mail (5), hr_expense_extract (3), account_invoice_extract (3), hr_recruitment_extract (3), sale_subscription (3), crm (2), website (2), gamification (2).</p>
+<p class="intro">Aparte, 3 desaparecen junto con los módulos que ya se decidió no llevar a la
+versión 19 (el WhatsApp actual y los formularios), que es lo esperado.</p>
+
+<h2 class="seccion">Tres cosas que conviene arreglar, más allá del cambio de versión</h2>
+<div class="hallazgos">
+  <div class="hallazgo">
+    <span class="marca">Riesgo de apagar la que no era</span>
+    <h4>Dos tareas distintas se llaman igual</h4>
+    <p>Hay dos tareas programadas con el nombre «[GERENCIA] Flash Report Diario de Ventas». No son una copia
+    de la otra: la de las 11:00 avisa de casos en cierre sin facturar, y la de las 23:00 es el corte de ventas
+    del día por unidad. El día que alguien necesite apagar una, no hay forma de saber cuál es cuál desde la
+    lista. Conviene renombrarlas.</p>
+  </div>
+  <div class="hallazgo">
+    <span class="marca">Punto único de falla</span>
+    <h4>Las nueve tareas propias corren con un solo usuario</h4>
+    <p>Todas las tareas hechas a la medida se ejecutan con el usuario de Rafael Silva Torres. Si ese usuario
+    se desactiva o le cambian los permisos, las nueve dejan de funcionar al mismo tiempo y sin aviso:
+    se cortan las alertas de tiempos de respuesta, los informes de gerencia y el robot de la academia.
+    Conviene pasarlas a un usuario técnico dedicado. Esto aplica al sistema de hoy, no es algo del cambio
+    de versión.</p>
+  </div>
+  <div class="hallazgo">
+    <span class="marca">Trabajo que nadie hace</span>
+    <h4>Dos automatizaciones encendidas no hacen nada</h4>
+    <p>«Solicitud de Provisión de Impuestos por Ventas» y «Solicitud Recurrente de Referencia Comercial
+    (90 días)» están encendidas y se disparan, pero no tienen ninguna instrucción cargada: no escriben, no
+    crean ni envían nada, y nunca lo hicieron. Hay que decidir si se completan con lo que debían hacer o se
+    archivan. Tampoco es algo del cambio de versión: ya estaban así.</p>
+  </div>
+</div>
+
+<h2 class="seccion">Lo que sigue</h2>
+<p class="intro">Con este informe queda cubierta la parte de tareas programadas y automatizaciones. Falta
+el mapa de los agentes de inteligencia artificial —qué hace cada uno y de qué departamento es— y el cruce
+entre ambos mundos: qué trabajo quedó dentro de los agentes y qué sigue siendo una automatización clásica.
+Es lo que viene ahora.</p>
+
+<footer class="pie">
+  <span>Revisado sobre el sistema real en modo consulta: no se modificó ningún dato.</span>
+  <span>Preparado por Franco (Agencia Krea) con su asistente de IA</span>
+</footer>
+</div>
