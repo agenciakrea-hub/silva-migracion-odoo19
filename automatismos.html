@@ -48,7 +48,7 @@ p { margin:0; }
 @media (max-width:620px) { .donde div { grid-template-columns:1fr; gap:2px; } }
 
 ul.lista { list-style:none; margin:10px 0 0; padding:0; border:1px solid var(--linea); background:var(--sup); }
-ul.lista li { display:grid; grid-template-columns:14px minmax(150px,1.4fr) minmax(190px,2.4fr) 76px 104px 130px;
+ul.lista li { display:grid; grid-template-columns:14px minmax(140px,1.3fr) minmax(170px,2fr) 128px 74px 100px 126px;
   gap:12px; align-items:center; padding:9px 14px; border-bottom:1px solid var(--linea-2); }
 ul.lista li:last-child { border-bottom:0; }
 .punto { width:9px; height:9px; border-radius:50%; background:var(--ok); }
@@ -63,6 +63,13 @@ li.aj .punto { background:var(--aj); } li.re .punto { background:var(--re); } li
 .quien.ia { background:var(--ia-s); color:var(--ia); }
 .quien.odoo { background:var(--va-s); color:var(--va); }
 .v19 { font-size:12.5px; color:var(--tinta-2); }
+.uso { font-size:11.5px; font-weight:600; line-height:1.25; }
+.uso small { display:block; font-weight:400; font-size:11px; color:var(--tinta-3); margin-top:2px; }
+.uso.u-si { color:var(--ok); }
+.uso.u-no { color:var(--tinta-3); }
+.uso.u-vig { color:var(--azul); }
+.uso.u-nada { color:var(--va); }
+.uso.u-nd { color:var(--tinta-3); }
 .v19 .igual { color:var(--ok); }
 .v19 .mueve { color:var(--azul); }
 .prop.p-queda { background:var(--ok-s); color:var(--ok); }
@@ -70,7 +77,7 @@ li.aj .punto { background:var(--aj); } li.re .punto { background:var(--re); } li
 .prop.p-acto { background:var(--aj-s); color:var(--aj); }
 @media (max-width:860px) {
   ul.lista li { grid-template-columns:14px 1fr; gap:4px 10px; padding:12px 14px; }
-  .que { grid-column:2; } .quien, .v19, .prop { grid-column:2; justify-self:start; }
+  .que { grid-column:2; } .uso, .quien, .v19, .prop { grid-column:2; justify-self:start; }
   .v19::before { content:"En la 19: "; color:var(--tinta-3); }
 }
 .leyenda { display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:10px; font-size:12.5px; color:var(--tinta-3); }
@@ -106,144 +113,15 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
 </div>
 
 <h2>Reglas: reaccionan cuando algo pasa</h2>
-<p class="nota">Las 25 que están encendidas. <b>Todas fueron escritas a la medida para esta empresa</b>: ninguna viene de fábrica.</p>
-<ul class="lista"><li class="re">
-  <span class="punto" title="Hay que reescribirla"></span>
-  <span class="nom">Alerta de alumno estancado</span>
-  <span class="que">Avisa si un alumno lleva 7 días sin avanzar</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Aviso de presupuesto cancelado</span>
-  <span class="que">Manda el correo cuando se cancela un presupuesto</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Aviso de presupuesto sin respuesta (48 horas)</span>
-  <span class="que">Avisa si un presupuesto lleva 48 horas sin respuesta</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Cierre de servicio: encuesta y aviso a administración</span>
-  <span class="que">Al cerrar el servicio manda la encuesta y avisa para facturar</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Clasificador de los códigos QR del CMDLT</span>
-  <span class="que">Detecta por qué código QR entró el paciente del CMDLT</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Pedido de cotización a proveedores de vuelo</span>
-  <span class="que">Pide cotización al proveedor cuando el caso aéreo entra en validación</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="re">
-  <span class="punto" title="Hay que reescribirla"></span>
-  <span class="nom">Procesar alumno graduado de la Red RAA</span>
-  <span class="que">Mueve al alumno cuando termina su curso</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Propagar la autorización (del lado del pedido)</span>
-  <span class="que">La otra mitad: del presupuesto al pedido</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Propagar la autorización de Gerencia al presupuesto</span>
-  <span class="que">Pasa la autorización de Gerencia al presupuesto</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="va">
-  <span class="punto" title="Hoy no hace nada"></span>
-  <span class="nom">Referencia comercial cada 90 días</span>
-  <span class="que">Debería pedir referencias comerciales, pero está vacía</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-acto">Completar o archivar</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Seguimiento de oferta enviada (4 horas)</span>
-  <span class="que">Avisa a las 4 horas de una oferta sin respuesta</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="va">
-  <span class="punto" title="Hoy no hace nada"></span>
-  <span class="nom">Solicitud de provisión de impuestos</span>
-  <span class="que">Debería pedir la provisión de impuestos, pero está vacía</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-acto">Completar o archivar</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Activación del plan de contingencia</span>
-  <span class="que">Agenda la activación del plan de contingencia</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Aviso de aprobación de lote de pagos</span>
-  <span class="que">Agenda la revisión del lote de pagos</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Aviso de presupuesto sin respuesta (24 horas)</span>
-  <span class="que">Avisa si un presupuesto lleva 24 horas sin respuesta</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Bloqueo de despacho sin pago</span>
-  <span class="que">Impide despachar sin pago o sin autorización de Gerencia</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Enviar requisitos y datos de pago</span>
-  <span class="que">Manda requisitos y datos de pago al aspirante</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Gestión de lote aprobado en el banco</span>
-  <span class="que">Avisa cuando el lote se aprueba en el banco</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">IVAN: detector de riesgo de fuga</span>
-  <span class="que">Lee los mensajes y deriva los casos corporativos</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
+<p class="nota">Las 25 que están encendidas, <b>ordenadas por las que más trabajan</b>. La columna
+«trabajando» no dice si está prendida —todas lo están— sino <b>qué rastro dejó de verdad en el sistema</b>:
+etiquetas puestas, tareas creadas, correos enviados. Todas fueron escritas a la medida para esta empresa:
+ninguna viene de fábrica.</p>
+<ul class="lista"><li class="ok">
   <span class="punto" title="Anda igual"></span>
   <span class="nom">Instrucciones de transferencia para reposición</span>
   <span class="que">Agenda las instrucciones de transferencia</span>
+  <span class="uso u-si" title="33 instrucciones de transferencia en 30 días">Trabajando<small>33 instrucciones de transferencia en 30 días</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
   <span class="prop p-queda">Queda como está</span>
@@ -251,13 +129,15 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">Marcado automático de empresas</span>
   <span class="que">Etiqueta como CORPORATIVO a toda empresa nueva</span>
+  <span class="uso u-si" title="19 empresas etiquetadas en 30 días">Trabajando<small>19 empresas etiquetadas en 30 días</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
   <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Presupuesto automático al entrar una oportunidad</span>
-  <span class="que">Arma el presupuesto solo cuando entra una oportunidad</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Pedido de cotización a proveedores de vuelo</span>
+  <span class="que">Pide cotización al proveedor cuando el caso aéreo entra en validación</span>
+  <span class="uso u-si" title="3 pedidos de cotización en 30 días">Trabajando<small>3 pedidos de cotización en 30 días</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
   <span class="prop p-queda">Queda como está</span>
@@ -265,6 +145,143 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">Reserva y programación del servicio</span>
   <span class="que">Al confirmar el pedido avisa a programación y arma la misión</span>
+  <span class="uso u-si" title="46 misiones generadas en 30 días">Trabajando<small>46 misiones generadas en 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Seguimiento de oferta enviada (4 horas)</span>
+  <span class="que">Avisa a las 4 horas de una oferta sin respuesta</span>
+  <span class="uso u-si" title="14 avisos en 30 días">Trabajando<small>14 avisos en 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Bloqueo de despacho sin pago</span>
+  <span class="que">Impide despachar sin pago o sin autorización de Gerencia</span>
+  <span class="uso u-vig" title="solo escribe cuando bloquea algo: 5 veces, la última en junio">Vigilando<small>solo escribe cuando bloquea algo: 5 veces, la última en junio</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Activación del plan de contingencia</span>
+  <span class="que">Agenda la activación del plan de contingencia</span>
+  <span class="uso u-nd" title="">—</span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Aviso de presupuesto cancelado</span>
+  <span class="que">Manda el correo cuando se cancela un presupuesto</span>
+  <span class="uso u-nd" title="">—</span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Enviar requisitos y datos de pago</span>
+  <span class="que">Manda requisitos y datos de pago al aspirante</span>
+  <span class="uso u-nd" title="">—</span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">IVAN: detector de riesgo de fuga</span>
+  <span class="que">Lee los mensajes y deriva los casos corporativos</span>
+  <span class="uso u-nd" title="">—</span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="re">
+  <span class="punto" title="Hay que reescribirla"></span>
+  <span class="nom">Procesar alumno graduado de la Red RAA</span>
+  <span class="que">Mueve al alumno cuando termina su curso</span>
+  <span class="uso u-nd" title="">—</span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Aviso de aprobación de lote de pagos</span>
+  <span class="que">Agenda la revisión del lote de pagos</span>
+  <span class="uso u-no" title="82 avisos abiertos de antes, ninguno nuevo en 30 días">Hace meses<small>82 avisos abiertos de antes, ninguno nuevo en 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Aviso de presupuesto sin respuesta (24 horas)</span>
+  <span class="que">Avisa si un presupuesto lleva 24 horas sin respuesta</span>
+  <span class="uso u-no" title="110 tareas abiertas de antes, ninguna nueva en 30 días">Hace meses<small>110 tareas abiertas de antes, ninguna nueva en 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Aviso de presupuesto sin respuesta (48 horas)</span>
+  <span class="que">Avisa si un presupuesto lleva 48 horas sin respuesta</span>
+  <span class="uso u-no" title="29 avisos en total, ninguno en los últimos 30 días">Hace meses<small>29 avisos en total, ninguno en los últimos 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Cierre de servicio: encuesta y aviso a administración</span>
+  <span class="que">Al cerrar el servicio manda la encuesta y avisa para facturar</span>
+  <span class="uso u-no" title="6 encuestas enviadas, la última en agosto">Hace meses<small>6 encuestas enviadas, la última en agosto</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Gestión de lote aprobado en el banco</span>
+  <span class="que">Avisa cuando el lote se aprueba en el banco</span>
+  <span class="uso u-no" title="sin correos nuevos en 30 días">Hace meses<small>sin correos nuevos en 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Presupuesto automático al entrar una oportunidad</span>
+  <span class="que">Arma el presupuesto solo cuando entra una oportunidad</span>
+  <span class="uso u-no" title="123 casos en total, pero solo 1 en los últimos 30 días">Hace meses<small>123 casos en total, pero solo 1 en los últimos 30 días</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Propagar la autorización (del lado del pedido)</span>
+  <span class="que">La otra mitad: del presupuesto al pedido</span>
+  <span class="uso u-no" title="18 pedidos autorizados, el último en mayo">Hace meses<small>18 pedidos autorizados, el último en mayo</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Propagar la autorización de Gerencia al presupuesto</span>
+  <span class="que">Pasa la autorización de Gerencia al presupuesto</span>
+  <span class="uso u-no" title="18 pedidos autorizados, el último en mayo">Hace meses<small>18 pedidos autorizados, el último en mayo</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-queda">Queda como está</span>
+</li><li class="re">
+  <span class="punto" title="Hay que reescribirla"></span>
+  <span class="nom">Alerta de alumno estancado</span>
+  <span class="que">Avisa si un alumno lleva 7 días sin avanzar</span>
+  <span class="uso u-no" title="un solo aviso en todo el historial">Sin rastro<small>un solo aviso en todo el historial</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">Clasificador de los códigos QR del CMDLT</span>
+  <span class="que">Detecta por qué código QR entró el paciente del CMDLT</span>
+  <span class="uso u-no" title="ningún caso etiquetado todavía">Sin rastro<small>ningún caso etiquetado todavía</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
   <span class="prop p-queda">Queda como está</span>
@@ -272,6 +289,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">Ruteo de casos de Ever Insurance</span>
   <span class="que">Rutea los casos que llegan de Ever Insurance</span>
+  <span class="uso u-no" title="sin casos nuevos del Centro de Contacto en 30 días">Sin rastro<small>sin casos nuevos del Centro de Contacto en 30 días</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
   <span class="prop p-queda">Queda como está</span>
@@ -279,59 +297,59 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">Ruteo de casos: terrestre o aéreo</span>
   <span class="que">Manda cada caso nuevo al equipo que corresponde</span>
+  <span class="uso u-no" title="sin casos nuevos del Centro de Contacto en 30 días">Sin rastro<small>sin casos nuevos del Centro de Contacto en 30 días</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
   <span class="prop p-queda">Queda como está</span>
+</li><li class="va">
+  <span class="punto" title="Hoy no hace nada"></span>
+  <span class="nom">Referencia comercial cada 90 días</span>
+  <span class="que">Debería pedir referencias comerciales, pero está vacía</span>
+  <span class="uso u-nada" title="no escribe nada al correr">No hace nada<small>no escribe nada al correr</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-acto">Completar o archivar</span>
+</li><li class="va">
+  <span class="punto" title="Hoy no hace nada"></span>
+  <span class="nom">Solicitud de provisión de impuestos</span>
+  <span class="que">Debería pedir la provisión de impuestos, pero está vacía</span>
+  <span class="uso u-nada" title="nunca creó una solicitud">No hace nada<small>nunca creó una solicitud</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
+  <span class="prop p-acto">Completar o archivar</span>
 </li></ul>
 
 <h2>Tareas programadas propias: corren por reloj</h2>
 <p class="nota">Las 9 que escribió su equipo. Las otras 78 son de Odoo o del asistente.</p>
-<ul class="lista"><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Ambulancia: Monitor de SLA Vencidos</span>
-  <span class="que">Vigila los tiempos de respuesta por triaje y avisa</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">ROBOT RECICLAJE: Academia (Anti-Ghosting)</span>
-  <span class="que">Rescata inscripciones frenadas hace 10 días</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
+<ul class="lista"><li class="aj">
   <span class="punto" title="Ajuste de una línea"></span>
   <span class="nom">Ventas: Cancelar Presupuestos Vencidos (Auto)</span>
   <span class="que">Cancela presupuestos vencidos y recicla el contacto</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-queda">Queda como está</span>
 </li><li class="ok">
   <span class="punto" title="Anda igual"></span>
+  <span class="nom">[GERENCIA] Flash Report Diario de Ventas</span>
+  <span class="que">Alerta de casos en cierre sin facturar</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="igual">mismo lugar</span></span>
+  <span class="prop p-acto">Renombrar</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
   <span class="nom">[Auditoria CRM] - EVA AUDITORA: Monitoreo Contact Center &amp; Operadores</span>
   <span class="que">Audita el Centro de Contacto y reporta rendimiento</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Puede pasar al asistente</span>
 </li><li class="ok">
   <span class="punto" title="Anda igual"></span>
-  <span class="nom">[GERENCIA] Flash Report Diario de Ventas</span>
-  <span class="que">Alerta de casos en cierre sin facturar</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-acto">Renombrar</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">[GERENCIA] Flash Report Diario de Ventas</span>
-  <span class="que">Corte de ventas del día por unidad</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-acto">Renombrar</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
   <span class="nom">[GERENCIA] Informe Semanal de Gestión AeroSilva</span>
   <span class="que">Informe semanal por unidad de negocio</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Puede pasar al asistente</span>
@@ -339,6 +357,31 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">[SLA] EVA AUDITORA: EVA: GESTIÓN DE SLAs Y RENDIMIENTO (Email)</span>
   <span class="que">Control diario del embudo por escuadra</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="igual">mismo lugar</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">ROBOT RECICLAJE: Academia (Anti-Ghosting)</span>
+  <span class="que">Rescata inscripciones frenadas hace 10 días</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="igual">mismo lugar</span></span>
+  <span class="prop p-ia">Puede pasar al asistente</span>
+</li><li class="aj">
+  <span class="punto" title="Ajuste de una línea"></span>
+  <span class="nom">[GERENCIA] Flash Report Diario de Ventas</span>
+  <span class="que">Corte de ventas del día por unidad</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
+  <span class="quien regla">Regla</span>
+  <span class="v19"><span class="igual">mismo lugar</span></span>
+  <span class="prop p-acto">Renombrar</span>
+</li><li class="ok">
+  <span class="punto" title="Anda igual"></span>
+  <span class="nom">Ambulancia: Monitor de SLA Vencidos</span>
+  <span class="que">Vigila los tiempos de respuesta por triaje y avisa</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Puede pasar al asistente</span>
@@ -346,6 +389,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">[Auditoría CRM]: EVA v175.2 - Protocolo Reloj de Arena<em>apagada</em></span>
   <span class="que">Avisaba si no entraban casos nuevos (apagada en abril)</span>
+  <span class="uso u-nada" title="última corrida: 2026-04-26">Apagada<small>última corrida: 2026-04-26</small></span>
   <span class="quien regla">Regla</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-acto">Completar o archivar</span>
@@ -357,6 +401,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">aprender qué plantilla usar en cada presupuesto</span>
   <span class="que">Recalcula qué plantilla de cotización conviene según lo que se usó antes</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -364,6 +409,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">armar el aviso de pendientes</span>
   <span class="que">Arma el resumen diario de preguntas y pendientes que el asistente le debe a la Dirección</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -371,6 +417,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">chequear cambios en Drive</span>
   <span class="que">Revisa las carpetas de Google Drive de cada agente y detecta documentos nuevos o modificados</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -378,6 +425,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">detectar huecos de conocimiento</span>
   <span class="que">Busca preguntas que el asistente no supo contestar y las convierte en pedidos de material</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -385,6 +433,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">indexar texto de documentos</span>
   <span class="que">Extrae el texto de los documentos cargados para que los agentes puedan consultarlos</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -392,6 +441,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">mandar los avisos que esperaban el horario</span>
   <span class="que">Envía los avisos que quedaron en espera hasta la hora configurada</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -399,6 +449,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">mapear lo que hay en Odoo</span>
   <span class="que">Censa modelos y datos del sistema para que los agentes sepan qué pueden consultar</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -406,6 +457,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">procesar documentos en cola</span>
   <span class="que">Procesa la cola de documentos nuevos (cada minuto)</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -413,6 +465,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">procesar oportunidades ganadas</span>
   <span class="que">Cuando se gana una oportunidad, dispara el trabajo del agente correspondiente</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -420,6 +473,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">procesar órdenes AAS completadas</span>
   <span class="que">Igual que el anterior, para las órdenes de servicio completadas</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -427,6 +481,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">rearmar cerebros con material nuevo</span>
   <span class="que">Rearma el contexto de los agentes cuando entra material nuevo</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -434,6 +489,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">recordar feedback sin revisar</span>
   <span class="que">Recuerda semanalmente las devoluciones de empleados que nadie revisó</span>
+  <span class="uso u-si" title="última corrida: 2026-09-22">Esta semana<small>última corrida: 2026-09-22</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -441,6 +497,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">recordar los pendientes a la Dirección</span>
   <span class="que">Cada hora, recuerda a la Dirección lo que quedó sin responder</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -448,6 +505,7 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">responder chats pendientes</span>
   <span class="que">Contesta las consultas de los empleados que quedaron en cola (cada 2 minutos)</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
@@ -455,12 +513,15 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
   <span class="punto" title="Anda igual"></span>
   <span class="nom">revisión proactiva</span>
   <span class="que">Revisión diaria en la que los agentes buscan cosas para avisar sin que nadie pregunte</span>
+  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
   <span class="quien ia">Asistente</span>
   <span class="v19"><span class="igual">mismo lugar</span></span>
   <span class="prop p-ia">Ya lo hace el asistente</span>
 </li></ul>
 
 <div class="leyenda">
+  <span><b style="color:var(--ok)">Trabajando</b> = dejó rastro en los últimos 30 días</span>
+  <span><b style="color:var(--azul)">Vigilando</b> = solo actúa cuando hay que frenar algo</span>
   <span><i style="background:var(--ok)"></i> anda igual en la 19</span>
   <span><i style="background:var(--aj)"></i> ajuste de una línea</span>
   <span><i style="background:var(--re)"></i> hay que reescribirla</span>
