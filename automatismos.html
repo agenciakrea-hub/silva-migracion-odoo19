@@ -2,94 +2,79 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap">
 <style>
 :root {
-  --tinta:#10202c; --tinta-2:#4a5c6a; --tinta-3:#778794; --fondo:#f5f7f8; --sup:#fff;
-  --linea:#dfe5ea; --linea-2:#edf1f4; --azul:#004a99; --azul-s:#e7eff8;
-  --ok:#137a56; --ok-s:#e2f3ec; --aj:#8a5c00; --aj-s:#fbeedb; --re:#a52424; --re-s:#f9e6e6;
-  --va:#6b7a86; --va-s:#eceff2; --ia:#5b3a9e; --ia-s:#ede7f8;
-  color-scheme: light;
-}
+  --tinta:#10202c; --tinta-2:#4c5e6c; --tinta-3:#7b8b98; --fondo:#f5f7f8; --sup:#fff;
+  --linea:#e0e6ea; --linea-2:#eef2f5; --azul:#004a99;
+  --ok:#137a56; --ok-b:#d9efe6; --aj:#8a5c00; --aj-b:#fbeedb; --re:#a52424; --re-b:#f9e4e4;
+  --gris:#8494a0; --gris-b:#eceff2;
+  color-scheme: light; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --tinta:#e8eef2; --tinta-2:#aebcc6; --tinta-3:#7c8c99; --fondo:#0f171e; --sup:#16212b;
-  --linea:#2a3742; --linea-2:#1e2a34; --azul:#7fb2e8; --azul-s:#16293c;
-  --ok:#68cfa8; --ok-s:#102a22; --aj:#e8b463; --aj-s:#2f2610; --re:#ef8a8a; --re-s:#311c1c;
-  --va:#8b9aa6; --va-s:#1c262f; --ia:#b79aee; --ia-s:#241b38;
+  --tinta:#e9eff3; --tinta-2:#b2c0ca; --tinta-3:#8093a0; --fondo:#0f171e; --sup:#16212b;
+  --linea:#2a3742; --linea-2:#1d2932; --azul:#7fb2e8;
+  --ok:#66cfa6; --ok-b:#112c23; --aj:#e8b463; --aj-b:#2e2510; --re:#ef8a8a; --re-b:#311c1c;
+  --gris:#8b9aa6; --gris-b:#1c262f;
   color-scheme: dark; } }
 :root[data-theme="dark"] {
-  --tinta:#e8eef2; --tinta-2:#aebcc6; --tinta-3:#7c8c99; --fondo:#0f171e; --sup:#16212b;
-  --linea:#2a3742; --linea-2:#1e2a34; --azul:#7fb2e8; --azul-s:#16293c;
-  --ok:#68cfa8; --ok-s:#102a22; --aj:#e8b463; --aj-s:#2f2610; --re:#ef8a8a; --re-s:#311c1c;
-  --va:#8b9aa6; --va-s:#1c262f; --ia:#b79aee; --ia-s:#241b38;
+  --tinta:#e9eff3; --tinta-2:#b2c0ca; --tinta-3:#8093a0; --fondo:#0f171e; --sup:#16212b;
+  --linea:#2a3742; --linea-2:#1d2932; --azul:#7fb2e8;
+  --ok:#66cfa6; --ok-b:#112c23; --aj:#e8b463; --aj-b:#2e2510; --re:#ef8a8a; --re-b:#311c1c;
+  --gris:#8b9aa6; --gris-b:#1c262f;
   color-scheme: dark; }
 * { box-sizing:border-box; }
 body { margin:0; background:var(--fondo); color:var(--tinta);
-  font-family:"Source Sans 3",system-ui,sans-serif; font-size:15px; line-height:1.5; }
-.wrap { max-width:1000px; margin:0 auto; padding-block:30px 64px; padding-left:16px; padding-right:16px; }
-h1 { font-family:Archivo,sans-serif; font-size:clamp(24px,4.5vw,32px); font-weight:700;
+  font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; line-height:1.5; }
+.wrap { max-width:880px; margin:0 auto; padding-block:32px 60px; padding-left:16px; padding-right:16px; }
+h1 { font-family:Archivo,sans-serif; font-size:clamp(25px,5vw,34px); font-weight:700;
   letter-spacing:-.02em; margin:0; line-height:1.1; }
-h2 { font-family:Archivo,sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:.09em;
-  color:var(--tinta-3); margin:38px 0 4px; font-weight:600; }
-p { margin:0; }
-.de { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--azul); margin-bottom:8px; }
-.fecha { font-size:13px; color:var(--tinta-3); margin-top:10px; }
+.de { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--azul); margin:0 0 8px; }
+.fecha { font-size:13.5px; color:var(--tinta-3); margin:9px 0 0; }
 
-.garantia { display:flex; gap:1px; background:var(--linea); border:1px solid var(--linea); margin-top:22px; flex-wrap:wrap; }
-.g { background:var(--sup); padding:13px 16px; flex:1 1 150px; }
-.g .n { font-family:Archivo,sans-serif; font-size:27px; font-weight:700; line-height:1;
-  font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
-.g .t { font-size:12px; color:var(--tinta-3); margin-top:5px; line-height:1.3; }
-.g.verde .n { color:var(--ok); } .g.ambar .n { color:var(--aj); } .g.rojo .n { color:var(--re); }
+.medidas { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:26px; }
+@media (max-width:700px) { .medidas { grid-template-columns:1fr; gap:14px; } }
+.med .cab { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+.med .tit { font-size:13.5px; font-weight:600; line-height:1.25; }
+.med .pct { font-family:Archivo,sans-serif; font-size:32px; font-weight:700; line-height:1;
+  font-variant-numeric:tabular-nums; letter-spacing:-.03em; }
+.med .pct i { font-style:normal; font-size:16px; }
+.pct.v { color:var(--ok); } .pct.a { color:var(--aj); }
+.riel { height:9px; background:var(--gris-b); margin-top:9px; }
+.relleno { height:100%; }
+.relleno.v { background:var(--ok); } .relleno.a { background:var(--aj); }
+.med .det { font-size:13px; color:var(--tinta-3); margin:7px 0 0; line-height:1.35; }
 
-.donde { margin-top:14px; border:1px solid var(--linea); background:var(--sup); }
-.donde div { display:grid; grid-template-columns:150px 1fr 1fr; gap:12px; padding:9px 14px; font-size:13.5px; }
-.donde div + div { border-top:1px solid var(--linea-2); }
-.donde .cab { font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--tinta-3);
-  font-weight:600; background:var(--linea-2); }
-.donde b { color:var(--azul); }
-@media (max-width:620px) { .donde div { grid-template-columns:1fr; gap:2px; } }
+h2 { font-family:Archivo,sans-serif; font-size:19px; font-weight:600; margin:42px 0 3px; letter-spacing:-.01em; }
+.sub { font-size:14px; color:var(--tinta-2); margin:0 0 12px; max-width:70ch; }
 
-ul.lista { list-style:none; margin:10px 0 0; padding:0; border:1px solid var(--linea); background:var(--sup); }
-ul.lista li { display:grid; grid-template-columns:14px minmax(140px,1.3fr) minmax(170px,2fr) 128px 74px 100px 126px;
-  gap:12px; align-items:center; padding:9px 14px; border-bottom:1px solid var(--linea-2); }
-ul.lista li:last-child { border-bottom:0; }
-.punto { width:9px; height:9px; border-radius:50%; background:var(--ok); }
-li.aj .punto { background:var(--aj); } li.re .punto { background:var(--re); } li.va .punto { background:var(--va); }
-.nom { font-weight:600; font-size:14.5px; line-height:1.25; }
-.nom em { font-style:normal; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
-  color:var(--tinta-3); background:var(--va-s); padding:1px 5px; margin-left:6px; }
-.que { color:var(--tinta-2); font-size:13.5px; line-height:1.3; }
-.quien, .prop { font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
-  padding:3px 7px; text-align:center; }
-.quien.regla { background:var(--azul-s); color:var(--azul); }
-.quien.ia { background:var(--ia-s); color:var(--ia); }
-.quien.odoo { background:var(--va-s); color:var(--va); }
-.v19 { font-size:12.5px; color:var(--tinta-2); }
-.uso { font-size:11.5px; font-weight:600; line-height:1.25; }
-.uso small { display:block; font-weight:400; font-size:11px; color:var(--tinta-3); margin-top:2px; }
-.uso.u-si { color:var(--ok); }
-.uso.u-no { color:var(--tinta-3); }
-.uso.u-vig { color:var(--azul); }
-.uso.u-nada { color:var(--va); }
-.uso.u-nd { color:var(--tinta-3); }
-.v19 .igual { color:var(--ok); }
-.v19 .mueve { color:var(--azul); }
-.prop.p-queda { background:var(--ok-s); color:var(--ok); }
-.prop.p-ia { background:var(--ia-s); color:var(--ia); }
-.prop.p-acto { background:var(--aj-s); color:var(--aj); }
-@media (max-width:860px) {
-  ul.lista li { grid-template-columns:14px 1fr; gap:4px 10px; padding:12px 14px; }
-  .que { grid-column:2; } .uso, .quien, .v19, .prop { grid-column:2; justify-self:start; }
-  .v19::before { content:"En la 19: "; color:var(--tinta-3); }
-}
-.leyenda { display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:10px; font-size:12.5px; color:var(--tinta-3); }
-.leyenda span { display:flex; align-items:center; gap:6px; }
-.leyenda i { width:9px; height:9px; border-radius:50%; display:inline-block; font-style:normal; }
-.nota { font-size:14px; color:var(--tinta-2); margin-top:10px; max-width:74ch; }
-.acciones { margin-top:12px; border:1px solid var(--linea); background:var(--sup); }
-.acciones div { padding:12px 15px; font-size:14px; color:var(--tinta-2); }
-.acciones div + div { border-top:1px solid var(--linea-2); }
-.acciones b { color:var(--tinta); }
-footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); font-size:12.5px;
-  color:var(--tinta-3); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+ul { list-style:none; margin:0; padding:0; border:1px solid var(--linea); background:var(--sup); }
+li { display:grid; grid-template-columns:minmax(150px,1.25fr) minmax(170px,1.9fr) 150px 116px;
+  gap:14px; align-items:center; padding:10px 15px; border-bottom:1px solid var(--linea-2); }
+li:last-child { border-bottom:0; }
+.n { font-weight:600; font-size:14.5px; line-height:1.25; }
+.n small { display:block; font-weight:400; font-size:11px; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--tinta-3); margin-top:2px; }
+.q { color:var(--tinta-2); font-size:13.5px; line-height:1.3; }
+.t { font-size:13px; font-weight:600; line-height:1.25; }
+.t small { display:block; font-weight:400; font-size:11.5px; color:var(--tinta-3); margin-top:1px; }
+.t-si { color:var(--ok); } .t-vig { color:var(--azul); } .t-no, .t-nd { color:var(--tinta-3); }
+.t-nada { color:var(--gris); }
+.e { font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+  padding:4px 8px; text-align:center; }
+.e-si { background:var(--ok-b); color:var(--ok); }
+.e-aj { background:var(--aj-b); color:var(--aj); }
+.e-re { background:var(--re-b); color:var(--re); }
+.cabecera { display:grid; grid-template-columns:minmax(150px,1.25fr) minmax(170px,1.9fr) 150px 116px;
+  gap:14px; padding:8px 15px; font-size:11px; text-transform:uppercase; letter-spacing:.07em;
+  color:var(--tinta-3); font-weight:600; background:var(--linea-2); border:1px solid var(--linea); border-bottom:0; }
+@media (max-width:760px) {
+  li { grid-template-columns:1fr auto; gap:3px 12px; }
+  .q { grid-column:1/-1; } .t { grid-column:1; } .e { grid-column:2; grid-row:1; justify-self:end; }
+  .cabecera { display:none; } }
+
+.final { border:1px solid var(--linea); background:var(--sup); margin-top:14px; }
+.final div { padding:12px 15px; font-size:14px; color:var(--tinta-2); }
+.final div + div { border-top:1px solid var(--linea-2); }
+.final b { color:var(--tinta); }
+footer { margin-top:44px; padding-top:13px; border-top:1px solid var(--linea); font-size:12.5px;
+  color:var(--tinta-3); display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
 </style>
 
 <div class="wrap">
@@ -97,460 +82,287 @@ footer { margin-top:42px; padding-top:13px; border-top:1px solid var(--linea); f
 <h1>Todo lo que el sistema hace solo</h1>
 <p class="fecha">28 de septiembre de 2026 · 115 automatismos revisados uno por uno sobre el sistema real</p>
 
-<div class="garantia">
-  <div class="g verde"><div class="n">0</div><div class="t">se pierden al pasar a la versión 19</div></div>
-  <div class="g verde"><div class="n">103</div><div class="t">funcionan igual, sin tocar nada</div></div>
-  <div class="g ambar"><div class="n">10</div><div class="t">llevan un ajuste de una línea</div></div>
-  <div class="g rojo"><div class="n">2</div><div class="t">hay que reescribir (las dos de la academia)</div></div>
+<div class="medidas">
+<div class="med">
+<div class="cab"><span class="tit">Tareas programadas funcionando</span><span class="pct v">98<i>%</i></span></div>
+<div class="riel"><div class="relleno v" style="width:98%"></div></div>
+<p class="det">88 de las 90 corrieron este mes. Las otras 2 están apagadas.</p></div>
+<div class="med">
+<div class="cab"><span class="tit">Reglas con actividad reciente</span><span class="pct a">24<i>%</i></span></div>
+<div class="riel"><div class="relleno a" style="width:24%"></div></div>
+<p class="det">Solo 6 de 25 dejaron rastro en los últimos 30 días. Las demás están encendidas pero no actúan.</p></div>
+<div class="med">
+<div class="cab"><span class="tit">Funcionan igual en Odoo 19</span><span class="pct v">98<i>%</i></span></div>
+<div class="riel"><div class="relleno v" style="width:98%"></div></div>
+<p class="det">113 de 115. Las 2 que hay que rehacer son las dos de la academia.</p></div>
 </div>
 
-<h2>Dónde se administran</h2>
-<div class="donde">
-  <div class="cab"><span>Qué</span><span>Hoy, en la versión 16</span><span>En la versión 19</span></div>
-  <div><span>Reglas</span><span>Ajustes › Técnico › Automatización › Acciones automatizadas</span><span>Ajustes › Técnico › Automatización › Reglas de automatización <b>(cambia el nombre)</b></span></div>
-  <div><span>Tareas programadas</span><span>Ajustes › Técnico › Automatización › Acciones planificadas</span><span>El mismo lugar</span></div>
-  <div><span>Acciones</span><span>Ajustes › Técnico › Acciones › Acciones de servidor</span><span>El mismo lugar</span></div>
-</div>
-
-<h2>Reglas: reaccionan cuando algo pasa</h2>
-<p class="nota">Las 25 que están encendidas, <b>ordenadas por las que más trabajan</b>. La columna
-«trabajando» no dice si está prendida —todas lo están— sino <b>qué rastro dejó de verdad en el sistema</b>:
-etiquetas puestas, tareas creadas, correos enviados. Todas fueron escritas a la medida para esta empresa:
-ninguna viene de fábrica.</p>
-<ul class="lista"><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Instrucciones de transferencia para reposición</span>
-  <span class="que">Agenda las instrucciones de transferencia</span>
-  <span class="uso u-si" title="33 instrucciones de transferencia en 30 días">Trabajando<small>33 instrucciones de transferencia en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Marcado automático de empresas</span>
-  <span class="que">Etiqueta como CORPORATIVO a toda empresa nueva</span>
-  <span class="uso u-si" title="19 empresas etiquetadas en 30 días">Trabajando<small>19 empresas etiquetadas en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Pedido de cotización a proveedores de vuelo</span>
-  <span class="que">Pide cotización al proveedor cuando el caso aéreo entra en validación</span>
-  <span class="uso u-si" title="3 pedidos de cotización en 30 días">Trabajando<small>3 pedidos de cotización en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Reserva y programación del servicio</span>
-  <span class="que">Al confirmar el pedido avisa a programación y arma la misión</span>
-  <span class="uso u-si" title="46 misiones generadas en 30 días">Trabajando<small>46 misiones generadas en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Seguimiento de oferta enviada (4 horas)</span>
-  <span class="que">Avisa a las 4 horas de una oferta sin respuesta</span>
-  <span class="uso u-si" title="14 avisos en 30 días">Trabajando<small>14 avisos en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Bloqueo de despacho sin pago</span>
-  <span class="que">Impide despachar sin pago o sin autorización de Gerencia</span>
-  <span class="uso u-vig" title="solo escribe cuando bloquea algo: 5 veces, la última en junio">Vigilando<small>solo escribe cuando bloquea algo: 5 veces, la última en junio</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Activación del plan de contingencia</span>
-  <span class="que">Agenda la activación del plan de contingencia</span>
-  <span class="uso u-nd" title="">—</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Aviso de presupuesto cancelado</span>
-  <span class="que">Manda el correo cuando se cancela un presupuesto</span>
-  <span class="uso u-nd" title="">—</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Enviar requisitos y datos de pago</span>
-  <span class="que">Manda requisitos y datos de pago al aspirante</span>
-  <span class="uso u-nd" title="">—</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">IVAN: detector de riesgo de fuga</span>
-  <span class="que">Lee los mensajes y deriva los casos corporativos</span>
-  <span class="uso u-nd" title="">—</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="re">
-  <span class="punto" title="Hay que reescribirla"></span>
-  <span class="nom">Procesar alumno graduado de la Red RAA</span>
-  <span class="que">Mueve al alumno cuando termina su curso</span>
-  <span class="uso u-nd" title="">—</span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Aviso de aprobación de lote de pagos</span>
-  <span class="que">Agenda la revisión del lote de pagos</span>
-  <span class="uso u-no" title="82 avisos abiertos de antes, ninguno nuevo en 30 días">Hace meses<small>82 avisos abiertos de antes, ninguno nuevo en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Aviso de presupuesto sin respuesta (24 horas)</span>
-  <span class="que">Avisa si un presupuesto lleva 24 horas sin respuesta</span>
-  <span class="uso u-no" title="110 tareas abiertas de antes, ninguna nueva en 30 días">Hace meses<small>110 tareas abiertas de antes, ninguna nueva en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Aviso de presupuesto sin respuesta (48 horas)</span>
-  <span class="que">Avisa si un presupuesto lleva 48 horas sin respuesta</span>
-  <span class="uso u-no" title="29 avisos en total, ninguno en los últimos 30 días">Hace meses<small>29 avisos en total, ninguno en los últimos 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Cierre de servicio: encuesta y aviso a administración</span>
-  <span class="que">Al cerrar el servicio manda la encuesta y avisa para facturar</span>
-  <span class="uso u-no" title="6 encuestas enviadas, la última en agosto">Hace meses<small>6 encuestas enviadas, la última en agosto</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Gestión de lote aprobado en el banco</span>
-  <span class="que">Avisa cuando el lote se aprueba en el banco</span>
-  <span class="uso u-no" title="sin correos nuevos en 30 días">Hace meses<small>sin correos nuevos en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Presupuesto automático al entrar una oportunidad</span>
-  <span class="que">Arma el presupuesto solo cuando entra una oportunidad</span>
-  <span class="uso u-no" title="123 casos en total, pero solo 1 en los últimos 30 días">Hace meses<small>123 casos en total, pero solo 1 en los últimos 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Propagar la autorización (del lado del pedido)</span>
-  <span class="que">La otra mitad: del presupuesto al pedido</span>
-  <span class="uso u-no" title="18 pedidos autorizados, el último en mayo">Hace meses<small>18 pedidos autorizados, el último en mayo</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Propagar la autorización de Gerencia al presupuesto</span>
-  <span class="que">Pasa la autorización de Gerencia al presupuesto</span>
-  <span class="uso u-no" title="18 pedidos autorizados, el último en mayo">Hace meses<small>18 pedidos autorizados, el último en mayo</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="re">
-  <span class="punto" title="Hay que reescribirla"></span>
-  <span class="nom">Alerta de alumno estancado</span>
-  <span class="que">Avisa si un alumno lleva 7 días sin avanzar</span>
-  <span class="uso u-no" title="un solo aviso en todo el historial">Sin rastro<small>un solo aviso en todo el historial</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Clasificador de los códigos QR del CMDLT</span>
-  <span class="que">Detecta por qué código QR entró el paciente del CMDLT</span>
-  <span class="uso u-no" title="ningún caso etiquetado todavía">Sin rastro<small>ningún caso etiquetado todavía</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Ruteo de casos de Ever Insurance</span>
-  <span class="que">Rutea los casos que llegan de Ever Insurance</span>
-  <span class="uso u-no" title="sin casos nuevos del Centro de Contacto en 30 días">Sin rastro<small>sin casos nuevos del Centro de Contacto en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Ruteo de casos: terrestre o aéreo</span>
-  <span class="que">Manda cada caso nuevo al equipo que corresponde</span>
-  <span class="uso u-no" title="sin casos nuevos del Centro de Contacto en 30 días">Sin rastro<small>sin casos nuevos del Centro de Contacto en 30 días</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="va">
-  <span class="punto" title="Hoy no hace nada"></span>
-  <span class="nom">Referencia comercial cada 90 días</span>
-  <span class="que">Debería pedir referencias comerciales, pero está vacía</span>
-  <span class="uso u-nada" title="no escribe nada al correr">No hace nada<small>no escribe nada al correr</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-acto">Completar o archivar</span>
-</li><li class="va">
-  <span class="punto" title="Hoy no hace nada"></span>
-  <span class="nom">Solicitud de provisión de impuestos</span>
-  <span class="que">Debería pedir la provisión de impuestos, pero está vacía</span>
-  <span class="uso u-nada" title="nunca creó una solicitud">No hace nada<small>nunca creó una solicitud</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="mueve">el menú cambia de nombre</span></span>
-  <span class="prop p-acto">Completar o archivar</span>
+<h2>Los 49 automatismos propios</h2>
+<p class="sub">Los que se escribieron para esta empresa. Ordenados por los que más trabajan.
+Los otros 63 vienen con Odoo y los mantiene Odoo.</p>
+<div class="cabecera"><span>Automatismo</span><span>Qué hace</span><span>¿Está trabajando?</span><span>En Odoo 19</span></div>
+<ul><li>
+<span class="n">Ambulancia: Monitor de SLA Vencidos<small>Tarea</small></span>
+<span class="q">Vigila los tiempos de respuesta por triaje y avisa</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Instrucciones de transferencia para reposición<small>Regla</small></span>
+<span class="q">Agenda las instrucciones de transferencia</span>
+<span class="t t-si">Sí<small>33 instrucciones de transferencia en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Marcado automático de empresas<small>Regla</small></span>
+<span class="q">Etiqueta como CORPORATIVO a toda empresa nueva</span>
+<span class="t t-si">Sí<small>19 empresas etiquetadas en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Pedido de cotización a proveedores de vuelo<small>Regla</small></span>
+<span class="q">Pide cotización al proveedor cuando el caso aéreo entra en validación</span>
+<span class="t t-si">Sí<small>3 pedidos de cotización en 30 días</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">ROBOT RECICLAJE: Academia (Anti-Ghosting)<small>Tarea</small></span>
+<span class="q">Rescata inscripciones frenadas hace 10 días</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Reserva y programación del servicio<small>Regla</small></span>
+<span class="q">Al confirmar el pedido avisa a programación y arma la misión</span>
+<span class="t t-si">Sí<small>46 misiones generadas en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Seguimiento de oferta enviada (4 horas)<small>Regla</small></span>
+<span class="q">Avisa a las 4 horas de una oferta sin respuesta</span>
+<span class="t t-si">Sí<small>14 avisos en 30 días</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Ventas: Cancelar Presupuestos Vencidos (Auto)<small>Tarea</small></span>
+<span class="q">Cancela presupuestos vencidos y recicla el contacto</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">[Auditoria CRM] - EVA AUDITORA: Monitoreo Contact Center &amp; Operadores<small>Tarea</small></span>
+<span class="q">Audita el Centro de Contacto y reporta rendimiento</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">[GERENCIA] Flash Report Diario de Ventas<small>Tarea</small></span>
+<span class="q">Alerta de casos en cierre sin facturar</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">[GERENCIA] Flash Report Diario de Ventas<small>Tarea</small></span>
+<span class="q">Corte de ventas del día por unidad</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">[GERENCIA] Informe Semanal de Gestión AeroSilva<small>Tarea</small></span>
+<span class="q">Informe semanal por unidad de negocio</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">[SLA] EVA AUDITORA: EVA: GESTIÓN DE SLAs Y RENDIMIENTO (Email)<small>Tarea</small></span>
+<span class="q">Control diario del embudo por escuadra</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">aprender qué plantilla usar en cada presupuesto<small>Asistente</small></span>
+<span class="q">Recalcula qué plantilla de cotización conviene según lo que se usó antes</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">armar el aviso de pendientes<small>Asistente</small></span>
+<span class="q">Arma el resumen diario de preguntas y pendientes que el asistente le debe a la Dirección</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">chequear cambios en Drive<small>Asistente</small></span>
+<span class="q">Revisa las carpetas de Google Drive de cada agente y detecta documentos nuevos o modificados</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">detectar huecos de conocimiento<small>Asistente</small></span>
+<span class="q">Busca preguntas que el asistente no supo contestar y las convierte en pedidos de material</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">indexar texto de documentos<small>Asistente</small></span>
+<span class="q">Extrae el texto de los documentos cargados para que los agentes puedan consultarlos</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">mandar los avisos que esperaban el horario<small>Asistente</small></span>
+<span class="q">Envía los avisos que quedaron en espera hasta la hora configurada</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">mapear lo que hay en Odoo<small>Asistente</small></span>
+<span class="q">Censa modelos y datos del sistema para que los agentes sepan qué pueden consultar</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">procesar documentos en cola<small>Asistente</small></span>
+<span class="q">Procesa la cola de documentos nuevos (cada minuto)</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">procesar oportunidades ganadas<small>Asistente</small></span>
+<span class="q">Cuando se gana una oportunidad, dispara el trabajo del agente correspondiente</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">procesar órdenes AAS completadas<small>Asistente</small></span>
+<span class="q">Igual que el anterior, para las órdenes de servicio completadas</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">rearmar cerebros con material nuevo<small>Asistente</small></span>
+<span class="q">Rearma el contexto de los agentes cuando entra material nuevo</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">recordar feedback sin revisar<small>Asistente</small></span>
+<span class="q">Recuerda semanalmente las devoluciones de empleados que nadie revisó</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-22</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">recordar los pendientes a la Dirección<small>Asistente</small></span>
+<span class="q">Cada hora, recuerda a la Dirección lo que quedó sin responder</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">responder chats pendientes<small>Asistente</small></span>
+<span class="q">Contesta las consultas de los empleados que quedaron en cola (cada 2 minutos)</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">revisión proactiva<small>Asistente</small></span>
+<span class="q">Revisión diaria en la que los agentes buscan cosas para avisar sin que nadie pregunte</span>
+<span class="t t-si">Sí<small>corrió el 2026-09-28</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Bloqueo de despacho sin pago<small>Regla</small></span>
+<span class="q">Impide despachar sin pago o sin autorización de Gerencia</span>
+<span class="t t-vig">Solo si hace falta<small>solo escribe cuando bloquea algo: 5 veces, la última en junio</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Activación del plan de contingencia<small>Regla</small></span>
+<span class="q">Agenda la activación del plan de contingencia</span>
+<span class="t t-nd">Sin medir</span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Aviso de presupuesto cancelado<small>Regla</small></span>
+<span class="q">Manda el correo cuando se cancela un presupuesto</span>
+<span class="t t-nd">Sin medir</span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Enviar requisitos y datos de pago<small>Regla</small></span>
+<span class="q">Manda requisitos y datos de pago al aspirante</span>
+<span class="t t-nd">Sin medir</span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">IVAN: detector de riesgo de fuga<small>Regla</small></span>
+<span class="q">Lee los mensajes y deriva los casos corporativos</span>
+<span class="t t-nd">Sin medir</span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Procesar alumno graduado de la Red RAA<small>Regla</small></span>
+<span class="q">Mueve al alumno cuando termina su curso</span>
+<span class="t t-nd">Sin medir</span>
+<span class="e e-re">Hay que rehacerla</span>
+</li><li>
+<span class="n">Alerta de alumno estancado<small>Regla</small></span>
+<span class="q">Avisa si un alumno lleva 7 días sin avanzar</span>
+<span class="t t-no">Nunca<small>un solo aviso en todo el historial</small></span>
+<span class="e e-re">Hay que rehacerla</span>
+</li><li>
+<span class="n">Aviso de aprobación de lote de pagos<small>Regla</small></span>
+<span class="q">Agenda la revisión del lote de pagos</span>
+<span class="t t-no">No, hace meses<small>82 avisos abiertos de antes, ninguno nuevo en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Aviso de presupuesto sin respuesta (24 horas)<small>Regla</small></span>
+<span class="q">Avisa si un presupuesto lleva 24 horas sin respuesta</span>
+<span class="t t-no">No, hace meses<small>110 tareas abiertas de antes, ninguna nueva en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Aviso de presupuesto sin respuesta (48 horas)<small>Regla</small></span>
+<span class="q">Avisa si un presupuesto lleva 48 horas sin respuesta</span>
+<span class="t t-no">No, hace meses<small>29 avisos en total, ninguno en los últimos 30 días</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Cierre de servicio: encuesta y aviso a administración<small>Regla</small></span>
+<span class="q">Al cerrar el servicio manda la encuesta y avisa para facturar</span>
+<span class="t t-no">No, hace meses<small>6 encuestas enviadas, la última en agosto</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Clasificador de los códigos QR del CMDLT<small>Regla</small></span>
+<span class="q">Detecta por qué código QR entró el paciente del CMDLT</span>
+<span class="t t-no">Nunca<small>ningún caso etiquetado todavía</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Gestión de lote aprobado en el banco<small>Regla</small></span>
+<span class="q">Avisa cuando el lote se aprueba en el banco</span>
+<span class="t t-no">No, hace meses<small>sin correos nuevos en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Presupuesto automático al entrar una oportunidad<small>Regla</small></span>
+<span class="q">Arma el presupuesto solo cuando entra una oportunidad</span>
+<span class="t t-no">No, hace meses<small>123 casos en total, pero solo 1 en los últimos 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Propagar la autorización (del lado del pedido)<small>Regla</small></span>
+<span class="q">La otra mitad: del presupuesto al pedido</span>
+<span class="t t-no">No, hace meses<small>18 pedidos autorizados, el último en mayo</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Propagar la autorización de Gerencia al presupuesto<small>Regla</small></span>
+<span class="q">Pasa la autorización de Gerencia al presupuesto</span>
+<span class="t t-no">No, hace meses<small>18 pedidos autorizados, el último en mayo</small></span>
+<span class="e e-aj">Ajuste chico</span>
+</li><li>
+<span class="n">Ruteo de casos de Ever Insurance<small>Regla</small></span>
+<span class="q">Rutea los casos que llegan de Ever Insurance</span>
+<span class="t t-no">Nunca<small>sin casos nuevos del Centro de Contacto en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Ruteo de casos: terrestre o aéreo<small>Regla</small></span>
+<span class="q">Manda cada caso nuevo al equipo que corresponde</span>
+<span class="t t-no">Nunca<small>sin casos nuevos del Centro de Contacto en 30 días</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Referencia comercial cada 90 días<small>Regla</small></span>
+<span class="q">Debería pedir referencias comerciales, pero está vacía</span>
+<span class="t t-nada">Está vacía<small>no escribe nada al correr</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">Solicitud de provisión de impuestos<small>Regla</small></span>
+<span class="q">Debería pedir la provisión de impuestos, pero está vacía</span>
+<span class="t t-nada">Está vacía<small>nunca creó una solicitud</small></span>
+<span class="e e-si">Igual que hoy</span>
+</li><li>
+<span class="n">[Auditoría CRM]: EVA v175.2 - Protocolo Reloj de Arena<small>Tarea</small></span>
+<span class="q">Avisaba si no entraban casos nuevos (apagada en abril)</span>
+<span class="t t-nada">Apagada<small>corrió el 2026-04-26</small></span>
+<span class="e e-si">Igual que hoy</span>
 </li></ul>
 
-<h2>Tareas programadas propias: corren por reloj</h2>
-<p class="nota">Las 9 que escribió su equipo. Las otras 78 son de Odoo o del asistente.</p>
-<ul class="lista"><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">Ventas: Cancelar Presupuestos Vencidos (Auto)</span>
-  <span class="que">Cancela presupuestos vencidos y recicla el contacto</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-queda">Queda como está</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">[GERENCIA] Flash Report Diario de Ventas</span>
-  <span class="que">Alerta de casos en cierre sin facturar</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-acto">Renombrar</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">[Auditoria CRM] - EVA AUDITORA: Monitoreo Contact Center &amp; Operadores</span>
-  <span class="que">Audita el Centro de Contacto y reporta rendimiento</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">[GERENCIA] Informe Semanal de Gestión AeroSilva</span>
-  <span class="que">Informe semanal por unidad de negocio</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">[SLA] EVA AUDITORA: EVA: GESTIÓN DE SLAs Y RENDIMIENTO (Email)</span>
-  <span class="que">Control diario del embudo por escuadra</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">ROBOT RECICLAJE: Academia (Anti-Ghosting)</span>
-  <span class="que">Rescata inscripciones frenadas hace 10 días</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="aj">
-  <span class="punto" title="Ajuste de una línea"></span>
-  <span class="nom">[GERENCIA] Flash Report Diario de Ventas</span>
-  <span class="que">Corte de ventas del día por unidad</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-acto">Renombrar</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">Ambulancia: Monitor de SLA Vencidos</span>
-  <span class="que">Vigila los tiempos de respuesta por triaje y avisa</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Puede pasar al asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">[Auditoría CRM]: EVA v175.2 - Protocolo Reloj de Arena<em>apagada</em></span>
-  <span class="que">Avisaba si no entraban casos nuevos (apagada en abril)</span>
-  <span class="uso u-nada" title="última corrida: 2026-04-26">Apagada<small>última corrida: 2026-04-26</small></span>
-  <span class="quien regla">Regla</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-acto">Completar o archivar</span>
-</li></ul>
-
-<h2>Lo que ya hace el asistente de inteligencia artificial</h2>
-<p class="nota">Estas 15 tareas son del asistente propio y ya están probadas en la versión 19.</p>
-<ul class="lista"><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">aprender qué plantilla usar en cada presupuesto</span>
-  <span class="que">Recalcula qué plantilla de cotización conviene según lo que se usó antes</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">armar el aviso de pendientes</span>
-  <span class="que">Arma el resumen diario de preguntas y pendientes que el asistente le debe a la Dirección</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">chequear cambios en Drive</span>
-  <span class="que">Revisa las carpetas de Google Drive de cada agente y detecta documentos nuevos o modificados</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">detectar huecos de conocimiento</span>
-  <span class="que">Busca preguntas que el asistente no supo contestar y las convierte en pedidos de material</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">indexar texto de documentos</span>
-  <span class="que">Extrae el texto de los documentos cargados para que los agentes puedan consultarlos</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">mandar los avisos que esperaban el horario</span>
-  <span class="que">Envía los avisos que quedaron en espera hasta la hora configurada</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">mapear lo que hay en Odoo</span>
-  <span class="que">Censa modelos y datos del sistema para que los agentes sepan qué pueden consultar</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">procesar documentos en cola</span>
-  <span class="que">Procesa la cola de documentos nuevos (cada minuto)</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">procesar oportunidades ganadas</span>
-  <span class="que">Cuando se gana una oportunidad, dispara el trabajo del agente correspondiente</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">procesar órdenes AAS completadas</span>
-  <span class="que">Igual que el anterior, para las órdenes de servicio completadas</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">rearmar cerebros con material nuevo</span>
-  <span class="que">Rearma el contexto de los agentes cuando entra material nuevo</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">recordar feedback sin revisar</span>
-  <span class="que">Recuerda semanalmente las devoluciones de empleados que nadie revisó</span>
-  <span class="uso u-si" title="última corrida: 2026-09-22">Esta semana<small>última corrida: 2026-09-22</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">recordar los pendientes a la Dirección</span>
-  <span class="que">Cada hora, recuerda a la Dirección lo que quedó sin responder</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">responder chats pendientes</span>
-  <span class="que">Contesta las consultas de los empleados que quedaron en cola (cada 2 minutos)</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li><li class="ok">
-  <span class="punto" title="Anda igual"></span>
-  <span class="nom">revisión proactiva</span>
-  <span class="que">Revisión diaria en la que los agentes buscan cosas para avisar sin que nadie pregunte</span>
-  <span class="uso u-si" title="última corrida: 2026-09-28">Corrió hoy<small>última corrida: 2026-09-28</small></span>
-  <span class="quien ia">Asistente</span>
-  <span class="v19"><span class="igual">mismo lugar</span></span>
-  <span class="prop p-ia">Ya lo hace el asistente</span>
-</li></ul>
-
-<div class="leyenda">
-  <span><b style="color:var(--ok)">Trabajando</b> = dejó rastro en los últimos 30 días</span>
-  <span><b style="color:var(--azul)">Vigilando</b> = solo actúa cuando hay que frenar algo</span>
-  <span><i style="background:var(--ok)"></i> anda igual en la 19</span>
-  <span><i style="background:var(--aj)"></i> ajuste de una línea</span>
-  <span><i style="background:var(--re)"></i> hay que reescribirla</span>
-  <span><i style="background:var(--va)"></i> hoy no hace nada</span>
-</div>
-
-<h2>Las 63 restantes vienen con Odoo</h2>
-<p class="nota">Envío de correos, tasas de cambio, lectura automática de facturas y currículos, recordatorios
-de partes de horas. Las mantiene Odoo y no hay nada que hacer con ellas. Otras 3 desaparecen junto
-con el WhatsApp actual y los formularios, que ya se decidió no llevar a la versión 19.</p>
-
-<h2>Qué conviene hacer</h2>
-<div class="acciones">
-  <div><b>Pasar al asistente (10).</b> Son las que solo vigilan y avisan: tiempos de respuesta, presupuestos
-  sin contestar, alumnos frenados, informes de gerencia. El asistente ya manda avisos a la Dirección todos los
-  días, así que puede hacerse cargo y además explicar el porqué de cada alerta. <b>No conviene moverle</b> lo que
-  ejecuta una operación —bloquear un despacho, armar un presupuesto, cancelar, facturar—: eso tiene que seguir
-  siendo una regla fija, que hace siempre lo mismo y queda registrado.</div>
-  <div><b>Renombrar dos tareas (2).</b> Hay dos que se llaman «[GERENCIA] Flash Report Diario de Ventas» y hacen
-  cosas distintas: una avisa de casos sin facturar y la otra es el corte de ventas del día. Desde la lista no hay
-  forma de distinguirlas.</div>
-  <div><b>Completar o archivar (3).</b> Dos reglas encendidas no tienen ninguna instrucción cargada y nunca
-  hicieron nada; una tarea está apagada desde abril. Ya estaban así antes de esta migración.</div>
-  <div><b>Cambiar el usuario que las ejecuta.</b> Las 9 tareas propias corren con el usuario de
-  Rafael Silva Torres. Si ese usuario se desactiva, las 9 se detienen al mismo tiempo y sin aviso.</div>
+<h2>Lo que hay que hacer</h2>
+<div class="final">
+  <div><b>Revisar las que no actúan.</b> 14 reglas están encendidas y no dejan
+  rastro. La más llamativa es <b>Presupuesto automático</b>: armó 123 casos en total y uno solo en el último mes.
+  O cambió la forma de trabajar, o algo se rompió mucho antes de esta migración.</div>
+  <div><b>Pasar al asistente las que solo avisan.</b> Las alertas de tiempos y los informes de gerencia los puede
+  hacer el asistente, que ya manda avisos todos los días. Lo que ejecuta una operación —bloquear un despacho,
+  armar un presupuesto, facturar— se queda como está.</div>
+  <div><b>Dos se llaman igual.</b> Hay dos tareas «[GERENCIA] Flash Report Diario de Ventas» que hacen cosas
+  distintas. Desde la lista no se pueden distinguir.</div>
+  <div><b>Todas corren con el usuario de Rafael.</b> Si ese usuario se desactiva, se detienen juntas y sin aviso.</div>
 </div>
 
 <footer>
-  <span>Revisado en modo consulta: no se modificó ningún dato del sistema.</span>
+  <span>Revisado en modo consulta: no se modificó ningún dato.</span>
   <span>Preparado por Franco (Agencia Krea) con su asistente de IA</span>
 </footer>
 </div>
