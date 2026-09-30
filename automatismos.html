@@ -1,103 +1,138 @@
-<title>Los automatismos de Silva</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Automatismos · Migración a Odoo 19</title>
 <style>
-:root {
-  --tinta:#10202c; --tinta-2:#4c5e6c; --tinta-3:#7b8b98; --fondo:#f5f7f8; --sup:#fff;
-  --linea:#e0e6ea; --linea-2:#eef2f5; --azul:#004a99;
-  --ok:#137a56; --ok-b:#dcf0e7; --aj:#8a5c00; --aj-b:#fbeedb; --re:#a52424; --re-b:#f9e4e4;
-  --gris-b:#eceff2;
-  color-scheme: light; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --tinta:#e9eff3; --tinta-2:#b2c0ca; --tinta-3:#8093a0; --fondo:#0f171e; --sup:#16212b;
-  --linea:#2a3742; --linea-2:#1d2932; --azul:#7fb2e8;
-  --ok:#66cfa6; --ok-b:#112c23; --aj:#e8b463; --aj-b:#2e2510; --re:#ef8a8a; --re-b:#311c1c;
-  --gris-b:#1c262f; color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --tinta:#e9eff3; --tinta-2:#b2c0ca; --tinta-3:#8093a0; --fondo:#0f171e; --sup:#16212b;
-  --linea:#2a3742; --linea-2:#1d2932; --azul:#7fb2e8;
-  --ok:#66cfa6; --ok-b:#112c23; --aj:#e8b463; --aj-b:#2e2510; --re:#ef8a8a; --re-b:#311c1c;
-  --gris-b:#1c262f; color-scheme: dark; }
-* { box-sizing:border-box; }
-body { margin:0; background:var(--fondo); color:var(--tinta);
-  font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; line-height:1.5; }
-.wrap { max-width:820px; margin:0 auto; padding-block:32px 60px; padding-left:16px; padding-right:16px; }
-h1 { font-family:Archivo,sans-serif; font-size:clamp(25px,5vw,34px); font-weight:700;
-  letter-spacing:-.02em; margin:0; line-height:1.1; }
-.de { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--azul); margin:0 0 8px; }
+  /* Mismo sistema visual que la página de avance (avance-web/index.html): mismos tokens,
+     misma tipografía del sistema, mismos componentes. Si allá cambia un color, cambiarlo acá. */
+  :root {
+    --bg: #ffffff; --fg: #15202b; --fg-2: #4a5661; --fg-3: #75828c;
+    --line: #c5ccd2; --line-2: #e5e9ec; --panel: #f5f7f9;
+    --acc: #163a5f; --acc-bg: #e7eef6;
+    --ok: #146b4f; --ok-bg: #e0f2ea; --cur: #9a5a00; --cur-bg: #fbeed6;
+    --mal: #9a2222; --mal-bg: #f8e3e3; --bar: #e5e9ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
+      --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
+      --acc: #9dc3ea; --acc-bg: #1a2b3d;
+      --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12;
+      --mal: #ef9494; --mal-bg: #34201f; --bar: #2a3138;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
+    --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
+    --acc: #9dc3ea; --acc-bg: #1a2b3d;
+    --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12;
+    --mal: #ef9494; --mal-bg: #34201f; --bar: #2a3138;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 30px 20px 64px; }
+  .lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; }
+  header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  header .de { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--acc); }
+  header h1 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; letter-spacing: -.01em; }
+  header .org { color: var(--fg-2); margin: 2px 0 0; font-size: 14.5px; }
+  header .meta { text-align: right; font-size: 13px; color: var(--fg-2); line-height: 1.55; flex: 0 0 auto; }
+  @media (max-width: 640px) { header .meta { text-align: left; } }
 
-.titular { margin-top:24px; background:var(--sup); border:1px solid var(--linea);
-  border-left:6px solid var(--ok); padding:22px 24px; display:flex; align-items:center; gap:26px; flex-wrap:wrap; }
-.titular .pct { font-family:Archivo,sans-serif; font-size:64px; font-weight:700; color:var(--ok);
-  line-height:.9; letter-spacing:-.04em; font-variant-numeric:tabular-nums; }
-.titular .pct i { font-style:normal; font-size:28px; }
-.titular .txt { flex:1 1 320px; }
-.titular .txt b { font-size:18px; font-family:Archivo,sans-serif; display:block; margin-bottom:5px; }
-.titular .txt p { margin:0; color:var(--tinta-2); font-size:14.5px; }
+  h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); margin: 34px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  .intro { font-size: 14px; color: var(--fg-2); margin: -2px 0 12px; }
 
-h2 { font-family:Archivo,sans-serif; font-size:19px; font-weight:600; margin:40px 0 4px; letter-spacing:-.01em; }
-h3 { font-family:Archivo,sans-serif; font-size:13px; font-weight:600; text-transform:uppercase;
-  letter-spacing:.08em; color:var(--tinta-3); margin:22px 0 7px; display:flex; align-items:center; gap:8px; }
-h3 span { font-family:"Source Sans 3",sans-serif; font-size:11.5px; text-transform:none;
-  letter-spacing:0; background:var(--gris-b); color:var(--tinta-3); padding:1px 7px; border-radius:9px; }
-.sub { font-size:14.5px; color:var(--tinta-2); margin:0; max-width:70ch; }
+  /* El titular: el número grande con la respuesta */
+  .titular { display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    border: 1px solid var(--line-2); border-left: 4px solid var(--ok); background: var(--panel);
+    padding: 16px 18px; margin-top: 20px; }
+  .titular .pct { font-size: 46px; font-weight: 700; color: var(--ok); line-height: 1;
+    letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .titular .pct span { font-size: 22px; }
+  .titular .txt { flex: 1 1 300px; }
+  .titular .txt b { display: block; font-size: 16px; margin-bottom: 3px; }
+  .titular .txt p { margin: 0; color: var(--fg-2); font-size: 14px; }
+  @media (max-width: 520px) { .titular { gap: 12px; padding: 14px 15px; } .titular .pct { font-size: 38px; } }
 
-ul { list-style:none; margin:0; padding:0; border:1px solid var(--linea); background:var(--sup); }
-li { display:grid; grid-template-columns:minmax(140px,1fr) minmax(190px,1.7fr) 132px; gap:16px;
-  align-items:center; padding:9px 15px; border-bottom:1px solid var(--linea-2); }
-li:last-child { border-bottom:0; }
-.n { font-weight:600; font-size:14.5px; line-height:1.25; }
-.q { color:var(--tinta-2); font-size:13.5px; line-height:1.3; }
-.e { font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
-  padding:4px 8px; text-align:center; }
-.e-si { background:var(--ok-b); color:var(--ok); }
-.e-aj { background:var(--aj-b); color:var(--aj); }
-.e-re { background:var(--re-b); color:var(--re); }
-@media (max-width:720px) {
-  li { grid-template-columns:1fr auto; gap:3px 12px; }
-  .q { grid-column:1/-1; } .e { grid-row:1; grid-column:2; } }
+  h3 { font-size: 12px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+    color: var(--fg-3); margin: 20px 0 6px; display: flex; align-items: center; gap: 8px; }
+  h3 i { font-style: normal; font-size: 11px; letter-spacing: 0; text-transform: none;
+    background: var(--line-2); color: var(--fg-3); padding: 1px 7px; border-radius: 9px; }
 
-.aparte { margin-top:16px; border:1px solid var(--linea); border-left:6px solid var(--azul);
-  background:var(--sup); padding:18px 22px; }
-.aparte b { font-family:Archivo,sans-serif; font-size:16px; display:block; margin-bottom:6px; }
-.aparte p { margin:0; color:var(--tinta-2); font-size:14.5px; max-width:72ch; }
-.aparte p + p { margin-top:9px; }
-footer { margin-top:44px; padding-top:13px; border-top:1px solid var(--linea); font-size:12.5px;
-  color:var(--tinta-3); display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  ul.lista { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line-2); background: var(--bg); }
+  ul.lista li { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(180px, 1.6fr) 124px;
+    gap: 14px; align-items: center; padding: 9px 13px; border-bottom: 1px solid var(--line-2); }
+  ul.lista li:last-child { border-bottom: 0; }
+  .n { font-weight: 600; font-size: 14px; line-height: 1.3; }
+  .q { color: var(--fg-2); font-size: 13.5px; line-height: 1.35; }
+  .e { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: 3px 8px; text-align: center; white-space: nowrap; }
+  .e-si { background: var(--ok-bg); color: var(--ok); }
+  .e-aj { background: var(--cur-bg); color: var(--cur); }
+  .e-re { background: var(--mal-bg); color: var(--mal); }
+  @media (max-width: 700px) {
+    ul.lista li { grid-template-columns: 1fr auto; gap: 4px 10px; padding: 11px 13px; }
+    .n { grid-column: 1; }
+    .e { grid-column: 2; grid-row: 1; justify-self: end; }
+    .q { grid-column: 1 / -1; grid-row: 2; }
+  }
+
+  .card { border: 1px solid var(--line-2); padding: 14px 16px; background: var(--panel); margin-top: 4px; }
+  .card b { display: block; font-size: 15px; margin-bottom: 5px; }
+  .card p { margin: 0; color: var(--fg-2); font-size: 14px; }
+  .card p + p { margin-top: 8px; }
+  footer { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  a { color: var(--acc); }
 </style>
+</head>
+<body>
 
 <div class="wrap">
-<p class="de">De Franco para Aeroambulancias Silva, C.A.</p>
-<h1>Todo lo que el sistema hace solo</h1>
+<header>
+  <div>
+    <p class="de">De Franco para Aeroambulancias Silva, C.A.</p>
+    <h1>Todo lo que el sistema hace solo</h1>
+    <p class="org">Los automatismos de Odoo · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
+  </div>
+  <div class="meta"><span>Revisado el 29 de septiembre de 2026</span></div>
+</header>
 
 <div class="titular">
-  <div class="pct">98<i>%</i></div>
+  <div class="pct">98<span>&nbsp;%</span></div>
   <div class="txt">
     <b>Funcionan igual que hoy</b>
-    <p>110 de los 112 automatismos del sistema hacen en Odoo 19 exactamente lo mismo que
-    hacen hoy en la versión 16. Los 10 marcados «con un ajuste» también: el ajuste es de una línea
-    y ya está identificado. Solo 2 hay que rehacer: Alerta de alumno estancado y Procesar alumno graduado de la Red RAA.</p>
+    <p>110 de los 112 automatismos hacen en Odoo 19 exactamente lo mismo que hacen hoy en la
+    versión 16. Los 10 marcados «con un ajuste» también funcionan: el ajuste es de una línea y ya
+    está identificado. Solo 2 hay que rehacer: Alerta de alumno estancado y Procesar alumno graduado de la Red RAA.</p>
   </div>
 </div>
 
 <h2>Qué hace cada uno</h2>
-<p class="sub">Los 49 automatismos escritos para esta empresa. Los otros 63 vienen con
-Odoo, los mantiene Odoo y también funcionan igual.</p>
-<h3>Ventas y cotizaciones <span>12</span></h3><ul><li><span class="n">Aviso de presupuesto cancelado</span><span class="q">Manda el correo cuando se cancela un presupuesto</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Aviso de presupuesto sin respuesta (48 horas)</span><span class="q">Avisa si un presupuesto lleva 48 horas sin respuesta</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Clasificador de los códigos QR del CMDLT</span><span class="q">Detecta por qué código QR entró el paciente del CMDLT</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Propagar la autorización (del lado del pedido)</span><span class="q">La otra mitad: del presupuesto al pedido</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Propagar la autorización de Gerencia al presupuesto</span><span class="q">Pasa la autorización de Gerencia al presupuesto</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Seguimiento de oferta enviada (4 horas)</span><span class="q">Avisa a las 4 horas de una oferta sin respuesta</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Aviso de presupuesto sin respuesta (24 horas)</span><span class="q">Avisa si un presupuesto lleva 24 horas sin respuesta</span><span class="e e-si">Sí, igual</span></li><li><span class="n">IVAN: detector de riesgo de fuga</span><span class="q">Lee los mensajes y deriva los casos corporativos</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Marcado automático de empresas</span><span class="q">Etiqueta como CORPORATIVO a toda empresa nueva</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Presupuesto automático al entrar una oportunidad</span><span class="q">Arma el presupuesto solo cuando entra una oportunidad</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Ruteo de casos de Ever Insurance</span><span class="q">Rutea los casos que llegan de Ever Insurance</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Ruteo de casos: terrestre o aéreo</span><span class="q">Manda cada caso nuevo al equipo que corresponde</span><span class="e e-si">Sí, igual</span></li></ul><h3>Operaciones y despacho <span>4</span></h3><ul><li><span class="n">Cierre de servicio: encuesta y aviso a administración</span><span class="q">Al cerrar el servicio manda la encuesta y avisa para facturar</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Pedido de cotización a proveedores de vuelo</span><span class="q">Pide cotización al proveedor cuando el caso aéreo entra en validación</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Bloqueo de despacho sin pago</span><span class="q">Impide despachar sin pago o sin autorización de Gerencia</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Reserva y programación del servicio</span><span class="q">Al confirmar el pedido avisa a programación y arma la misión</span><span class="e e-si">Sí, igual</span></li></ul><h3>Academia <span>3</span></h3><ul><li><span class="n">Alerta de alumno estancado</span><span class="q">Avisa si un alumno lleva 7 días sin avanzar</span><span class="e e-re">Hay que rehacerla</span></li><li><span class="n">Procesar alumno graduado de la Red RAA</span><span class="q">Mueve al alumno cuando termina su curso</span><span class="e e-re">Hay que rehacerla</span></li><li><span class="n">Enviar requisitos y datos de pago</span><span class="q">Manda requisitos y datos de pago al aspirante</span><span class="e e-si">Sí, igual</span></li></ul><h3>Administración y pagos <span>6</span></h3><ul><li><span class="n">Activación del plan de contingencia</span><span class="q">Agenda la activación del plan de contingencia</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Aviso de aprobación de lote de pagos</span><span class="q">Agenda la revisión del lote de pagos</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Gestión de lote aprobado en el banco</span><span class="q">Avisa cuando el lote se aprueba en el banco</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Instrucciones de transferencia para reposición</span><span class="q">Agenda las instrucciones de transferencia</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Referencia comercial cada 90 días</span><span class="q">Debería pedir referencias comerciales, pero está vacía</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Solicitud de provisión de impuestos</span><span class="q">Debería pedir la provisión de impuestos, pero está vacía</span><span class="e e-si">Sí, igual</span></li></ul><h3>Avisos e informes <span>9</span></h3><ul><li><span class="n">Ventas: Cancelar Presupuestos Vencidos (Auto)</span><span class="q">Cancela presupuestos vencidos y recicla el contacto</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">[GERENCIA] Flash Report Diario de Ventas</span><span class="q">Corte de ventas del día por unidad</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Ambulancia: Monitor de SLA Vencidos</span><span class="q">Vigila los tiempos de respuesta por triaje y avisa</span><span class="e e-si">Sí, igual</span></li><li><span class="n">ROBOT RECICLAJE: Academia (Anti-Ghosting)</span><span class="q">Rescata inscripciones frenadas hace 10 días</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[Auditoria CRM] - EVA AUDITORA: Monitoreo Contact Center &amp; Operadores</span><span class="q">Audita el Centro de Contacto y reporta rendimiento</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[Auditoría CRM]: EVA v175.2 - Protocolo Reloj de Arena</span><span class="q">Avisaba si no entraban casos nuevos (apagada en abril)</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[GERENCIA] Flash Report Diario de Ventas</span><span class="q">Alerta de casos en cierre sin facturar</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[GERENCIA] Informe Semanal de Gestión AeroSilva</span><span class="q">Informe semanal por unidad de negocio</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[SLA] EVA AUDITORA: EVA: GESTIÓN DE SLAs Y RENDIMIENTO (Email)</span><span class="q">Control diario del embudo por escuadra</span><span class="e e-si">Sí, igual</span></li></ul><h3>El asistente de IA <span>15</span></h3><ul><li><span class="n">Aprender qué plantilla usar en cada presupuesto</span><span class="q">Recalcula qué plantilla de cotización conviene según lo que se usó antes</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Armar el aviso de pendientes</span><span class="q">Arma el resumen diario de preguntas y pendientes que el asistente le debe a la Dirección</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Chequear cambios en drive</span><span class="q">Revisa las carpetas de Google Drive de cada agente y detecta documentos nuevos o modificados</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Detectar huecos de conocimiento</span><span class="q">Busca preguntas que el asistente no supo contestar y las convierte en pedidos de material</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Indexar texto de documentos</span><span class="q">Extrae el texto de los documentos cargados para que los agentes puedan consultarlos</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Mandar los avisos que esperaban el horario</span><span class="q">Envía los avisos que quedaron en espera hasta la hora configurada</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Mapear lo que hay en odoo</span><span class="q">Censa modelos y datos del sistema para que los agentes sepan qué pueden consultar</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Procesar documentos en cola</span><span class="q">Procesa la cola de documentos nuevos (cada minuto)</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Procesar oportunidades ganadas</span><span class="q">Cuando se gana una oportunidad, dispara el trabajo del agente correspondiente</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Procesar órdenes aas completadas</span><span class="q">Igual que el anterior, para las órdenes de servicio completadas</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Rearmar cerebros con material nuevo</span><span class="q">Rearma el contexto de los agentes cuando entra material nuevo</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Recordar feedback sin revisar</span><span class="q">Recuerda semanalmente las devoluciones de empleados que nadie revisó</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Recordar los pendientes a la dirección</span><span class="q">Cada hora, recuerda a la Dirección lo que quedó sin responder</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Responder chats pendientes</span><span class="q">Contesta las consultas de los empleados que quedaron en cola (cada 2 minutos)</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Revisión proactiva</span><span class="q">Revisión diaria en la que los agentes buscan cosas para avisar sin que nadie pregunte</span><span class="e e-si">Sí, igual</span></li></ul>
+<p class="intro">Los 49 automatismos escritos para esta empresa. Los otros 63 vienen
+con Odoo, los mantiene Odoo y también funcionan igual.</p>
+<h3>Ventas y cotizaciones <i>12</i></h3><ul class="lista"><li><span class="n">Aviso de presupuesto cancelado</span><span class="q">Manda el correo cuando se cancela un presupuesto</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Aviso de presupuesto sin respuesta (48 horas)</span><span class="q">Avisa si un presupuesto lleva 48 horas sin respuesta</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Clasificador de los códigos QR del CMDLT</span><span class="q">Detecta por qué código QR entró el paciente del CMDLT</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Propagar la autorización (del lado del pedido)</span><span class="q">La otra mitad: del presupuesto al pedido</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Propagar la autorización de Gerencia al presupuesto</span><span class="q">Pasa la autorización de Gerencia al presupuesto</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Seguimiento de oferta enviada (4 horas)</span><span class="q">Avisa a las 4 horas de una oferta sin respuesta</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Aviso de presupuesto sin respuesta (24 horas)</span><span class="q">Avisa si un presupuesto lleva 24 horas sin respuesta</span><span class="e e-si">Sí, igual</span></li><li><span class="n">IVAN: detector de riesgo de fuga</span><span class="q">Lee los mensajes y deriva los casos corporativos</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Marcado automático de empresas</span><span class="q">Etiqueta como CORPORATIVO a toda empresa nueva</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Presupuesto automático al entrar una oportunidad</span><span class="q">Arma el presupuesto solo cuando entra una oportunidad</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Ruteo de casos de Ever Insurance</span><span class="q">Rutea los casos que llegan de Ever Insurance</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Ruteo de casos: terrestre o aéreo</span><span class="q">Manda cada caso nuevo al equipo que corresponde</span><span class="e e-si">Sí, igual</span></li></ul><h3>Operaciones y despacho <i>4</i></h3><ul class="lista"><li><span class="n">Cierre de servicio: encuesta y aviso a administración</span><span class="q">Al cerrar el servicio manda la encuesta y avisa para facturar</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Pedido de cotización a proveedores de vuelo</span><span class="q">Pide cotización al proveedor cuando el caso aéreo entra en validación</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Bloqueo de despacho sin pago</span><span class="q">Impide despachar sin pago o sin autorización de Gerencia</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Reserva y programación del servicio</span><span class="q">Al confirmar el pedido avisa a programación y arma la misión</span><span class="e e-si">Sí, igual</span></li></ul><h3>Academia <i>3</i></h3><ul class="lista"><li><span class="n">Alerta de alumno estancado</span><span class="q">Avisa si un alumno lleva 7 días sin avanzar</span><span class="e e-re">Hay que rehacerla</span></li><li><span class="n">Procesar alumno graduado de la Red RAA</span><span class="q">Mueve al alumno cuando termina su curso</span><span class="e e-re">Hay que rehacerla</span></li><li><span class="n">Enviar requisitos y datos de pago</span><span class="q">Manda requisitos y datos de pago al aspirante</span><span class="e e-si">Sí, igual</span></li></ul><h3>Administración y pagos <i>6</i></h3><ul class="lista"><li><span class="n">Activación del plan de contingencia</span><span class="q">Agenda la activación del plan de contingencia</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Aviso de aprobación de lote de pagos</span><span class="q">Agenda la revisión del lote de pagos</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Gestión de lote aprobado en el banco</span><span class="q">Avisa cuando el lote se aprueba en el banco</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Instrucciones de transferencia para reposición</span><span class="q">Agenda las instrucciones de transferencia</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Referencia comercial cada 90 días</span><span class="q">Debería pedir referencias comerciales, pero está vacía</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Solicitud de provisión de impuestos</span><span class="q">Debería pedir la provisión de impuestos, pero está vacía</span><span class="e e-si">Sí, igual</span></li></ul><h3>Avisos e informes <i>9</i></h3><ul class="lista"><li><span class="n">Ventas: Cancelar Presupuestos Vencidos (Auto)</span><span class="q">Cancela presupuestos vencidos y recicla el contacto</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">[GERENCIA] Flash Report Diario de Ventas</span><span class="q">Corte de ventas del día por unidad</span><span class="e e-aj">Sí, con un ajuste</span></li><li><span class="n">Ambulancia: Monitor de SLA Vencidos</span><span class="q">Vigila los tiempos de respuesta por triaje y avisa</span><span class="e e-si">Sí, igual</span></li><li><span class="n">ROBOT RECICLAJE: Academia (Anti-Ghosting)</span><span class="q">Rescata inscripciones frenadas hace 10 días</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[Auditoria CRM] - EVA AUDITORA: Monitoreo Contact Center &amp; Operadores</span><span class="q">Audita el Centro de Contacto y reporta rendimiento</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[Auditoría CRM]: EVA v175.2 - Protocolo Reloj de Arena</span><span class="q">Avisaba si no entraban casos nuevos (apagada en abril)</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[GERENCIA] Flash Report Diario de Ventas</span><span class="q">Alerta de casos en cierre sin facturar</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[GERENCIA] Informe Semanal de Gestión AeroSilva</span><span class="q">Informe semanal por unidad de negocio</span><span class="e e-si">Sí, igual</span></li><li><span class="n">[SLA] EVA AUDITORA: EVA: GESTIÓN DE SLAs Y RENDIMIENTO (Email)</span><span class="q">Control diario del embudo por escuadra</span><span class="e e-si">Sí, igual</span></li></ul><h3>El asistente de IA <i>15</i></h3><ul class="lista"><li><span class="n">Aprender qué plantilla usar en cada presupuesto</span><span class="q">Recalcula qué plantilla de cotización conviene según lo que se usó antes</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Armar el aviso de pendientes</span><span class="q">Arma el resumen diario de preguntas y pendientes que el asistente le debe a la Dirección</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Chequear cambios en drive</span><span class="q">Revisa las carpetas de Google Drive de cada agente y detecta documentos nuevos o modificados</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Detectar huecos de conocimiento</span><span class="q">Busca preguntas que el asistente no supo contestar y las convierte en pedidos de material</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Indexar texto de documentos</span><span class="q">Extrae el texto de los documentos cargados para que los agentes puedan consultarlos</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Mandar los avisos que esperaban el horario</span><span class="q">Envía los avisos que quedaron en espera hasta la hora configurada</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Mapear lo que hay en odoo</span><span class="q">Censa modelos y datos del sistema para que los agentes sepan qué pueden consultar</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Procesar documentos en cola</span><span class="q">Procesa la cola de documentos nuevos (cada minuto)</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Procesar oportunidades ganadas</span><span class="q">Cuando se gana una oportunidad, dispara el trabajo del agente correspondiente</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Procesar órdenes aas completadas</span><span class="q">Igual que el anterior, para las órdenes de servicio completadas</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Rearmar cerebros con material nuevo</span><span class="q">Rearma el contexto de los agentes cuando entra material nuevo</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Recordar feedback sin revisar</span><span class="q">Recuerda semanalmente las devoluciones de empleados que nadie revisó</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Recordar los pendientes a la dirección</span><span class="q">Cada hora, recuerda a la Dirección lo que quedó sin responder</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Responder chats pendientes</span><span class="q">Contesta las consultas de los empleados que quedaron en cola (cada 2 minutos)</span><span class="e e-si">Sí, igual</span></li><li><span class="n">Revisión proactiva</span><span class="q">Revisión diaria en la que los agentes buscan cosas para avisar sin que nadie pregunte</span><span class="e e-si">Sí, igual</span></li></ul>
 
 <h2>Aparte de la migración</h2>
-<div class="aparte">
+<div class="card">
   <b>14 reglas están encendidas pero hace meses que no actúan</b>
-  <p>Esto no tiene que ver con el cambio de versión: <b>pasa hoy, en el sistema actual</b>. Al revisar
-  una por una encontramos que algunas no dejan rastro desde hace meses, y unas pocas nunca lo dejaron.
-  La más llamativa es <b>Presupuesto automático</b>, que armó 123 casos en total y uno solo en el
-  último mes.</p>
+  <p>Esto no tiene que ver con el cambio de versión: <b style="display:inline">pasa hoy, en el sistema
+  actual</b>. Al revisarlas una por una encontramos que algunas no dejan rastro desde hace meses, y unas
+  pocas nunca lo dejaron. La más llamativa es <b style="display:inline">Presupuesto automático</b>, que
+  armó 123 casos en total y uno solo en el último mes.</p>
   <p>Puede ser que cambió la forma de trabajar y ya no hagan falta, o que algo se rompió sin que nadie
   lo notara. Vale una mirada, pero es independiente de la versión 19: si se arreglan hoy, siguen
   arregladas después.</p>
 </div>
 
 <footer>
-  <span>Revisado uno por uno sobre el sistema real, en modo consulta: no se modificó ningún dato.</span>
-  <span>Preparado por Franco (Agencia Krea) con su asistente de IA</span>
+  <span>Revisado uno por uno sobre el sistema real, en modo consulta: no se modificó ningún dato. · <a href="index.html">Volver al avance</a></span>
+  <span>Aeroambulancias Silva, C.A.</span>
 </footer>
 </div>
+
+</body>
+</html>
