@@ -167,11 +167,37 @@ cambia una ley. Revisamos el historial del sistema para ver si eso viene ocurrie
   de esperar a que alguien la venda.</p>
 </div>
 
+<h2>La configuración no hay que cargarla de nuevo</h2>
+<p class="prod"><b>Casi toda se traslada sola desde el sistema actual.</b> Revisamos campo por campo
+qué pide el sistema nuevo y qué hay cargado hoy: la mayor parte coincide y se puede pasar de forma
+automática. <b>La contabilidad no tiene que cargar nada: revisa lo que quedó.</b></p>
+
+<details open><summary><span>Se traslada solo</span><span class="meta">5 grupos de datos</span></summary>
+<ul><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Los 3.305 contactos ya clasificados</b><span>Persona jurídica domiciliada o no, natural residente o no: los cuatro tipos son los mismos en las dos localizaciones. Se trasladan tal cual.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Los porcentajes de retención de IVA</b><span>En el sistema actual existen solo dos, 75 % y 100 %, y son exactamente los que espera el nuevo. 118 proveedores al 75 % y 62 al 100 %.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Las cuentas contables y los diarios</b><span>Las cinco cuentas de retención (IVA en compras y ventas, ISLR en compras y ventas, IGTF) y sus cuatro diarios están configurados y se copian con el mismo plan de cuentas.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Quiénes son agentes de retención</b><span>239 contactos marcados como agentes de IVA y 108 de ISLR, más las unidades tributarias vigentes.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Los conceptos de ISLR y sus tarifas</b><span>Los 32 conceptos cargados con sus 86 tarifas por tipo de persona pasan al formato del sistema nuevo.</span></span></li></ul></details>
+
+<details open><summary><span>Se deduce, y conviene revisarlo</span><span class="meta">2 puntos</span></summary>
+<ul><li class="curso"><span class="ic">●</span><span class="tx"><b>Qué concepto de ISLR corresponde a cada proveedor</b><span>El sistema nuevo lo quiere en la ficha del proveedor; el actual lo elige en cada retención. Se deduce del historial: 1.236 retenciones emitidas dicen qué concepto se le aplicó a cada uno, y 58 productos ya lo tienen asignado. Además, de los 32 conceptos cargados <b>en la práctica se usan 6</b>: contratistas, honorarios profesionales, arrendamiento de muebles, seguros y dos más.</span></span></li><li class="curso"><span class="ic">●</span><span class="tx"><b>El tipo de contribuyente</b><span>Es el único dato que el sistema actual no guarda con ese nombre. Se puede proponer a partir de quién es agente de retención, pero <b>conviene que lo confirme la contabilidad</b>: define si a ese proveedor se le retiene o no.</span></span></li></ul></details>
+
+<h2>¿Qué tan difícil es, entonces?</h2>
+<div class="card">
+  <p><b>Posible y acotado.</b> No es una carga manual de cientos de datos sino un traslado automático
+  con una lista de equivalencias corta: cuatro tipos de persona, dos porcentajes de IVA, seis
+  conceptos de ISLR realmente en uso y cinco cuentas contables. Eso se prepara y se verifica en
+  cuestión de días, no de semanas.</p>
+  <p><b>Lo que no cambia es la responsabilidad.</b> Un porcentaje de retención equivocado tiene
+  consecuencias ante el SENIAT, así que el traslado se entrega junto con una planilla que muestra,
+  lado a lado, lo que estaba configurado antes y lo que quedó configurado después. La contabilidad
+  aprueba esa planilla en lugar de cargar los datos, que es mucho menos trabajo y mucho menos
+  riesgo de error humano.</p>
+  <p><b>Y la prueba no compromete nada.</b> Todo esto se hace sobre la copia de pruebas. Si el
+  resultado no convence, no se adopta y no se perdió más que unos días de trabajo nuestro.</p>
+</div>
+
 <h2>Qué implica ponerlo en marcha</h2>
 <div class="card">
-  <p>No es instalar y usar. Requiere un trabajo de implementación especializado: definir el esquema
-  fiscal completo de la empresa dentro del sistema nuevo, validarlo emitiendo comprobantes contra los
-  que se emiten hoy hasta que coincidan, resolver la convivencia con el histórico y preparar el
+  <p>Con la configuración resuelta como se explica arriba, lo que queda es el trabajo de
+  implementación propiamente dicho: validar el resultado emitiendo comprobantes contra los que se
+  emiten hoy hasta que coincidan al centavo, resolver la convivencia con el histórico y preparar el
   traspaso de saldos al cierre del ejercicio. Es el tipo de trabajo que ya está contemplado en el
   plan hasta enero.</p>
   <p>Antes de decidir nada proponemos <b>probarla sobre la copia de pruebas</b>: emitir una retención
