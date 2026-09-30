@@ -7,29 +7,27 @@
 <meta name="color-scheme" content="light dark">
 <title>Contabilidad venezolana en Odoo 19</title>
 <style>
-  /* Mismo sistema visual que index.html y automatismos.html. Son archivos separados: sincronizar a mano. */
+  /* Los mismos componentes que avance-web/index.html: tokens, KPIs, details/summary, chips .s,
+     .card.panel, header y footer. Son DOS archivos: si allá cambia algo, cambiarlo acá también. */
   :root {
     --bg: #ffffff; --fg: #15202b; --fg-2: #4a5661; --fg-3: #75828c;
     --line: #c5ccd2; --line-2: #e5e9ec; --panel: #f5f7f9;
-    --acc: #163a5f; --acc-bg: #e7eef6;
-    --ok: #146b4f; --ok-bg: #e0f2ea; --cur: #9a5a00; --cur-bg: #fbeed6;
-    --mal: #9a2222; --mal-bg: #f8e3e3;
+    --acc: #163a5f; --acc-bg: #e7eef6; --odoo: #4d2a78; --odoo-bg: #efe8f6;
+    --ok: #146b4f; --ok-bg: #e0f2ea; --cur: #9a5a00; --cur-bg: #fbeed6; --bar: #e5e9ec;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
       --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
-      --acc: #9dc3ea; --acc-bg: #1a2b3d;
-      --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12;
-      --mal: #ef9494; --mal-bg: #34201f;
+      --acc: #9dc3ea; --acc-bg: #1a2b3d; --odoo: #c9aaee; --odoo-bg: #2a1f3a;
+      --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12; --bar: #2a3138;
     }
   }
   :root[data-theme="dark"] {
     --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
     --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
-    --acc: #9dc3ea; --acc-bg: #1a2b3d;
-    --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12;
-    --mal: #ef9494; --mal-bg: #34201f;
+    --acc: #9dc3ea; --acc-bg: #1a2b3d; --odoo: #c9aaee; --odoo-bg: #2a1f3a;
+    --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12; --bar: #2a3138;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
@@ -39,51 +37,66 @@
   header .de { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--acc); }
   header h1 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; letter-spacing: -.01em; }
   header .org { color: var(--fg-2); margin: 2px 0 0; font-size: 14.5px; }
-  header .meta { text-align: right; font-size: 13px; color: var(--fg-2); flex: 0 0 auto; }
+  header .meta { text-align: right; font-size: 13px; color: var(--fg-2); line-height: 1.55; flex: 0 0 auto; }
   @media (max-width: 640px) { header .meta { text-align: left; } }
 
-  .resumen { margin: 20px 0 0; border: 1px solid var(--line-2); border-left: 4px solid var(--acc); background: var(--panel); padding: 18px 20px; }
-  .resumen .lbl { margin-bottom: 8px; }
-  .resumen p { margin: 0; font-size: 16px; line-height: 1.55; }
-  .resumen p + p { margin-top: 10px; color: var(--fg-2); font-size: 15px; }
-  .resumen b { color: var(--fg); }
-
-  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 16px 0 0; }
-  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } .kpi .v { font-size: 20px; } }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 20px 0 0; }
+  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } .kpi .v { font-size: 21px; } }
   .kpi { background: var(--bg); padding: 12px 14px 13px; }
-  .kpi .v { font-size: 25px; font-weight: 700; line-height: 1.15; margin-top: 3px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
-  .kpi .v.ok { color: var(--ok); } .kpi .v.mal { color: var(--mal); }
-  .kpi .s { font-size: 12.5px; color: var(--fg-2); margin-top: 2px; line-height: 1.35; }
+  .kpi .v { font-size: 26px; font-weight: 700; line-height: 1.15; margin-top: 3px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .kpi .v.ok { color: var(--ok); }
+  .kpi .s { font-size: 12.5px; color: var(--fg-2); margin-top: 1px; }
+
+  .prod { margin: 14px 0 0; padding: 10px 14px; border: 1px solid var(--ok-bg); background: var(--ok-bg); font-size: 14px; }
+  .prod b { color: var(--ok); }
 
   h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); margin: 34px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
-  p.txt { margin: 0 0 10px; color: var(--fg-2); font-size: 14.5px; max-width: 72ch; }
-  p.txt b { color: var(--fg); }
+  .nota { font-size: 14px; color: var(--fg-2); margin: -4px 0 10px; }
 
-  .comp { border: 1px solid var(--line-2); overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 520px; }
-  th, td { text-align: left; padding: 9px 13px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
-  thead th { background: var(--panel); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); }
-  tbody tr:last-child td { border-bottom: 0; }
-  td.si { color: var(--ok); font-weight: 600; } td.no { color: var(--mal); font-weight: 600; }
-  td:first-child { font-weight: 600; }
+  details { border: 1px solid var(--line-2); margin: 8px 0; overflow: hidden; }
+  summary { cursor: pointer; padding: 10px 14px; background: var(--panel); font-weight: 600; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary .meta { font-weight: 400; font-size: 12.5px; color: var(--fg-2); }
+  details ul { list-style: none; margin: 0; padding: 4px 14px 10px; }
+  details li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-top: 1px solid var(--line-2); font-size: 14px; }
+  details li:first-child { border-top: none; }
+  details li .ic { font-weight: 700; text-align: center; }
+  li.hecho .ic { color: var(--ok); } li.curso .ic { color: var(--cur); } li.pend .ic { color: var(--fg-3); }
+  li .tx b { font-weight: 600; }
+  li .tx span { display: block; color: var(--fg-2); font-size: 13px; margin-top: 1px; }
+  li .f { font-size: 12px; color: var(--fg-3); white-space: nowrap; }
+  .s { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 1px 7px; }
+  .s.hecho { background: var(--ok-bg); color: var(--ok); }
+  .s.curso { background: var(--cur-bg); color: var(--cur); }
+  .s.pend { background: var(--panel); color: var(--fg-3); }
+  @media (max-width: 560px) {
+    details li { grid-template-columns: 22px 1fr; }
+    li .f { grid-column: 2; margin-top: 3px; }
+  }
 
-  ul.puntos { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line-2); }
-  ul.puntos li { display: grid; grid-template-columns: 22px 1fr; gap: 9px; padding: 10px 14px; border-bottom: 1px solid var(--line-2); font-size: 14.5px; align-items: baseline; }
-  ul.puntos li:last-child { border-bottom: 0; }
-  ul.puntos .ic { font-weight: 700; text-align: center; }
-  li.gana .ic { color: var(--ok); } li.pierde .ic { color: var(--mal); }
-  ul.puntos b { display: block; }
-  ul.puntos span.d { color: var(--fg-2); font-size: 13.5px; }
-
-  .card { border: 1px solid var(--line-2); padding: 14px 16px; background: var(--bg); }
+  .card { border: 1px solid var(--line-2); padding: 12px 14px 13px; background: var(--bg); }
   .card.panel { background: var(--panel); }
-  .card p { margin: 0; color: var(--fg-2); font-size: 14.5px; }
-  .card p + p { margin-top: 9px; }
-  .card b { color: var(--fg); }
-  .conclusion { border: 1px solid var(--ok-bg); border-left: 4px solid var(--ok); background: var(--ok-bg); padding: 18px 20px; }
-  .conclusion p { color: var(--fg); font-size: 15px; }
+  .card .lbl { margin-bottom: 6px; }
+  .card p { margin: 0; color: var(--fg-2); font-size: 14px; }
+  .card p + p { margin-top: 8px; }
   footer { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   a { color: var(--acc); }
+  /* comparación: mismo patrón de lista, tres columnas */
+  li.comp { grid-template-columns: minmax(120px,1fr) minmax(130px,1.2fr) minmax(130px,1.2fr); }
+  li.comp .hoy { color: var(--fg-2); font-size: 13.5px; }
+  li.comp .nue { color: var(--fg-2); font-size: 13.5px; }
+  li.comp .hoy.mal, li.comp .nue.mal { color: var(--cur); }
+  li.comp .hoy.bien, li.comp .nue.bien { color: var(--ok); font-weight: 600; }
+  li.comp .tit { font-weight: 600; font-size: 14px; }
+  .cab-comp { display: grid; grid-template-columns: minmax(120px,1fr) minmax(130px,1.2fr) minmax(130px,1.2fr);
+    gap: 8px; padding: 8px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--fg-3); font-weight: 600; background: var(--panel); border: 1px solid var(--line-2); border-bottom: 0; }
+  @media (max-width: 620px) {
+    li.comp, .cab-comp { grid-template-columns: 1fr; gap: 2px; }
+    .cab-comp { display: none; }
+    li.comp .hoy::before { content: "Hoy: "; color: var(--fg-3); }
+    li.comp .nue::before { content: "Alternativa: "; color: var(--fg-3); }
+  }
 </style>
 </head>
 <body>
@@ -93,115 +106,96 @@
   <div>
     <p class="de">De Franco para Aeroambulancias Silva, C.A.</p>
     <h1>La contabilidad venezolana en Odoo 19</h1>
-    <p class="org">Análisis de la alternativa abierta que encontró Rafael · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
+    <p class="org">La alternativa abierta que encontró Rafael · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
   </div>
   <div class="meta"><span>30 de septiembre de 2026</span></div>
 </header>
 
-<div class="resumen">
-  <div class="lbl">En resumen</div>
-  <p><b>Sí, es mejor que lo que usamos hoy</b>, y además es la única de las dos que existe para
-  Odoo 19. Cubre las obligaciones con el SENIAT —retenciones de IVA e ISLR, libros fiscales, número
-  de control, IGTF, impuesto municipal— con más pruebas, mejor documentación y sin costo de licencia.</p>
-  <p>Con una excepción importante: <b>no trae la contabilidad en dólares</b>. Eso es la mitad del
-  sistema actual y hoy se usa en 81.023 asientos. Es lo único que habría que resolver aparte, y la
-  decisión depende de una pregunta contable: si los informes en dólares son obligatorios para la
-  empresa o son de consulta interna.</p>
-</div>
-
 <div class="kpis">
   <div class="kpi"><div class="lbl">Existe para Odoo 19</div><div class="v ok">Sí</div>
-    <div class="s">el sistema actual, no</div></div>
+    <div class="s">la que usamos hoy, no</div></div>
   <div class="kpi"><div class="lbl">Costo de licencia</div><div class="v ok">0</div>
     <div class="s">código abierto y libre</div></div>
   <div class="kpi"><div class="lbl">Controles de calidad</div><div class="v ok">185</div>
-    <div class="s">el sistema actual no tiene ninguno</div></div>
+    <div class="s">la actual no tiene ninguno</div></div>
   <div class="kpi"><div class="lbl">Cubre lo del SENIAT</div><div class="v ok">Sí</div>
-    <div class="s">falta lo de dólares</div></div>
+    <div class="s">le falta lo de dólares</div></div>
 </div>
 
-<h2>Cómo se comparan</h2>
-<div class="comp"><table>
-<thead><tr><th>&nbsp;</th><th>Lo que usamos hoy</th><th>La alternativa abierta</th></tr></thead>
-<tbody>
-<tr><td>Versión para Odoo 19</td><td class="no">No existe</td><td class="si">Publicada y lista</td></tr>
-<tr><td>Licencia</td><td>Privada, del proveedor</td><td class="si">Libre, sin costo</td></tr>
-<tr><td>Controles de calidad automáticos</td><td class="no">Ninguno</td><td class="si">185</td></tr>
-<tr><td>Documentación</td><td>La del proveedor</td><td class="si">Manual propio, con la ley citada artículo por artículo</td></tr>
-<tr><td>Actualizaciones recibidas</td><td class="no">Una sola: la instalación, en diciembre de 2023</td><td>11 módulos publicados y con registro de cambios</td></tr>
-<tr><td>Retenciones de IVA e ISLR</td><td class="si">Sí</td><td class="si">Sí, con el comprobante y los archivos para el portal</td></tr>
-<tr><td>Libros fiscales y número de control</td><td class="si">Sí</td><td class="si">Sí</td></tr>
-<tr><td>Contabilidad en dólares</td><td class="si">Sí, completa</td><td class="no">No la trae</td></tr>
-<tr><td>Facturación electrónica</td><td class="no">No</td><td class="si">Sí, preparada</td></tr>
-<tr><td>Máquina fiscal y nómina</td><td class="no">No</td><td class="si">Sí</td></tr>
-</tbody></table></div>
+<p class="prod"><b>En resumen: sí, es mejor que lo que usamos hoy</b>, y es la única de las dos que
+existe para Odoo 19. Cubre las obligaciones con el SENIAT —retenciones de IVA e ISLR, libros
+fiscales, número de control, IGTF, impuesto municipal— con más controles, mejor documentación y sin
+costo de licencia. <b>Con una excepción: no trae la contabilidad en dólares</b>, que es la mitad del
+sistema actual y hoy se usa en 81.023 asientos. Esa parte se decide aparte.</p>
 
-<h2>El dato que más pesa: quién le hace mantenimiento</h2>
-<p class="txt">La razón principal para quedarse con un proveedor pagado es que él se ocupa cuando
+<h2>Cómo se comparan</h2>
+<div class="cab-comp"><span>&nbsp;</span><span>Lo que usamos hoy</span><span>La alternativa abierta</span></div>
+<details open><summary><span>Punto por punto</span><span class="meta">10 aspectos comparados</span></summary>
+<ul><li class="comp"><span class="tit">Versión para Odoo 19</span><span class="hoy mal">No existe</span><span class="nue bien">Publicada y lista</span></li><li class="comp"><span class="tit">Licencia</span><span class="hoy ">Privada, del proveedor</span><span class="nue bien">Libre, sin costo</span></li><li class="comp"><span class="tit">Controles de calidad</span><span class="hoy mal">Ninguno</span><span class="nue bien">185 automáticos</span></li><li class="comp"><span class="tit">Documentación</span><span class="hoy ">La del proveedor</span><span class="nue bien">Manual propio con la ley citada</span></li><li class="comp"><span class="tit">Actualizaciones recibidas</span><span class="hoy mal">Una sola, en diciembre de 2023</span><span class="nue ">11 módulos con registro de cambios</span></li><li class="comp"><span class="tit">Retenciones de IVA e ISLR</span><span class="hoy bien">Sí</span><span class="nue bien">Sí, con comprobante y archivos</span></li><li class="comp"><span class="tit">Libros fiscales y nº de control</span><span class="hoy bien">Sí</span><span class="nue bien">Sí</span></li><li class="comp"><span class="tit">Contabilidad en dólares</span><span class="hoy bien">Sí, completa</span><span class="nue mal">No la trae</span></li><li class="comp"><span class="tit">Facturación electrónica</span><span class="hoy mal">No</span><span class="nue bien">Sí, preparada</span></li><li class="comp"><span class="tit">Máquina fiscal y nómina</span><span class="hoy mal">No</span><span class="nue bien">Sí</span></li></ul></details>
+
+<h2>Quién le hace mantenimiento hoy</h2>
+<p class="nota">La razón principal para quedarse con un proveedor pagado es que él se ocupe cuando
 cambia una ley. Revisamos el historial del sistema para ver si eso viene ocurriendo.</p>
 <div class="card panel">
+  <div class="lbl">Lo que dice el historial</div>
   <p><b>El código de la contabilidad venezolana se instaló el 1 de diciembre de 2023 y el proveedor
-  no volvió a modificarlo.</b> Son dos años y siete meses sin una sola actualización. Los 17 módulos
-  siguen declarando la misma versión con la que entraron.</p>
+  no volvió a modificarlo.</b> Son dos años y siete meses sin una sola actualización, y los 17
+  módulos siguen declarando la misma versión con la que entraron.</p>
   <p>Las <b>tres únicas correcciones</b> que ese código necesitó en todo ese tiempo —problemas que
   impedían guardar facturas y contactos— <b>las hizo Agencia Krea</b>, en julio de 2026.</p>
-  <p>Dicho de otra forma: <b>el mantenimiento ya lo estamos haciendo nosotros</b>. La diferencia es
-  que hoy lo hacemos sobre un código cerrado que no se puede mejorar ni compartir, y con la
-  alternativa abierta se haría sobre uno que sí.</p>
+  <p>Dicho de otra forma: <b>el mantenimiento ya lo estamos haciendo nosotros.</b> La diferencia es
+  que hoy se hace sobre un código cerrado que no se puede mejorar ni compartir, y con la alternativa
+  abierta se haría sobre uno que sí.</p>
 </div>
 
 <h2>Qué se gana</h2>
-<ul class="puntos">
-  <li class="gana"><span class="ic">+</span><span><b>Destraba la fecha de enero</b><span class="d">Es la única de las dos que funciona en Odoo 19. Deja de depender de que un tercero entregue algo.</span></span></li>
-  <li class="gana"><span class="ic">+</span><span><b>Preparada para la factura electrónica</b><span class="d">Trae la conexión con un proveedor autorizado. En Venezuela esto avanza hacia ser obligatorio, y hoy el sistema no lo tiene.</span></span></li>
-  <li class="gana"><span class="ic">+</span><span><b>Se puede corregir el mismo día</b><span class="d">Si el SENIAT cambia un porcentaje, se ajusta sin esperar a nadie.</span></span></li>
-  <li class="gana"><span class="ic">+</span><span><b>Máquina fiscal y nómina incluidas</b><span class="d">Dos capacidades que hoy no están instaladas y quedarían disponibles sin costo adicional.</span></span></li>
-  <li class="gana"><span class="ic">+</span><span><b>Menos pasos para el personal</b><span class="d">La retención se genera al registrar el pago, en vez de cargarse como un documento aparte.</span></span></li>
-</ul>
+<details open><summary><span>Ventajas</span><span class="meta">5 puntos</span></summary>
+<ul><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Destraba la fecha de enero</b><span>Es la única de las dos que funciona en Odoo 19. Deja de depender de que un tercero entregue algo.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Preparada para la factura electrónica</b><span>Trae la conexión con un proveedor autorizado. En Venezuela esto avanza hacia ser obligatorio y hoy el sistema no lo tiene.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Se puede corregir el mismo día</b><span>Si el SENIAT cambia un porcentaje, se ajusta sin esperar a nadie.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Máquina fiscal y nómina incluidas</b><span>Dos capacidades que hoy no están instaladas y quedarían disponibles sin costo adicional.</span></span></li><li class="hecho"><span class="ic">✓</span><span class="tx"><b>Menos pasos para el personal</b><span>La retención se genera al registrar el pago, en vez de cargarse como un documento aparte.</span></span></li></ul></details>
 
 <h2>Qué habría que resolver</h2>
-<ul class="puntos">
-  <li class="pierde"><span class="ic">−</span><span><b>La contabilidad en dólares</b><span class="d">Es la mitad del sistema actual y se usa en 81.023 asientos y 402 productos. La alternativa abierta no la trae: solo imprime el equivalente en bolívares al pie de la factura, que es un requisito de forma.</span></span></li>
-  <li class="pierde"><span class="ic">−</span><span><b>Kardex e impuestos menores</b><span class="d">Kardex, ITF e impuesto a licores no están cubiertos.</span></span></li>
-  <li class="pierde"><span class="ic">−</span><span><b>Es un proyecto nuevo</b><span class="d">Se publicó en agosto de 2026 y todavía no tiene una comunidad grande detrás. Seríamos de los primeros en usarlo en producción.</span></span></li>
-  <li class="pierde"><span class="ic">−</span><span><b>Cambia la rutina de contabilidad</b><span class="d">El área tendría que aprender la forma nueva de emitir retenciones. Es más simple, pero es distinta.</span></span></li>
-</ul>
+<details open><summary><span>Lo que no cubre o hay que atender</span><span class="meta">4 puntos</span></summary>
+<ul><li class="curso"><span class="ic">●</span><span class="tx"><b>La contabilidad en dólares</b><span>Es la mitad del sistema actual y se usa en 81.023 asientos y 402 productos. La alternativa no la trae: solo imprime el equivalente en bolívares al pie de la factura, que es un requisito de forma.</span></span></li><li class="curso"><span class="ic">●</span><span class="tx"><b>Kardex e impuestos menores</b><span>Kardex, ITF e impuesto a licores no están cubiertos.</span></span></li><li class="curso"><span class="ic">●</span><span class="tx"><b>Es un proyecto nuevo</b><span>Se publicó en agosto de 2026 y todavía no tiene una comunidad grande detrás. Seríamos de los primeros en usarlo en producción.</span></span></li><li class="curso"><span class="ic">●</span><span class="tx"><b>Cambia la rutina de contabilidad</b><span>El área tendría que aprender la forma nueva de emitir retenciones. Es más simple, pero es distinta.</span></span></li></ul></details>
 
 <h2>¿Es escalable?</h2>
-<p class="txt"><b>Más que lo actual, sí.</b> Hoy la contabilidad venezolana es el techo del sistema:
-existe solo para Odoo 16, y mientras siga así la empresa no puede actualizarse ni acceder a lo que
-las versiones nuevas traen. La alternativa abierta rompe ese techo y además llega preparada para lo
-que viene —factura electrónica, máquina fiscal, nómina—, con controles automáticos que avisan si un
-cambio rompe algo. Y al ser libre, si mañana hace falta una función que no existe, se puede construir
-en lugar de esperar que alguien la venda.</p>
+<div class="card">
+  <p><b>Más que lo actual, sí.</b> Hoy la contabilidad venezolana es el techo del sistema: existe
+  solo para Odoo 16, y mientras siga así la empresa no puede actualizarse ni acceder a lo que las
+  versiones nuevas traen.</p>
+  <p>La alternativa abierta rompe ese techo y llega preparada para lo que viene —factura
+  electrónica, máquina fiscal, nómina—, con controles automáticos que avisan si un cambio rompe
+  algo. Y al ser libre, si mañana hace falta una función que no existe, se puede construir en lugar
+  de esperar a que alguien la venda.</p>
+</div>
 
 <h2>Qué implica ponerlo en marcha</h2>
-<p class="txt">No es instalar y usar. Requiere un trabajo de implementación especializado: definir
-el esquema fiscal completo de la empresa dentro del sistema nuevo, validarlo emitiendo comprobantes
-contra los que se emiten hoy hasta que coincidan, resolver la convivencia con el histórico y
-preparar el traspaso de saldos al cierre del ejercicio. Es el tipo de trabajo que hacemos en la
-migración y está contemplado en el plan de trabajo hasta enero.</p>
-<p class="txt">Antes de decidir nada proponemos <b>probarla sobre la copia de pruebas</b>: emitir una
-retención de IVA, una de ISLR y un libro de compras, y compararlos con los que emite el sistema real
-hoy. Es una copia, no afecta a nadie, y en pocos días entrega una respuesta con evidencia en vez de
-una opinión.</p>
+<div class="card">
+  <p>No es instalar y usar. Requiere un trabajo de implementación especializado: definir el esquema
+  fiscal completo de la empresa dentro del sistema nuevo, validarlo emitiendo comprobantes contra los
+  que se emiten hoy hasta que coincidan, resolver la convivencia con el histórico y preparar el
+  traspaso de saldos al cierre del ejercicio. Es el tipo de trabajo que ya está contemplado en el
+  plan hasta enero.</p>
+  <p>Antes de decidir nada proponemos <b>probarla sobre la copia de pruebas</b>: emitir una retención
+  de IVA, una de ISLR y un libro de compras, y compararlos con los que emite el sistema real hoy. Es
+  una copia, no afecta a nadie, y entrega una respuesta con evidencia en vez de una opinión.</p>
+</div>
 
 <h2>Conclusión</h2>
-<div class="card conclusion">
-  <p><b>Recomendamos adoptar la alternativa abierta para las obligaciones fiscales, y resolver lo de
-  los dólares como una decisión aparte.</b></p>
+<div class="card panel">
+  <div class="lbl">Lo que recomendamos</div>
+  <p><b>Adoptar la alternativa abierta para las obligaciones fiscales, y resolver lo de los dólares
+  como una decisión aparte.</b></p>
   <p>Las razones, en orden: es la única que funciona en Odoo 19 y por lo tanto la que permite fijar
   la fecha de enero; el mantenimiento del sistema actual en los hechos ya lo hacemos nosotros desde
   hace más de dos años; y llega con controles de calidad y documentación que el actual no tiene,
   además de capacidades que van a hacer falta pronto.</p>
-  <p>La única pregunta que falta contestar es contable y la tiene que responder la contabilidad de
-  la empresa: <b>¿los informes en dólares son una obligación o una herramienta de consulta interna?</b>
-  Si son de consulta, esta alternativa alcanza. Si son obligatorios, se suma a ella esa pieza en
-  particular, que es mucho menos trabajo que sostener el paquete completo.</p>
+  <p>La única pregunta que falta contestar es contable: <b>¿los informes en dólares son una
+  obligación o una herramienta de consulta interna?</b> Si son de consulta, esta alternativa alcanza.
+  Si son obligatorios, se le suma esa pieza en particular, que es mucho menos trabajo que sostener el
+  paquete completo.</p>
 </div>
 
 <footer>
-  <span>Análisis hecho sobre el código de ambas soluciones y sobre el historial real del sistema. · <a href="index.html">Volver al avance</a></span>
+  <span>Análisis hecho sobre el código de ambas soluciones y sobre el historial real del sistema. · <a href="index.html">Volver al avance</a> · <a href="automatismos.html">Automatismos</a></span>
   <span>Aeroambulancias Silva, C.A.</span>
 </footer>
 </div>
