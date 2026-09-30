@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Contabilidad venezolana en Odoo 19</title>
+<style>
+  /* Mismo sistema visual que index.html y automatismos.html. Son archivos separados: sincronizar a mano. */
+  :root {
+    --bg: #ffffff; --fg: #15202b; --fg-2: #4a5661; --fg-3: #75828c;
+    --line: #c5ccd2; --line-2: #e5e9ec; --panel: #f5f7f9;
+    --acc: #163a5f; --acc-bg: #e7eef6;
+    --ok: #146b4f; --ok-bg: #e0f2ea; --cur: #9a5a00; --cur-bg: #fbeed6;
+    --mal: #9a2222; --mal-bg: #f8e3e3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
+      --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
+      --acc: #9dc3ea; --acc-bg: #1a2b3d;
+      --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12;
+      --mal: #ef9494; --mal-bg: #34201f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14181c; --fg: #e8ecef; --fg-2: #b7c0c7; --fg-3: #87929b;
+    --line: #46505a; --line-2: #2a3138; --panel: #1b2025;
+    --acc: #9dc3ea; --acc-bg: #1a2b3d;
+    --ok: #74d1ae; --ok-bg: #163227; --cur: #efbf6b; --cur-bg: #382b12;
+    --mal: #ef9494; --mal-bg: #34201f;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 30px 20px 64px; }
+  .lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; }
+  header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  header .de { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--acc); }
+  header h1 { font-size: 24px; font-weight: 700; margin: 0; line-height: 1.2; letter-spacing: -.01em; }
+  header .org { color: var(--fg-2); margin: 2px 0 0; font-size: 14.5px; }
+  header .meta { text-align: right; font-size: 13px; color: var(--fg-2); flex: 0 0 auto; }
+  @media (max-width: 640px) { header .meta { text-align: left; } }
+
+  .resumen { margin: 20px 0 0; border: 1px solid var(--line-2); border-left: 4px solid var(--acc); background: var(--panel); padding: 18px 20px; }
+  .resumen .lbl { margin-bottom: 8px; }
+  .resumen p { margin: 0; font-size: 16px; line-height: 1.55; }
+  .resumen p + p { margin-top: 10px; color: var(--fg-2); font-size: 15px; }
+  .resumen b { color: var(--fg); }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); margin: 16px 0 0; }
+  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } .kpi .v { font-size: 20px; } }
+  .kpi { background: var(--bg); padding: 12px 14px 13px; }
+  .kpi .v { font-size: 25px; font-weight: 700; line-height: 1.15; margin-top: 3px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .kpi .v.ok { color: var(--ok); } .kpi .v.mal { color: var(--mal); }
+  .kpi .s { font-size: 12.5px; color: var(--fg-2); margin-top: 2px; line-height: 1.35; }
+
+  h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); margin: 34px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  p.txt { margin: 0 0 10px; color: var(--fg-2); font-size: 14.5px; max-width: 72ch; }
+  p.txt b { color: var(--fg); }
+
+  .comp { border: 1px solid var(--line-2); overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 520px; }
+  th, td { text-align: left; padding: 9px 13px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+  thead th { background: var(--panel); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.si { color: var(--ok); font-weight: 600; } td.no { color: var(--mal); font-weight: 600; }
+  td:first-child { font-weight: 600; }
+
+  ul.puntos { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line-2); }
+  ul.puntos li { display: grid; grid-template-columns: 22px 1fr; gap: 9px; padding: 10px 14px; border-bottom: 1px solid var(--line-2); font-size: 14.5px; align-items: baseline; }
+  ul.puntos li:last-child { border-bottom: 0; }
+  ul.puntos .ic { font-weight: 700; text-align: center; }
+  li.gana .ic { color: var(--ok); } li.pierde .ic { color: var(--mal); }
+  ul.puntos b { display: block; }
+  ul.puntos span.d { color: var(--fg-2); font-size: 13.5px; }
+
+  .card { border: 1px solid var(--line-2); padding: 14px 16px; background: var(--bg); }
+  .card.panel { background: var(--panel); }
+  .card p { margin: 0; color: var(--fg-2); font-size: 14.5px; }
+  .card p + p { margin-top: 9px; }
+  .card b { color: var(--fg); }
+  .conclusion { border: 1px solid var(--ok-bg); border-left: 4px solid var(--ok); background: var(--ok-bg); padding: 18px 20px; }
+  .conclusion p { color: var(--fg); font-size: 15px; }
+  footer { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  a { color: var(--acc); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div>
+    <p class="de">De Franco para Aeroambulancias Silva, C.A.</p>
+    <h1>La contabilidad venezolana en Odoo 19</h1>
+    <p class="org">Análisis de la alternativa abierta que encontró Rafael · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
+  </div>
+  <div class="meta"><span>30 de septiembre de 2026</span></div>
+</header>
+
+<div class="resumen">
+  <div class="lbl">En resumen</div>
+  <p><b>Sí, es mejor que lo que usamos hoy</b>, y además es la única de las dos que existe para
+  Odoo 19. Cubre las obligaciones con el SENIAT —retenciones de IVA e ISLR, libros fiscales, número
+  de control, IGTF, impuesto municipal— con más pruebas, mejor documentación y sin costo de licencia.</p>
+  <p>Con una excepción importante: <b>no trae la contabilidad en dólares</b>. Eso es la mitad del
+  sistema actual y hoy se usa en 81.023 asientos. Es lo único que habría que resolver aparte, y la
+  decisión depende de una pregunta contable: si los informes en dólares son obligatorios para la
+  empresa o son de consulta interna.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Existe para Odoo 19</div><div class="v ok">Sí</div>
+    <div class="s">el sistema actual, no</div></div>
+  <div class="kpi"><div class="lbl">Costo de licencia</div><div class="v ok">0</div>
+    <div class="s">código abierto y libre</div></div>
+  <div class="kpi"><div class="lbl">Controles de calidad</div><div class="v ok">185</div>
+    <div class="s">el sistema actual no tiene ninguno</div></div>
+  <div class="kpi"><div class="lbl">Cubre lo del SENIAT</div><div class="v ok">Sí</div>
+    <div class="s">falta lo de dólares</div></div>
+</div>
+
+<h2>Cómo se comparan</h2>
+<div class="comp"><table>
+<thead><tr><th>&nbsp;</th><th>Lo que usamos hoy</th><th>La alternativa abierta</th></tr></thead>
+<tbody>
+<tr><td>Versión para Odoo 19</td><td class="no">No existe</td><td class="si">Publicada y lista</td></tr>
+<tr><td>Licencia</td><td>Privada, del proveedor</td><td class="si">Libre, sin costo</td></tr>
+<tr><td>Controles de calidad automáticos</td><td class="no">Ninguno</td><td class="si">185</td></tr>
+<tr><td>Documentación</td><td>La del proveedor</td><td class="si">Manual propio, con la ley citada artículo por artículo</td></tr>
+<tr><td>Actualizaciones recibidas</td><td class="no">Una sola: la instalación, en diciembre de 2023</td><td>11 módulos publicados y con registro de cambios</td></tr>
+<tr><td>Retenciones de IVA e ISLR</td><td class="si">Sí</td><td class="si">Sí, con el comprobante y los archivos para el portal</td></tr>
+<tr><td>Libros fiscales y número de control</td><td class="si">Sí</td><td class="si">Sí</td></tr>
+<tr><td>Contabilidad en dólares</td><td class="si">Sí, completa</td><td class="no">No la trae</td></tr>
+<tr><td>Facturación electrónica</td><td class="no">No</td><td class="si">Sí, preparada</td></tr>
+<tr><td>Máquina fiscal y nómina</td><td class="no">No</td><td class="si">Sí</td></tr>
+</tbody></table></div>
+
+<h2>El dato que más pesa: quién le hace mantenimiento</h2>
+<p class="txt">La razón principal para quedarse con un proveedor pagado es que él se ocupa cuando
+cambia una ley. Revisamos el historial del sistema para ver si eso viene ocurriendo.</p>
+<div class="card panel">
+  <p><b>El código de la contabilidad venezolana se instaló el 1 de diciembre de 2023 y el proveedor
+  no volvió a modificarlo.</b> Son dos años y siete meses sin una sola actualización. Los 17 módulos
+  siguen declarando la misma versión con la que entraron.</p>
+  <p>Las <b>tres únicas correcciones</b> que ese código necesitó en todo ese tiempo —problemas que
+  impedían guardar facturas y contactos— <b>las hizo Agencia Krea</b>, en julio de 2026.</p>
+  <p>Dicho de otra forma: <b>el mantenimiento ya lo estamos haciendo nosotros</b>. La diferencia es
+  que hoy lo hacemos sobre un código cerrado que no se puede mejorar ni compartir, y con la
+  alternativa abierta se haría sobre uno que sí.</p>
+</div>
+
+<h2>Qué se gana</h2>
+<ul class="puntos">
+  <li class="gana"><span class="ic">+</span><span><b>Destraba la fecha de enero</b><span class="d">Es la única de las dos que funciona en Odoo 19. Deja de depender de que un tercero entregue algo.</span></span></li>
+  <li class="gana"><span class="ic">+</span><span><b>Preparada para la factura electrónica</b><span class="d">Trae la conexión con un proveedor autorizado. En Venezuela esto avanza hacia ser obligatorio, y hoy el sistema no lo tiene.</span></span></li>
+  <li class="gana"><span class="ic">+</span><span><b>Se puede corregir el mismo día</b><span class="d">Si el SENIAT cambia un porcentaje, se ajusta sin esperar a nadie.</span></span></li>
+  <li class="gana"><span class="ic">+</span><span><b>Máquina fiscal y nómina incluidas</b><span class="d">Dos capacidades que hoy no están instaladas y quedarían disponibles sin costo adicional.</span></span></li>
+  <li class="gana"><span class="ic">+</span><span><b>Menos pasos para el personal</b><span class="d">La retención se genera al registrar el pago, en vez de cargarse como un documento aparte.</span></span></li>
+</ul>
+
+<h2>Qué habría que resolver</h2>
+<ul class="puntos">
+  <li class="pierde"><span class="ic">−</span><span><b>La contabilidad en dólares</b><span class="d">Es la mitad del sistema actual y se usa en 81.023 asientos y 402 productos. La alternativa abierta no la trae: solo imprime el equivalente en bolívares al pie de la factura, que es un requisito de forma.</span></span></li>
+  <li class="pierde"><span class="ic">−</span><span><b>Kardex e impuestos menores</b><span class="d">Kardex, ITF e impuesto a licores no están cubiertos.</span></span></li>
+  <li class="pierde"><span class="ic">−</span><span><b>Es un proyecto nuevo</b><span class="d">Se publicó en agosto de 2026 y todavía no tiene una comunidad grande detrás. Seríamos de los primeros en usarlo en producción.</span></span></li>
+  <li class="pierde"><span class="ic">−</span><span><b>Cambia la rutina de contabilidad</b><span class="d">El área tendría que aprender la forma nueva de emitir retenciones. Es más simple, pero es distinta.</span></span></li>
+</ul>
+
+<h2>¿Es escalable?</h2>
+<p class="txt"><b>Más que lo actual, sí.</b> Hoy la contabilidad venezolana es el techo del sistema:
+existe solo para Odoo 16, y mientras siga así la empresa no puede actualizarse ni acceder a lo que
+las versiones nuevas traen. La alternativa abierta rompe ese techo y además llega preparada para lo
+que viene —factura electrónica, máquina fiscal, nómina—, con controles automáticos que avisan si un
+cambio rompe algo. Y al ser libre, si mañana hace falta una función que no existe, se puede construir
+en lugar de esperar que alguien la venda.</p>
+
+<h2>Qué implica ponerlo en marcha</h2>
+<p class="txt">No es instalar y usar. Requiere un trabajo de implementación especializado: definir
+el esquema fiscal completo de la empresa dentro del sistema nuevo, validarlo emitiendo comprobantes
+contra los que se emiten hoy hasta que coincidan, resolver la convivencia con el histórico y
+preparar el traspaso de saldos al cierre del ejercicio. Es el tipo de trabajo que hacemos en la
+migración y está contemplado en el plan de trabajo hasta enero.</p>
+<p class="txt">Antes de decidir nada proponemos <b>probarla sobre la copia de pruebas</b>: emitir una
+retención de IVA, una de ISLR y un libro de compras, y compararlos con los que emite el sistema real
+hoy. Es una copia, no afecta a nadie, y en pocos días entrega una respuesta con evidencia en vez de
+una opinión.</p>
+
+<h2>Conclusión</h2>
+<div class="card conclusion">
+  <p><b>Recomendamos adoptar la alternativa abierta para las obligaciones fiscales, y resolver lo de
+  los dólares como una decisión aparte.</b></p>
+  <p>Las razones, en orden: es la única que funciona en Odoo 19 y por lo tanto la que permite fijar
+  la fecha de enero; el mantenimiento del sistema actual en los hechos ya lo hacemos nosotros desde
+  hace más de dos años; y llega con controles de calidad y documentación que el actual no tiene,
+  además de capacidades que van a hacer falta pronto.</p>
+  <p>La única pregunta que falta contestar es contable y la tiene que responder la contabilidad de
+  la empresa: <b>¿los informes en dólares son una obligación o una herramienta de consulta interna?</b>
+  Si son de consulta, esta alternativa alcanza. Si son obligatorios, se suma a ella esa pieza en
+  particular, que es mucho menos trabajo que sostener el paquete completo.</p>
+</div>
+
+<footer>
+  <span>Análisis hecho sobre el código de ambas soluciones y sobre el historial real del sistema. · <a href="index.html">Volver al avance</a></span>
+  <span>Aeroambulancias Silva, C.A.</span>
+</footer>
+</div>
+
+</body>
+</html>
