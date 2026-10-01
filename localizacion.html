@@ -108,7 +108,7 @@
     <h1>La contabilidad venezolana en Odoo 19</h1>
     <p class="org">La alternativa abierta que encontró Rafael · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
   </div>
-  <div class="meta"><span>30 de septiembre de 2026</span></div>
+  <div class="meta"><span>1 de octubre de 2026</span></div>
 </header>
 
 <div class="kpis">
@@ -127,6 +127,28 @@ existe para Odoo 19. Cubre las obligaciones con el SENIAT —retenciones de IVA 
 fiscales, número de control, IGTF, impuesto municipal— con más controles, mejor documentación y sin
 costo de licencia. <b>Con una excepción: no trae la contabilidad en dólares</b>, que es la mitad del
 sistema actual y hoy se usa en 81.023 asientos. Esa parte se decide aparte.</p>
+
+<h2>Ya se probó con los datos reales</h2>
+<p class="prod"><b>Se instaló el 1 de octubre sobre una copia de pruebas con toda la contabilidad de
+la empresa</b> —36.948 asientos, el plan de cuentas completo— y <b>no rompió nada</b>. Las 225
+cuentas quedaron idénticas, ningún impuesto cambió, ningún asiento se movió. El sistema siguió
+funcionando con normalidad.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Cuentas modificadas</div><div class="v ok">0</div>
+    <div class="s">de las 225 de la empresa</div></div>
+  <div class="kpi"><div class="lbl">Asientos afectados</div><div class="v ok">0</div>
+    <div class="s">de 36.948</div></div>
+  <div class="kpi"><div class="lbl">Errores al instalar</div><div class="v ok">0</div>
+    <div class="s">los 7 módulos entraron</div></div>
+  <div class="kpi"><div class="lbl">Cuentas por emparejar</div><div class="v">20</div>
+    <div class="s">el trabajo que queda</div></div>
+</div>
+
+<p class="prod">Lo único que quedó pendiente es <b>emparejar 20 cuentas</b>: los módulos buscan las
+cuentas por número y esperan los números de su propio plan, no los de la empresa. Es trabajo de
+configuración, no de programación. Después de eso se emite una retención de prueba y se compara con
+la que sale hoy del sistema actual.</p>
 
 <h2>Cómo se comparan</h2>
 <div class="cab-comp"><span>&nbsp;</span><span>Lo que usamos hoy</span><span>La alternativa abierta</span></div>
