@@ -202,9 +202,34 @@ comparó con lo que dice el sistema actual. <b>Los totales son idénticos.</b></
 <p class="prod">Esa separación entre exento y gravado era lo más delicado: un error ahí se compensa
 dentro del total y no se nota hasta una fiscalización. Se verificó columna por columna.</p>
 
-<p class="prod"><b>Queda un dato por mudar:</b> el libro tiene una columna de <b>número de control</b>
-que hoy vive en el sistema actual, en 2.789 facturas. Hay que trasladarlo, porque sin ese dato el
-libro sale incompleto. Está identificado y es parte del trabajo de migración.</p>
+<h2>El número de control: revisado factura por factura</h2>
+<p class="prod">El libro lleva una columna de <b>número de control</b> que hoy vive en el sistema
+actual. Se revisaron los <b>2.796 documentos</b> que lo tienen para saber exactamente qué hay antes
+de mudarlo.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Documentos revisados</div><div class="v">2.796</div>
+    <div class="s">ventas y compras</div></div>
+  <div class="kpi"><div class="lbl">Saltos sin explicación</div><div class="v ok">0</div>
+    <div class="s">en el correlativo de ventas</div></div>
+  <div class="kpi"><div class="lbl">Errores de carga</div><div class="v">pocos</div>
+    <div class="s">fechas y texto en el campo</div></div>
+</div>
+
+<p class="prod"><b>La buena noticia sobre el correlativo.</b> A primera vista faltaban 129 números
+entre el primero y el último. No faltan: están en las <b>126 facturas anuladas</b>, que conservan su
+número de control. Es exactamente como debe ser —una factura anulada consume su número— y por eso
+también se migran. Un número que desaparece del libro es justo lo que el SENIAT pregunta.</p>
+
+<p class="prod"><b>Lo que sí hay que mirar.</b> Conviven varios formatos de número, a veces el mismo
+día: una factura del 6 de marzo de 2024 lo tiene con seis dígitos y la siguiente, del mismo día, con
+ocho. Y en unas pocas facturas de compra alguien cargó <b>una fecha o un texto</b> en vez del número.
+Son pocas, pero es dato fiscal y conviene que el contador las revise. Ya están identificadas una por
+una.</p>
+
+<p class="prod">Aclaración sobre las compras: muchos números de proveedores se ven “raros”
+(<code>1000025699398-09</code>, <code>00081716-Z1F0007488</code>) y <b>no son errores</b>: son los
+números tal como los imprime cada proveedor. Se trasladan como están.</p>
 
 <h2>Cómo se comparan</h2>
 <div class="cab-comp"><span>&nbsp;</span><span>Lo que usamos hoy</span><span>La alternativa abierta</span></div>
