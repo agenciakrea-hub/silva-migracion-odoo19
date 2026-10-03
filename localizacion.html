@@ -380,5 +380,38 @@ automática. <b>La contabilidad no tiene que cargar nada: revisa lo que quedó.<
 </footer>
 </div>
 
+<h2>Sobre la contabilidad en dólares</h2>
+<p class="prod">Era la pieza que la localización abierta no cubre y la que más preocupaba, porque el
+sistema actual la usa en siete informes contables. <b>Apareció una salida que no estaba
+contemplada.</b></p>
+
+<p class="prod"><b>Odoo 19 ya trae la conversión a otra moneda incorporada en sus informes.</b> No
+hay que programarla: viene de fábrica, con la norma contable internacional para convertir estados
+financieros. El sistema actual resuelve lo mismo con 2.632 líneas de programación propia, hechas
+cuando Odoo todavía no lo ofrecía.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Informes con dólares hoy</div><div class="v">7</div>
+    <div class="s">mayor, antigüedad, flujo de caja…</div></div>
+  <div class="kpi"><div class="lbl">Apuntes con su valor en dólares</div><div class="v ok">96 %</div>
+    <div class="s">el dato está completo</div></div>
+  <div class="kpi"><div class="lbl">Se pierde algo si no se migra</div><div class="v ok">No</div>
+    <div class="s">los informes siguen, sin la columna</div></div>
+</div>
+
+<p class="prod"><b>Queda una diferencia por evaluar,</b> y es la única pregunta técnica que falta:
+Odoo convierte usando <b>una tasa por período</b> y el sistema actual usa <b>la tasa de cada
+asiento</b>. Con una moneda estable da casi lo mismo; con el bolívar no, porque convertir un año
+entero a una sola tasa no refleja lo que valía cada operación el día que ocurrió.</p>
+
+<p class="prod"><b>Eso se resuelve probándolo, no presupuestándolo.</b> Un día de trabajo: sacar un
+libro mayor en dólares de un mes con lo que Odoo trae y compararlo con el que sale hoy. Si coincide
+con lo que la empresa necesita, no hay que programar nada de esa parte. Si no coincide, lo que
+faltaría es un ajuste pequeño sobre algo que ya existe, no rehacer siete informes.</p>
+
+<p class="prod">Tranquiliza saber que <b>no migrar esta parte no rompe nada</b>: los informes
+contables siguen funcionando en su versión de Odoo. Lo que se dejaría de ver es la columna en
+dólares, y esa decisión se puede tomar después, con la prueba hecha.</p>
+
 </body>
 </html>
