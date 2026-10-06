@@ -214,14 +214,14 @@
 
 <script>
 const ESTADO = {
-  actualizado: '28 de septiembre de 2026',
+  actualizado: '6 de octubre de 2026',
   etapaActual: 0,
   estimacion: 'El cambio de versión se hará en enero de 2027, después del cierre del ejercicio: es la forma más limpia de migrar una contabilidad, sin períodos partidos entre dos versiones. Hasta diciembre se trabaja sobre la copia y en el sitio web nuevo.',
   produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
     'Sitio web nuevo: se construye ahora, para que el día del cambio el diseño ya esté listo',
-    'Contabilidad venezolana: el proveedor prepara su versión 19; cuando la entregue se prueba sobre la copia',
+    'Contabilidad venezolana: resuelta con una localización abierta, probada sobre la copia con los datos reales; ya no depende del proveedor',
     'Revisión de los automatismos: qué hace cada tarea programada y cuáles siguen funcionando en la versión 19',
     'Prácticas del personal sobre la copia convertida, con un guion por área'
   ],
@@ -259,7 +259,7 @@ const ESTADO = {
       { t: 'Kits de productos (bioseguridad, contingencia) pasan a listas de materiales propias de Odoo; los packs de servicio se venden igual que hoy', e: 'hecho', f: '17 sep' },
       { t: 'Asistente de IA en la versión 19: código puesto al día con lo que Odoo 19 retira, y todos sus textos internos en español neutro (más de 500 frases)', e: 'hecho', f: '17 sep' },
       { t: 'Los 39 módulos externos, medidos con datos reales: qué se usa a diario, qué lleva meses parado y qué ya trae Odoo 19', e: 'hecho', f: '17 sep' },
-      { t: 'Contabilidad venezolana resuelta según lo decidido', e: 'pend' },
+      { t: 'Contabilidad venezolana resuelta: retenciones, libros fiscales y número de control probados sobre la copia con datos reales, al céntimo contra el sistema actual', e: 'hecho', f: '6 oct' },
       { t: 'WhatsApp resuelto según lo decidido', e: 'hecho', f: '28 sep' },
       { t: 'Diseño del sitio web nuevo sobre la copia en 19', e: 'curso' },
       { t: 'Sitio web nuevo construido, con sus 15 páginas y redirecciones', e: 'pend' },
@@ -302,8 +302,9 @@ const ESTADO = {
     { src: 'img/odoo19-copia-2026-09-21.png', alt: 'Pantalla de inicio de Odoo 19 sobre la copia de pruebas, con las aplicaciones de la empresa y la cinta TEST', f: '21 de septiembre',
       t: 'Logrado: Odoo 19 arrancó sobre la copia de pruebas. Es la pantalla de inicio con las aplicaciones de la empresa: Conversaciones, CRM, Agentes IA (el asistente propio), Ventas, Aeromédico (el cotizador), Contabilidad, Documentos, Proyecto. La cinta «TEST» y el aviso rojo de arriba indican que es la copia, no el sistema en uso: no envía correos ni toca datos reales.' }
   ],
-  viene: ['Construir el sitio web nuevo', 'Respuesta del proveedor de la contabilidad venezolana con su versión 19', 'Validar con el contador los pagos en proceso y las cuentas transitorias', 'Prácticas con los empleados sobre la copia convertida', 'Cierre del ejercicio en diciembre y cambio de versión en enero'],
+  viene: ['Construir el sitio web nuevo', 'Respuestas de la contabilidad sobre doce consultas, para cerrar el detalle fiscal', 'Validar con el contador los pagos en proceso y las cuentas transitorias', 'Prácticas con los empleados sobre la copia convertida', 'Cierre del ejercicio en diciembre y cambio de versión en enero'],
   novedades: [
+    { f: '6 oct', t: 'La contabilidad venezolana quedó resuelta sin depender del proveedor. Se probó sobre la copia, con los datos reales de la empresa: las retenciones de IVA, ISLR e IGTF calculan exactamente lo mismo que hoy —se compararon cinco comprobantes emitidos en septiembre y coincidieron al céntimo, incluido el descuento del ISLR que depende de la unidad tributaria—, el Libro de Compras y Ventas da los mismos totales con la separación correcta entre operaciones gravadas y exentas, y el número de control de las 2.733 facturas que lo tienen se trasladó idéntico. Las cuentas contables de la empresa no se tocaron: la localización nueva agrega su propio plan al lado, sin modificar ninguna de las 225 existentes. Todo el procedimiento se corrió de punta a punta sobre una copia regenerada desde cero, para confirmar que funciona en orden. Quedan doce consultas para la contabilidad, reunidas en un solo documento.' },
     { f: '28 sep', t: 'Quedó definido el calendario: el cambio a la versión 19 se hará en enero de 2027, después del cierre del ejercicio. Es la forma más limpia de migrar una contabilidad, porque no deja períodos partidos entre dos versiones, y da tiempo a que el proveedor de la contabilidad venezolana entregue su versión 19. Hasta diciembre el trabajo es sobre la copia y sobre el sitio web nuevo, que se construye ahora para que el día del cambio el diseño ya esté listo. También se decidió no reponer el WhatsApp actual, que no registra mensajes desde diciembre de 2025 y cuyo historial ya está exportado y guardado.' },
     { f: '28 sep', t: 'Comisiones de vendedores resueltas sin trabajo de adaptación: la comunidad de Odoo ya publicó la versión 19 de esos módulos, con las mismas tablas y campos, así que los datos actuales pasan tal cual. Y se revisaron por primera vez, una por una, las 90 tareas programadas del sistema: se documentó qué hace cada una y se verificó que ninguna de las nueve hechas a la medida (alertas de tiempos de respuesta, informes de gerencia, robot de la academia, cancelación de presupuestos vencidos) desaparece en la versión 19. Dos llevan un ajuste menor, y se detectó que dos tareas distintas comparten el mismo nombre, lo que confunde al leer la lista.' },
     { f: '21 sep', t: 'Cuadre de cifras repetido sobre la copia nueva: asientos, apuntes, saldos de las 119 cuentas, pagos y retenciones coinciden con los del sistema actual, igual que en el ensayo anterior. Antes de retirar WhatsApp (ChatRoom) se exportó todo su historial desde el sistema actual: 2.255 conversaciones, 63.114 mensajes y los archivos que aún existen, junto con la valuación de inventario en dólares; queda guardado y verificado. Se revisaron además las automatizaciones que "actualizan" o "crean" registros: 13 estaban vacías desde antes de la migración (no hacen nada), dos de ellas activas; se consulta con Rafael si se completan o se archivan.' },
