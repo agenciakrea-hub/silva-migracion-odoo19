@@ -413,5 +413,31 @@ faltaría es un ajuste pequeño sobre algo que ya existe, no rehacer siete infor
 contables siguen funcionando en su versión de Odoo. Lo que se dejaría de ver es la columna en
 dólares, y esa decisión se puede tomar después, con la prueba hecha.</p>
 
+<h2>Ya se probó, y apareció algo para conversar</h2>
+<p class="prod">Se comparó, apunte por apunte, un mes completo de septiembre: lo que registra el
+sistema actual en dólares contra lo que daría Odoo convirtiendo con la tasa del día.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Usan la tasa de su propio día</div><div class="v">49 %</div>
+    <div class="s">la mitad usa otra</div></div>
+  <div class="kpi"><div class="lbl">Desfase habitual</div><div class="v">1 día</div>
+    <div class="s">pero hay casos de 91</div></div>
+  <div class="kpi"><div class="lbl">Las tasas del BCV</div><div class="v ok">al día</div>
+    <div class="s">se cargan solas, a diario</div></div>
+</div>
+
+<p class="prod"><b>El hallazgo:</b> en el sistema actual, la tasa de cambio de cada asiento <b>se
+puede elegir a mano</b>, y la mitad de las veces no es la del día en que se hizo la operación. Lo
+normal es un día de diferencia —el asiento se carga al día siguiente— pero hay casos de hasta tres
+meses, que son asientos retroactivos o correcciones.</p>
+
+<p class="prod"><b>Esto no es un problema de la migración: es cómo viene funcionando.</b> Y es la
+pregunta que conviene hacerle al contador: <b>¿esa elección manual es deliberada y hay que
+conservarla, o es como quedó y conviene unificar a la tasa del día?</b></p>
+
+<p class="prod">Si la respuesta es «la tasa del día», Odoo lo hace solo y no hay que programar nada.
+Si hay que conservar la elección por asiento, lo que falta es guardar ese dato —un trabajo chico—
+y no rehacer los siete informes. <b>En los dos casos, la parte cara queda afuera.</b></p>
+
 </body>
 </html>
