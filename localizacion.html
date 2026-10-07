@@ -466,5 +466,66 @@ localización abierta «cubre las obligaciones ante el SENIAT». Es cierto para 
 todos los meses —retenciones y libros de IVA—, pero no es completo: el ARC también es una obligación
 y no está cubierto.</p>
 
+<h2>Lo que faltaba, ya construido</h2>
+<p class="prod">De las cuatro cosas que la localización abierta no cubría, <b>dos ya están hechas y
+probadas</b>, una se resolvió sola y la cuarta conviene resolverla de otra manera. Nada de esto
+exige decisiones urgentes: se explica abajo qué conviene hacer con cada una.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">Construido y probado</div><div class="v ok">2 de 4</div>
+    <div class="s">con 20 verificaciones automáticas</div></div>
+  <div class="kpi"><div class="lbl">Costo de lo que falta</div><div class="v ok">bajo</div>
+    <div class="s">una tarde, sin programar</div></div>
+  <div class="kpi"><div class="lbl">Riesgo para enero</div><div class="v ok">ninguno</div>
+    <div class="s">nada de esto frena el cambio</div></div>
+</div>
+
+<h3 style="margin-top:22px">✓ El comprobante ARC de proveedores · hecho</h3>
+<p class="prod">Es el resumen anual de retenciones de ISLR que se le entrega a cada proveedor, y es
+una obligación ante el SENIAT. Se construyó de nuevo sobre la localización abierta.</p>
+<p class="prod"><b>Con una mejora sobre el original:</b> lee de las dos fuentes a la vez, la nueva y
+la del sistema actual, y las suma. Eso importa justo en enero: al cambiar de versión, las
+retenciones viejas quedan guardadas de una forma y las nuevas de otra. Un comprobante que mirara
+solo una de las dos saldría incompleto el primer año, que es precisamente cuando nadie lo
+notaría.</p>
+
+<h3 style="margin-top:22px">✓ La validación del RIF y el filtro de contactos · hecho</h3>
+<p class="prod">Dos cosas que el sistema actual hace y la localización abierta no traía:</p>
+<ul>
+  <li><span class="ic">✓</span><span class="tx"><b>Que no se pueda guardar un RIF mal escrito.</b>
+  Hoy hay <b>64 contactos</b> con el RIF en un formato que no corresponde, y nada lo impedía.</span></li>
+  <li><span class="ic">✓</span><span class="tx"><b>Que en una factura de venta solo aparezcan
+  clientes</b>, y en una de compra solo proveedores. Sin esto, el campo ofrecería los 5.526
+  contactos de la base en vez de los que corresponden.</span></li>
+</ul>
+<p class="prod">Se construyó como un programa aparte, que <b>no toca</b> la localización abierta.
+Así, si mañana publican una mejora, se puede aprovechar sin conflictos.</p>
+
+<h3 style="margin-top:22px">— El libro de inventario · conviene resolverlo de otra manera</h3>
+<p class="prod">Aquí apareció algo que no estaba previsto: <b>el libro de inventario del sistema
+actual se alimenta de una parte de Odoo que la versión 19 eliminó.</b> No es algo del proveedor
+venezolano: lo cambió Odoo.</p>
+<p class="prod">En la práctica: el sistema actual guarda una anotación por cada movimiento de
+inventario —hay <b>3.062</b>— y la versión 19 cambió esa forma de llevarlo. Rehacer el informe sobre
+el esquema nuevo es un trabajo bastante mayor que copiarlo, y ese historial no se puede reconstruir
+después.</p>
+<p class="prod"><b>Lo que conviene:</b> <b>emitir el libro de inventario desde el sistema actual
+antes del cambio</b>, igual que se hará con los estados financieros. Cuesta una tarde y conserva lo
+que de otro modo se pierde. Después se decide si hace falta rehacerlo, con calma.</p>
+
+<h3 style="margin-top:22px">Lo que necesita una decisión</h3>
+<ul>
+  <li><span class="ic">?</span><span class="tx"><b>¿Se usa el ARC de proveedores, y con qué
+  frecuencia?</b> El sistema registra que se abrió en noviembre de 2024. Ya está construido, así
+  que la pregunta es solo para saber cuánto cuidarlo.</span></li>
+  <li><span class="ic">?</span><span class="tx"><b>¿Se usa el libro de inventario?</b> Se abrió una
+  vez, en mayo de 2024. La respuesta define si hay que rehacerlo o alcanza con emitir el de este año
+  antes del cambio.</span></li>
+  <li><span class="ic">?</span><span class="tx"><b>Las tres «órdenes» programadas —médica, de
+  operaciones y de mantenimiento de flota— no se usaron nunca:</b> tienen cero registros. Si no se
+  piensan usar, conviene sacarlas del alcance: cada programa propio hay que cuidarlo en cada cambio
+  de versión.</span></li>
+</ul>
+
 </body>
 </html>
