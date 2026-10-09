@@ -108,7 +108,7 @@
     <h1>La contabilidad venezolana en Odoo 19</h1>
     <p class="org">La alternativa abierta que encontró Rafael · Preparado por Franco (Agencia Krea) con su asistente de IA</p>
   </div>
-  <div class="meta"><span>1 de octubre de 2026</span></div>
+  <div class="meta"><span>1 de octubre de 2026 · actualizado el 9 de octubre</span></div>
 </header>
 
 <div class="kpis">
@@ -467,15 +467,18 @@ todos los meses —retenciones y libros de IVA—, pero no es completo: el ARC t
 y no está cubierto.</p>
 
 <h2>Lo que faltaba, ya construido</h2>
-<p class="prod">De las cuatro cosas que la localización abierta no cubría, <b>tres ya están hechas y
-probadas</b> y la cuarta conviene resolverla de otra manera. Nada de esto exige decisiones urgentes;
-abajo se explica qué conviene hacer con cada una.</p>
+<p class="prod">La localización abierta cubre casi todo, pero no todo. <b>Al 9 de octubre son seis
+las cosas que no traía</b> —eran cuatro, y al repasar uno por uno los programas instalados
+aparecieron dos más—. <b>Tres ya están hechas y probadas</b>, una no hay que construirla, y las dos
+últimas son medio día de trabajo cada una.</p>
 
 <div class="kpis">
-  <div class="kpi"><div class="lbl">Construido y probado</div><div class="v ok">3 de 4</div>
+  <div class="kpi"><div class="lbl">Construido y probado</div><div class="v ok">3 de 6</div>
     <div class="s">con 20 verificaciones automáticas</div></div>
-  <div class="kpi"><div class="lbl">Costo de lo que falta</div><div class="v ok">bajo</div>
-    <div class="s">una tarde, sin programar</div></div>
+  <div class="kpi"><div class="lbl">Lo que falta</div><div class="v ok">1 día</div>
+    <div class="s">de trabajo de Krea, nada de terceros</div></div>
+  <div class="kpi"><div class="lbl">Datos perdidos</div><div class="v ok">ninguno</div>
+    <div class="s">todo verificado contra el sistema actual</div></div>
   <div class="kpi"><div class="lbl">Riesgo para enero</div><div class="v ok">ninguno</div>
     <div class="s">nada de esto frena el cambio</div></div>
 </div>
@@ -501,17 +504,49 @@ notaría.</p>
 <p class="prod">Se construyó como un programa aparte, que <b>no toca</b> la localización abierta.
 Así, si mañana publican una mejora, se puede aprovechar sin conflictos.</p>
 
-<h3 style="margin-top:22px">— El libro de inventario · conviene resolverlo de otra manera</h3>
-<p class="prod">Aquí apareció algo que no estaba previsto: <b>el libro de inventario del sistema
-actual se alimenta de una parte de Odoo que la versión 19 eliminó.</b> No es algo del proveedor
-venezolano: lo cambió Odoo.</p>
-<p class="prod">En la práctica: el sistema actual guarda una anotación por cada movimiento de
-inventario —hay <b>3.062</b>— y la versión 19 cambió esa forma de llevarlo. Rehacer el informe sobre
-el esquema nuevo es un trabajo bastante mayor que copiarlo, y ese historial no se puede reconstruir
-después.</p>
-<p class="prod"><b>Lo que conviene:</b> <b>emitir el libro de inventario desde el sistema actual
-antes del cambio</b>, igual que se hará con los estados financieros. Cuesta una tarde y conserva lo
-que de otro modo se pierde. Después se decide si hace falta rehacerlo, con calma.</p>
+<h3 style="margin-top:22px">✓ El libro de inventario · no hay que construirlo</h3>
+<p class="prod"><b>Esto cambió respecto de lo que decía este informe el 8 de octubre.</b> El libro
+se alimenta de una parte de Odoo que la versión 19 eliminó, y por eso figuraba como un problema a
+resolver.</p>
+<p class="prod">Al revisarlo apareció que <b>ese dato ya está respaldado</b>: hay una copia del 21 de
+septiembre con <b>3.018 registros</b> y su huella de verificación, guardada fuera del sistema.</p>
+<p class="prod"><b>Lo que queda es una tarea con fecha, no un trabajo de programación.</b> El sistema
+actual ya va por <b>3.063</b> registros —el último se creó el 8 de octubre—, así que el respaldo
+quedó corto y <b>hay que repetirlo cerca del cambio</b>. Y conviene además <b>emitir el libro de
+2026 desde el sistema actual antes de migrar</b>, igual que los estados financieros.</p>
+
+<h3 style="margin-top:22px">— El formato impreso de la factura · medio día</h3>
+<p class="prod"><b>Apareció el 8 de octubre</b>, al repasar uno por uno los programas instalados. El
+diseño del PDF que se le entrega al cliente lo hace un programa del proveedor actual que no estaba
+en la lista con la que se venía trabajando. Son <b>dos diseños</b>: el general y <b>uno hecho a
+medida para CARDON</b>, que es el tercer cliente por volumen.</p>
+<p class="prod">Hoy, en la copia de la versión 19, <b>no está ninguno de los dos</b>: lo que se
+imprimiría es el formato de fábrica de Odoo.</p>
+<p class="prod"><b>La parte legal ya está cubierta</b> por la localización abierta, y con más rigor
+que el formato actual: el número de control, la marca de las líneas exentas, la fecha y hora en el
+formato que exige la Providencia, los datos de la imprenta y el equivalente en bolívares. Lo que
+falta es lo propio de la empresa: las <b>retenciones impresas en el documento</b>, los <b>totales en
+dólares</b> y el <b>diseño de CARDON</b>.</p>
+<p class="prod"><b>Un detalle que no conviene copiar:</b> el formato actual imprime el IGTF como el
+3 % del total <b>siempre</b>, sin fijarse en si corresponde. Al rehacerlo se tomará el IGTF que
+realmente se registró. Si algún PDF nuevo no coincide con el viejo en ese renglón, <b>el correcto es
+el nuevo</b>.</p>
+
+<h3 style="margin-top:22px">— El número de servicio y la autorización · medio día</h3>
+<p class="prod">Dos datos que lleva cada factura y que <b>usan 6.203 documentos</b>: el <b>número del
+servicio</b> prestado (S02119, S01984…) y la <b>autorización de la aseguradora</b>, en texto libre.
+No existen ni en Odoo ni en la localización abierta.</p>
+<p class="prod"><b>Los datos ya están mudados</b> a la versión 19; lo que falta es la pantalla que
+los muestre y su lugar en la factura impresa. En 5.926 documentos los dos campos traen el mismo
+valor, pero en <b>277 no</b>, así que hacen falta los dos.</p>
+
+<h3 style="margin-top:22px">? Un dato que hace falta pedir · la imprenta autorizada</h3>
+<p class="prod">La Providencia obliga a que la factura impresa lleve la <b>razón social de la
+imprenta, su RIF, y el número y la fecha de su Providencia de autorización</b>. La localización
+abierta tiene el lugar para esos datos <b>y está vacío</b>.</p>
+<p class="prod"><b>No es trabajo de programación: es un dato.</b> Mientras no se cargue, ese bloque
+sale en blanco en toda factura que se imprima. Es lo único de esta lista que no puede resolver Krea
+por su cuenta.</p>
 
 <h3 style="margin-top:22px">Lo que necesita una decisión</h3>
 <ul>
@@ -521,11 +556,25 @@ que de otro modo se pierde. Después se decide si hace falta rehacerlo, con calm
   <li><span class="ic">?</span><span class="tx"><b>¿Se usa el libro de inventario?</b> Se abrió una
   vez, en mayo de 2024. La respuesta define si hay que rehacerlo o alcanza con emitir el de este año
   antes del cambio.</span></li>
+  <li><span class="ic">?</span><span class="tx"><b>¿Sigue haciendo falta el formato de factura
+  exclusivo de CARDON?</b> Son 50 facturas y un segundo diseño que hay que mantener en cada cambio
+  de versión. Si alcanza con el formato general, se ahorra ese mantenimiento.</span></li>
+  <li><span class="ic">?</span><span class="tx"><b>¿Las otras siete compañías hacen falta?</b> La
+  base tiene ocho compañías y <b>solo AEROAMBULANCIAS SILVA emite documentos</b> —813 facturas de
+  cliente y 2.083 de proveedor—. Las otras siete tienen <b>cero</b>. Cada una hay que revisarla en
+  cada cambio de versión.</span></li>
   <li><span class="ic">?</span><span class="tx"><b>Las tres «órdenes» programadas —médica, de
   operaciones y de mantenimiento de flota— no se usaron nunca:</b> tienen cero registros. Si no se
   piensan usar, conviene sacarlas del alcance: cada programa propio hay que cuidarlo en cada cambio
   de versión.</span></li>
 </ul>
+
+<p class="nota"><b>Nota sobre este informe.</b> El 8 de octubre se repasaron uno por uno los
+programas instalados que no son de Odoo, y el 9 se auditó ese repaso. De esa auditoría salieron dos
+correcciones que conviene saber: <b>no se perdió ningún dato</b> en la conversión —se verificaron
+contra el sistema actual los dos conjuntos que habían quedado en duda, y coinciden— y el libro de
+inventario pasó de ser un problema a ser una tarea con fecha. Las cifras de arriba son las
+corregidas.</p>
 
 </body>
 </html>
