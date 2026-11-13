@@ -214,22 +214,22 @@
 
 <script>
 const ESTADO = {
-  actualizado: '19 de octubre de 2026',
-  etapaActual: 0,
-  estimacion: 'El cambio de versión se hará el 31 de diciembre de 2026, junto con el cierre del ejercicio y en el mismo movimiento: es la forma más limpia de migrar una contabilidad, sin períodos partidos entre dos versiones. Hasta entonces se trabaja sobre la copia y en el sitio web nuevo, y antes de diciembre un empleado de contabilidad repite sus procesos habituales sobre la versión nueva para compararlos.',
-  produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
+  actualizado: '13 de noviembre de 2026',
+  etapaActual: 1,
+  estimacion: 'El cambio de versión sigue fijado para el 31 de diciembre de 2026, junto con el cierre del ejercicio y en el mismo movimiento: es la forma más limpia de migrar una contabilidad, sin períodos partidos entre dos versiones. Hasta entonces se trabaja sobre la copia, incluido el ensayo con el equipo de contabilidad, con casos preparados.',
+  produccion: 'El sistema que se usa hoy sigue en la versión 16, funcionando con normalidad, y la auditoría del 4 de noviembre lo encontró sano en lo que mira la contabilidad. Todo el trabajo de esta etapa ocurre fuera de él, sobre una copia.',
   // Frentes abiertos en paralelo (lo que se está haciendo hoy, no lo que se hará).
   frentes: [
-    'Sitio web nuevo: se construye ahora, para que el día del cambio el diseño ya esté listo',
-    'Contabilidad venezolana: resuelta con una localización abierta, probada sobre la copia con los datos reales; ya no depende del proveedor',
-    'Revisión de los automatismos: qué hace cada tarea programada y cuáles siguen funcionando en la versión 19',
-    'Prácticas del personal sobre la copia convertida, con un guion por área'
+    'Ensayo con el equipo de contabilidad sobre la copia, con casos preparados',
+    'Asistente de inteligencia artificial: se traen a la versión 19 las mejoras de los últimos dos meses',
+    'Corrida limpia: se prepara para repetir todo el procedimiento sobre datos frescos',
+    'Consultas puntuales al contador'
   ],
   doc: 'https://claude.ai/artifact/1po3HJB3ecQcTaefvMnFYB',
   // Peso de cada etapa en el avance total. Producción se interviene al empezar la etapa IV: al 80 %.
   pesos: [15, 45, 20, 10, 10],
   etapas: [
-    { n: 'I', nombre: 'Preparar', dur: 'Diagnóstico, plan y espacio de pruebas', quien: ['nos', 'odoo'], prod: 'Producción se toca una sola vez, al final, una madrugada.', items: [
+    { n: 'I', nombre: 'Preparar', dur: 'Diagnóstico, plan y espacio de pruebas', quien: ['nos', 'odoo'], prod: 'Producción se toca una sola vez, al final, la noche del corte.', items: [
       { t: 'Inventario de todo lo que no es de Odoo: 37 piezas, clasificadas una por una', e: 'hecho', f: '10 sep' },
       { t: 'Revisión de las 302 automatizaciones del sistema; 113 hechas a mano, analizadas', e: 'hecho', f: '10 sep' },
       { t: 'Medición del sistema: tamaño, usuarios, actividad por día y por hora', e: 'hecho', f: '10 sep' },
@@ -244,8 +244,8 @@ const ESTADO = {
       { t: 'Rama de trabajo para la versión 19 creada y publicada, con dependencias corregidas', e: 'hecho', f: '16 sep' },
       { t: 'WhatsApp: evaluado y decidido — no se repone el módulo actual (sin mensajes desde diciembre de 2025) y su historial quedó exportado', e: 'hecho', f: '28 sep' },
       { t: 'Pedido a Odoo de la primera copia convertida a la versión 19', e: 'hecho', f: '16 sep' },
-      { t: 'Limpieza del sistema: sacar lo que no se usa, una madrugada, con respaldo', e: 'pend' },
-      { t: 'Historial fiscal resguardado, según lo que se decida con la contabilidad', e: 'pend' }
+      { t: 'Limpieza del sistema: sacar lo que no se usa, la noche del corte, con respaldo', e: 'pend' },
+      { t: 'Historial fiscal resguardado', e: 'pend' }
     ]},
     { n: 'II', nombre: 'Convertir y adaptar', dur: 'Odoo convierte una copia; se adapta lo propio', quien: ['odoo', 'nos'], prod: 'Producción no se toca. Nadie nota nada.', items: [
       { t: 'Primer ensayo de conversión: detectó tasas de cambio repetidas por día; corregido sin borrar ni alterar ningún documento', e: 'hecho', f: '16 sep' },
@@ -267,21 +267,28 @@ const ESTADO = {
       { t: 'Cuadre de cifras sobre la copia: asientos, apuntes y saldos coinciden al centavo; las únicas diferencias son cambios de Odoo 19 en cómo registra los pagos, a validar con el contador', e: 'hecho', f: '18 sep' },
       { t: 'Guía corta por área y guiones de práctica, uno por cada área, listos para repartir', e: 'hecho', f: '22 sep' },
       { t: 'Segunda copia convertida, con datos más frescos', e: 'hecho', f: '18 sep' },
-      { t: 'Conversión de la copia completada sin errores: todo lo propio instalado; los datos de los 34 módulos externos sin versión 19 conservados intactos, a la espera de las decisiones sobre sus pantallas', e: 'hecho', f: '21 sep' }
+      { t: 'Conversión de la copia completada sin errores: todo lo propio instalado; los datos de los 34 módulos externos sin versión 19 conservados intactos', e: 'hecho', f: '21 sep' },
+      { t: 'Auditoría del sistema actual y de la contabilidad: el sistema actual está sano en lo que mira la contabilidad; se encontraron diez cosas que su contabilidad venezolana hace sola y que la versión nueva todavía no hacía', e: 'hecho', f: '4 nov' },
+      { t: 'Diferencial cambiario, el proceso más frecuente de la contabilidad, igual que en el sistema actual: los 44 casos comparados en la copia dieron idéntico', e: 'hecho' },
+      { t: 'Libros de compras y ventas iguales a los del sistema actual; los archivos que se presentan al SENIAT salen idénticos: 35 de 36 TXT de IVA (el que no sale idéntico es un caso conocido) y 33 de 33 XML de ISLR', e: 'hecho' },
+      { t: 'El sitio web público carga en la versión 19 con los mismos datos de contacto', e: 'hecho' },
+      { t: 'Nueve de las diez cosas de la auditoría y el «monto a retener» de la factura, resueltos como en el sistema actual y probados en la copia: número de control, precios, retenciones, contactos y validaciones. La décima, la numeración de los comprobantes de retención, espera la respuesta del contador', e: 'hecho', f: '12 nov' },
+      { t: 'Mejoras del asistente de inteligencia artificial de los últimos dos meses, traídas a la versión 19', e: 'curso' }
     ]},
     { n: 'III', nombre: 'Probar y congelar', dur: 'Pruebas con datos recientes y aprobación', quien: ['nos'], prod: 'Producción congelada: nadie cambia nada.', items: [
       { t: 'Copia nueva, con datos de menos de una semana', e: 'pend' },
+      { t: 'Preparación de la corrida limpia, que repite todo el procedimiento sobre datos frescos', e: 'curso' },
       { t: 'Prácticas con los empleados sobre la copia en 19: cada área repite su trabajo diario', e: 'pend' },
-      { t: 'Contabilidad prueba: factura, retención, cierre', e: 'pend' },
+      { t: 'Ensayo con el equipo de contabilidad sobre la copia, con casos preparados', e: 'curso' },
       { t: 'Asistente de inteligencia artificial probado con casos reales del día a día', e: 'pend' },
       { t: 'Correcciones aplicadas y segunda ronda de prácticas con la copia actualizada', e: 'pend' },
       { t: 'Sitio web nuevo probado en celular y escritorio, con mediciones', e: 'pend' },
       { t: 'Conexiones con otros sistemas probadas', e: 'pend' },
-      { t: 'Plan de contingencia escrito y ensayado: qué se hace si algo falla esa madrugada', e: 'curso' },
+      { t: 'Plan de contingencia escrito y ensayado: qué se hace si algo falla esa noche', e: 'curso' },
       { t: 'Ensayo general, cronometrado', e: 'pend' },
-      { t: 'Visto bueno final para fijar el día', e: 'pend' }
+      { t: 'Visto bueno final antes del cambio', e: 'pend' }
     ]},
-    { n: 'IV', nombre: 'El día final', dur: 'Una madrugada, entre 1 y 4 horas', quien: ['odoo', 'nos'], prod: 'Producción apagada entre 1 y 4 horas. Sin vuelta atrás.', items: [
+    { n: 'IV', nombre: 'El día final', dur: 'La noche del corte', quien: ['odoo', 'nos'], prod: 'La empresa sin operar o en modo mínimo; la duración se mide en el ensayo general. Si algo falla, se vuelve al sistema actual esa misma noche.', items: [
       { t: 'Aviso a los usuarios', e: 'pend' },
       { t: 'Respaldo manual descargado y verificado', e: 'pend' },
       { t: 'Odoo convierte producción a 19', e: 'pend' },
@@ -302,8 +309,11 @@ const ESTADO = {
     { src: 'img/odoo19-copia-2026-09-21.png', alt: 'Pantalla de inicio de Odoo 19 sobre la copia de pruebas, con las aplicaciones de la empresa y la cinta TEST', f: '21 de septiembre',
       t: 'Logrado: Odoo 19 arrancó sobre la copia de pruebas. Es la pantalla de inicio con las aplicaciones de la empresa: Conversaciones, CRM, Agentes IA (el asistente propio), Ventas, Aeromédico (el cotizador), Contabilidad, Documentos, Proyecto. La cinta «TEST» y el aviso rojo de arriba indican que es la copia, no el sistema en uso: no envía correos ni toca datos reales.' }
   ],
-  viene: ['Construir el sitio web nuevo', 'Respuestas de la contabilidad sobre doce consultas, para cerrar el detalle fiscal', 'Validar con el contador los pagos en proceso y las cuentas transitorias', 'Prácticas con los empleados sobre la copia convertida', 'Cierre del ejercicio en diciembre y cambio de versión en enero'],
+  viene: ['Construir el sitio web nuevo', 'Respuestas de la contabilidad a las consultas pendientes, para cerrar el detalle fiscal', 'Validar con el contador los pagos en proceso y las cuentas transitorias', 'Prácticas con los empleados sobre la copia convertida', 'Corrida limpia: todo el procedimiento repetido sobre datos frescos', 'Cierre del ejercicio y cambio de versión, en un mismo movimiento, a partir del 31 de diciembre'],
   novedades: [
+    { f: '13 nov', t: 'Estado al 13 de noviembre. El cambio sigue fijado para el 31 de diciembre, junto con el cierre contable. En la copia, el diferencial cambiario, que es el proceso más frecuente de la contabilidad, se replica igual que en el sistema actual: los 44 casos comparados dieron idéntico. Los libros de compras y ventas coinciden con los del sistema actual, y los archivos que se presentan al SENIAT salen idénticos: 35 de 36 TXT de IVA (el que no sale idéntico es un caso conocido) y 33 de 33 XML de ISLR. El sitio web público también carga en la versión nueva, con los mismos datos de contacto.' },
+    { f: '12 nov', t: 'Quedaron hechas, como en el sistema actual, nueve de las diez cosas que encontró la auditoría y el «monto a retener» de la factura, y se probaron sobre la copia. La décima, la numeración de los comprobantes de retención, espera la respuesta del contador. Número de control: la numeración de las facturas sigue exactamente la serie actual, sin huecos ni números repetidos, y lo mismo las notas de crédito y de débito. Precios: pasan a bolívares al cambiar la moneda de la factura; vuelve el precio en dólares de los productos en presupuestos y tarifas, y las compras usan la tasa del pedido. Retenciones: el «monto a retener» sale en la factura impresa a los clientes agentes de retención, igual que hoy. Contactos: se piden los datos fiscales como hoy, sin frenar los contactos que crean automáticamente la central telefónica y el sistema de oportunidades. Validaciones: el impuesto es obligatorio en cada línea, y el número de control, en las compras nuevas. Se verificó con dos revisiones independientes y con una corrida completa sobre la copia de producción, con controles que comparan contra los documentos reales.' },
+    { f: '4 nov', t: 'Se hizo una auditoría del sistema actual y de la contabilidad. El sistema actual está sano en lo que mira la contabilidad. Se encontraron diez cosas que la contabilidad venezolana del sistema actual hace sola y la de la versión nueva no.' },
     { f: '19 oct', t: 'Se precisó el calendario del cambio: el 31 de diciembre de 2026 se hace el cierre del ejercicio y la subida a la versión 19 en el mismo movimiento, no en dos fechas separadas. De aquí a diciembre el trabajo es dejar todo preparado y quieto: los saldos pasados y cuadrados, los usuarios configurados, la contabilidad completa en la versión nueva, y los procesos que se usan todos los días verificados uno por uno. Antes de diciembre, un empleado de contabilidad va a repetir sobre la versión 19 los mismos procesos que hace hoy, para compararlos lado a lado. El criterio es que cada cosa funcione igual o mejor que hoy, no solamente que no falle.' },
     { f: '6 oct', t: 'Quedó escrito el procedimiento del cierre del ejercicio 2026, con el calendario de octubre a enero y lo que la contabilidad tiene que dejar listo en cada mes. Aclara algo que conviene tener claro: no hay un «pase de saldos» al cambiar de versión. La versión 19 no empieza de cero: se convierte la base completa, con los cuatro ejercicios, los 36.948 asientos y todo el historial. El cierre del ejercicio es lo que la contabilidad hace todos los años y se hace antes, en la versión actual, para que el año quede sellado en el sistema donde se trabajó. Al preparar el procedimiento se midió el estado de hoy: 38 asientos de 2026 en borrador, 210 partidas sin conciliar en clientes y proveedores, y ninguna fecha de bloqueo configurada, de modo que hoy se puede modificar un asiento de un año anterior. Nada de eso es un problema actual, pero conviene resolverlo antes de diciembre.' },
     { f: '6 oct', t: 'La contabilidad venezolana quedó resuelta sin depender del proveedor. Se probó sobre la copia, con los datos reales de la empresa: las retenciones de IVA, ISLR e IGTF calculan exactamente lo mismo que hoy —se compararon cinco comprobantes emitidos en septiembre y coincidieron al céntimo, incluido el descuento del ISLR que depende de la unidad tributaria—, el Libro de Compras y Ventas da los mismos totales con la separación correcta entre operaciones gravadas y exentas, y el número de control de las 2.733 facturas que lo tienen se trasladó idéntico. Las cuentas contables de la empresa no se tocaron: la localización nueva agrega su propio plan al lado, sin modificar ninguna de las 225 existentes. Todo el procedimiento se corrió de punta a punta sobre una copia regenerada desde cero, para confirmar que funciona en orden. Quedan doce consultas para la contabilidad, reunidas en un solo documento.' },
@@ -356,7 +366,7 @@ const ESTADO = {
   $('stagesub').textContent = (E.etapaActual + 1) + ' de 5 · ' + Math.round(prog[E.etapaActual] * 100) + ' % de sus ' + cur.items.length + ' tareas';
   const corte = E.pesos.slice(0, 3).reduce((a, b) => a + b, 0);
   $('corte').textContent = 'Al ' + corte + ' %';
-  $('cortesub').textContent = 'Entre 1 y 4 horas, una madrugada';
+  $('cortesub').textContent = 'Una noche; la duración se mide en el ensayo general';
   $('prodv').textContent = 'Odoo 16';
   $('prodsub').textContent = 'Funcionando con normalidad';
   $('frentes').innerHTML = E.frentes.map(t => `<li><span class="dot" aria-hidden="true"></span><span>${t}${ir('etapa-' + cur.n, 'Ver el detalle de la etapa en curso')}</span></li>`).join('');
@@ -370,7 +380,7 @@ const ESTADO = {
   $('tlcomo').innerHTML = `<b>Cómo leer la barra:</b> cada tramo es una etapa y su ancho es lo que esa etapa pesa en el avance total (la II, convertir y adaptar, es la más larga: ${E.pesos[1]} %). El relleno de cada tramo es lo ya hecho de esa etapa, medido sobre sus propias tareas (una tarea en marcha cuenta la mitad); el verde, una etapa cerrada.`;
   const lbl = { hecho: 'Hecha', curso: 'En curso', pend: 'Pendiente' };
   $('etapas').innerHTML = E.etapas.map((s, i) => `<div class="etapa ${est(i)}"><div class="t"><span>${s.nombre}${ir('etapa-' + s.n, 'Ver el detalle de la etapa ' + s.n)}</span><span class="n">ETAPA ${s.n}</span></div><div class="d">${s.dur}</div><div class="e"><span class="s ${est(i)}">${lbl[est(i)]} · ${Math.round(prog[i] * 100)} % de sus ${s.items.length} tareas</span><span class="peso">${s.items.filter(x => x.e === 'hecho').length} cerradas${s.items.some(x => x.e === 'curso') ? ', ' + s.items.filter(x => x.e === 'curso').length + ' en marcha' : ''} · pesa ${E.pesos[i]} % del avance total</span></div></div>`).join('');
-  $('tlnota').innerHTML = `<b>Cuándo se toca el sistema en uso:</b> al cerrar las etapas I, II y III, es decir, al llegar al ${corte} % del avance. Recién ahí, en la etapa IV, se apaga entre 1 y 4 horas para convertirlo. Todo lo anterior ocurre sobre una copia.`;
+  $('tlnota').innerHTML = `<b>Cuándo se toca el sistema en uso:</b> al cerrar las etapas I, II y III, es decir, al llegar al ${corte} % del avance. Solo entonces, en la etapa IV, se detiene la noche del corte para convertirlo; si algo falla, se vuelve al sistema actual esa misma noche. Todo lo anterior ocurre sobre una copia.`;
 
   $('hechos').innerHTML = hechos.slice(-4).reverse().map(i => `<li>${i.t}${ir(i.id, 'Ver este punto en el detalle de la etapa ' + i.etapa)}</li>`).join('') + (hechos.length > 4 ? `<li style="color:var(--fg-3)">y ${hechos.length - 4} más, en el detalle${ir('detalle-titulo', 'Ir al detalle por etapa')}</li>` : '');
   $('curso').innerHTML = curso.map(i => `<li>${i.t}${ir(i.id, 'Ver este punto en el detalle de la etapa ' + i.etapa)}</li>`).join('');
